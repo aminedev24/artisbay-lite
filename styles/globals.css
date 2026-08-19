@@ -6,7 +6,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
   background: #f3f4f6;
 }
 
@@ -121,6 +121,7 @@ a {
 :root {
     --primary-color: #1e3a8a;
     --secondary-color: #1da1f2;
+    --charcoal-color: #1c1f33;
     --accent-color: #f1892b;
     --accent-color-hover: #ec971f;
     --text-color: #333;
@@ -136,7 +137,7 @@ a {
     --cancel-btn-border: #f5c6cb;
     --cancel-btn-background: #f8d7da;
     --secondary-color-hover: #1991db;
-    --primary-color-hover: #0056b3;
+    --primary-color-hover: #16305f;
     --border-color-dark: #000;
     --border-color: #ddd;
 
@@ -148,6 +149,7 @@ a {
 .dark {
     --primary-color: #0f172a; /* Very dark blue */
     --secondary-color: #1e293b; /* Darker steel blue */
+    --charcoal-color: #05060a; /* Near-black neutral for footer/topbar */
     --accent-color: #f59e0b; /* Muted gold */
     --accent-color-hover: #d97706; /* Slightly darker gold on hover */
     --text-color: #d1d5db; /* Soft light gray text */

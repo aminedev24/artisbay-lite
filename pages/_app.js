@@ -10,8 +10,6 @@ import '../styles/custom/pages/homepage.css';
 import '../styles/custom/utilities/chatbot.css';
 import '../styles/custom/utilities/searchForm.css';
 import '../styles/custom/utilities/slider.css';
-import '../styles/custom/utilities/stockList.css';
-import '../styles/custom/vehicle/carCard.css';
 import  "../styles/custom/vehicle/vehicleInfo.css";
 import '../styles/custom/utilities/toolTip.css';
 import "../styles/custom/agents/namibiaAgent.css"; // Import the CSS file
@@ -50,12 +48,15 @@ import "../styles/custom/components/emailConfirmation.css"; // Import CSS file
 import '../styles/custom/pages/feedback.css';
 import '../styles/custom/utilities/scrollToTop.css';
 import Head from 'next/head';
+import { DM_Sans } from 'next/font/google';
 import { ThemeProvider } from '../components/utilities/toggletheme';
 import { UserProvider } from '../components/user/userContext';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
 import WidgetDock from '../components/utilities/widgetDock';
 //import Chatbot from '../components/utilities/chatbot';
+
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' });
 
 export default function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout ?? ((page) => (
@@ -69,6 +70,7 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider>
+      <div className={`${dmSans.variable} contents`}>
       <Head>
         <title>Artisbay Lite Inc. | Japanese Used Cars, Tires & Auto Parts Exporter</title>
         <meta
@@ -80,6 +82,7 @@ export default function MyApp({ Component, pageProps }) {
       <UserProvider>
         {getLayout(<Component {...pageProps} />)}
       </UserProvider>
+      </div>
     </ThemeProvider>
   );
 }

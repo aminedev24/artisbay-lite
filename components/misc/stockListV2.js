@@ -691,12 +691,12 @@ const StocklistV2 = () => {
                 <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">
                   Stocklist
                 </p>
-                <h1 className="mt-1 text-xl font-bold uppercase tracking-wide text-[#0f172a]">
+                <h1 className="mt-1 text-xl font-bold uppercase tracking-wide text-brand-charcoal">
                   Vehicles from Japan, export-ready
                 </h1>
               </div>
               <div className="text-right">
-                <div className="text-xl font-extrabold tracking-tight text-[#1e3a8a]">
+                <div className="text-xl font-extrabold tracking-tight text-brand-navy">
                   {numberFormatter.format(cars.length)}
                 </div>
                 <div className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
@@ -720,9 +720,9 @@ const StocklistV2 = () => {
             {/* Controls bar */}
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-3.5 py-2 shadow-sm">
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FontAwesomeIcon icon={faCarSide} className="h-4 w-4 text-[#1e3a8a]" />
+                <FontAwesomeIcon icon={faCarSide} className="h-4 w-4 text-brand-navy" />
                 <span>
-                  <strong className="text-[#0f172a]">
+                  <strong className="text-brand-charcoal">
                     {numberFormatter.format(sortedCars.length)}
                   </strong>{" "}
                   vehicles
@@ -740,8 +740,8 @@ const StocklistV2 = () => {
                       onClick={() => setSortOption(s.value)}
                       className={`rounded px-3 py-1.5 text-xs font-semibold transition ${
                         sortOption === s.value
-                          ? "bg-white text-[#0f172a] shadow-sm"
-                          : "text-gray-600 hover:text-[#0f172a]"
+                          ? "bg-white text-brand-charcoal shadow-sm"
+                          : "text-gray-600 hover:text-brand-charcoal"
                       }`}
                     >
                       {s.label}
@@ -759,7 +759,7 @@ const StocklistV2 = () => {
                     key={chip.key}
                     type="button"
                     onClick={() => removeChip(chip)}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-[#1e3a8a]/20 bg-[#1e3a8a]/5 px-3 py-1 text-xs font-semibold text-[#1e3a8a] transition hover:bg-[#1e3a8a]/10"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-brand-navy/20 bg-brand-navy/5 px-3 py-1 text-xs font-semibold text-brand-navy transition hover:bg-brand-navy/10"
                   >
                     {chip.label}
                     <FontAwesomeIcon icon={faXmark} className="h-3 w-3" />
@@ -807,7 +807,7 @@ const StocklistV2 = () => {
               </div>
             ) : (
               <div className="flex min-h-[280px] flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-white px-6 text-center">
-                <p className="text-lg font-semibold text-[#0f172a]">No vehicles match these filters.</p>
+                <p className="text-lg font-semibold text-brand-charcoal">No vehicles match these filters.</p>
                 <p className="mt-1 text-sm text-gray-500">Try widening your budget or clearing a make.</p>
                 {hasActiveFilters && (
                   <button
@@ -829,7 +829,7 @@ const StocklistV2 = () => {
                     type="button"
                     onClick={() => goToPage(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-600 transition hover:border-[#1e3a8a] hover:text-[#1e3a8a] disabled:cursor-not-allowed disabled:opacity-40"
+                    className="rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-600 transition hover:border-brand-navy hover:text-brand-navy disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     ‹ Prev
                   </button>
@@ -841,8 +841,8 @@ const StocklistV2 = () => {
                       aria-current={currentPage === n ? "page" : undefined}
                       className={`min-w-[2.5rem] rounded-md border px-3 py-2 text-sm font-semibold transition ${
                         currentPage === n
-                          ? "border-[#0f172a] bg-[#0f172a] text-white"
-                          : "border-gray-300 text-gray-600 hover:border-[#1e3a8a] hover:text-[#1e3a8a]"
+                          ? "border-brand-charcoal bg-brand-charcoal text-white"
+                          : "border-gray-300 text-gray-600 hover:border-brand-navy hover:text-brand-navy"
                       }`}
                     >
                       {n}
@@ -852,7 +852,7 @@ const StocklistV2 = () => {
                     type="button"
                     onClick={() => goToPage(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-600 transition hover:border-[#1e3a8a] hover:text-[#1e3a8a] disabled:cursor-not-allowed disabled:opacity-40"
+                    className="rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-600 transition hover:border-brand-navy hover:text-brand-navy disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     Next ›
                   </button>

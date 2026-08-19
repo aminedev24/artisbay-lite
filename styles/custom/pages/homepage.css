@@ -76,7 +76,7 @@ option {
 }
 
 .stocklist-section h2 {
-    color: #2c3e50;
+    color: var(--primary-color);
 }
 
 /* Contact CTA Section */
@@ -97,7 +97,7 @@ option {
 }
 
 .contact-cta .cta-button {
-    background-color: #e67e22;
+    background-color: var(--accent-color);
     color: var(--text-color);
     padding: 12px 30px;
     text-decoration: none;
@@ -177,7 +177,7 @@ option {
     margin-top: 10px; /* Space between image and text */
  /* Adjust font size for better readability */
     font-weight: 600; /* Bold text for emphasis */
-    color: #2c3e50; /* Darker text color */
+    color: var(--primary-color); /* Darker text color */
 }
 
 
@@ -195,7 +195,7 @@ option {
 .main-container {
     display: flex; /* Aligns the containers side by side */
     justify-content: space-between; /* Ensures equal spacing between them */
-    gap: 10px;
+    gap: 28px;
     flex-direction: column; /* Stack vertically on mobile */
 }
 
@@ -213,9 +213,11 @@ option {
 
 
 .title {
-
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
     padding: 5px;
 }
 
@@ -242,20 +244,21 @@ option {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 14px 10px;
     border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 12px;
     background-color: var(--white);
     color: var(--text-color);
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .type-container .grid-item:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 24px rgba(30, 58, 138, 0.15);
+    transform: translateY(-4px);
 }
 
 .type-container .grid-item img {
@@ -292,22 +295,23 @@ option {
 .brand {
     background-color: var(--white);
     border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 12px;
     text-align: center;
-    padding: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 14px 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     cursor: pointer;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .brand:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 24px rgba(30, 58, 138, 0.15);
+    transform: translateY(-4px);
 }
 
 .brand img {
@@ -335,19 +339,21 @@ option {
 .model-chip {
     background-color: var(--white);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-weight: 500;
+    border-radius: 999px;
+    padding: 9px 18px;
+    font-weight: 600;
     font-size: 0.9rem;
-    color: var(--text-color);
+    color: var(--primary-color);
     cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
 }
 
 .model-chip:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(30, 58, 138, 0.2);
+    transform: translateY(-3px);
 }
 
 
@@ -489,7 +495,7 @@ option {
     display: block; /* Make the text a block element */
     margin-top: 5px; /* Space between icon and text */
  /* Font size for the text */
-    color: #e67e22; /* Text color */
+    color: var(--accent-color); /* Text color */
     text-transform: uppercase;
 }
 

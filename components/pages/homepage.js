@@ -1,25 +1,13 @@
-//"use client";
-import React, { useState, useEffect, useRef } from "react";
-//import Stocklist from "../misc/stockList";
-import carData from "../vehicles/carData";
-//import styles from "@/css/pages/homepage.module.css";
-//import '../../styles/custom/pages/homepage.css';
+import React, { useRef, useEffect } from "react";
 import SearchForm from "../misc/searchContainer";
 import MediaSlider from "../misc/slider";
 import Makestypes from "../utilities/makestypes";
 import ImageWithLoader from "../misc/imageWithLoader";
 import Link from "next/link";
 import CarList from "../dataFetch/fetchStock";
-//import Image from 'next/image';
-
-
-
-// A simple spinner component (you can also extract this to its own file)
-const LoadingSpinner = () => (
-  <div className="spinner-container">
-    <div className="spinner"></div>
-  </div>
-);
+import Button from "../common/Button";
+import Section from "../common/Section";
+import helpLinks from "../common/helpLinks";
 
 function ThumbnailCarousel({ cards }) {
   const wrapperRef = useRef(null);
@@ -200,28 +188,7 @@ function ThumbnailCarousel({ cards }) {
 }
 
 function HomePage() {
-  const [, setCars] = useState([]);
-  /*
-  const [filters, setFilters] = useState({
-    make: "",
-    model: "",
-    year: "",
-    price: "",
-    location: "",
-    searchTerm: "",
-  });
-  */
-  const [isLoading, setIsLoading] = useState(true);
-
-
-  useEffect(() => {
-    setTimeout(() => {
-      setCars(carData);
-      setIsLoading(false);
-    }, 2000);
-  }, []);
-
-    const infoCards = [
+  const infoCards = [
     { imgSrc: `/images/howToBuy.png`, link: "/help/artisbayInc/how-to-buy-used-cars", alt: "How to Buy" },
     { imgSrc: `/images/Thumbnails/payment.png`, link: "/help/artisbayInc/about-payment", alt: "How to Pay" },
     { imgSrc: `/images/Thumbnails/auction.png`, link: "/help/artisbayInc/auction", alt: "Auctions" },
@@ -229,28 +196,6 @@ function HomePage() {
     { imgSrc: `/images/Thumbnails/machinery.png`, link: "/help/artisbayInc/machinery", alt: "Machinery" },
     { imgSrc: `/images/Thumbnails/feedback.svg`, link: "/feedback", alt: "Feedback" },
   ];
-
-  const links1 = [
-    { text: "ABOUT US", path: "/help/artisbayInc/about-us" },
-    { text: "BANK INFORMATION", path: "/help/artisbayInc/bank-information" },
-    { text: "WHY ARTISBAY LITE INC", path: "/help/artisbayInc/about-us/#whyChooseArtisbay"},
-    { text: "TERMS AND CONDITIONS", path: "/help/artisbayInc/terms-and-conditions" },
-    { text: "ANTI SOCIAL FORCES POLICY", path: "/help/artisbayInc/anti-social-force-policy" },
-    { text: "HOW TO BUY CARS ON ARTISBAY LITE INC", path: "/help/artisbayInc/how-to-buy-used-cars" },
-  ];
-
-  const links2 = [
-    { text: "ABOUT PAYMENT", path: "/help/artisbayInc/about-payment" },
-    { text: "PRIVACY", path: "/help/artisbayInc/privacy-policy" },
-    { text: "TELEGRAPHIC TRANSFER", path: "/help/artisbayInc/telegraphic-transfer" },
-  ];
-
-
-  /*
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-  */
 
   return (
     <div className="layout">
@@ -266,7 +211,7 @@ function HomePage() {
 
          {/* Info Cards     */}
         <section className="px-4 mt-0 pt-1 md:pt-4 lg:pt-6">
-          <h1 style={{color: 'var(--accent-color)'}} className="text-sm md:text-2xl lg:text-4xl font-bold text-center leading-none my-0 py-0 mb-1 md:mb-4 lg:mb-10 text-gray-800">Learn More About Us</h1>
+          <h1 className="text-sm md:text-2xl lg:text-4xl font-bold text-center leading-none my-0 py-0 mb-1 md:mb-4 lg:mb-10 text-brand-orange">Learn More About Us</h1>
           <ThumbnailCarousel cards={infoCards} />
         </section>
 
@@ -298,9 +243,8 @@ function HomePage() {
             
             <div className="links">
               <ul className="useful-links-list">
-                {[...links1, ...links2].map((link, index) => (
-                  <li key={index}>
-                    {/* Use <Link> for internal, <a> for external if needed */}
+                {helpLinks.map((link) => (
+                  <li key={link.path}>
                     <Link href={link.path}>{link.text}</Link>
                   </li>
                 ))}
@@ -346,25 +290,21 @@ function HomePage() {
         </div>
 
         {/* Feedback CTA */}
-        <section style={{background: 'var(--primary-color)'}} className="mx-auto px-4 py-10 text-center text-white">
-          <div style={{fontSize:'3rem', fontWeight:900, lineHeight:1, color:'#fff'}}>4.9</div>
-          <div style={{display:'flex', justifyContent:'center', gap:'4px', margin:'6px 0 8px'}}>
+        <Section tone="navy" className="mx-auto text-center">
+          <div className="text-5xl font-black leading-none text-white">4.9</div>
+          <div className="flex justify-center gap-1 my-2 mb-2">
             {Array.from({length:5}).map((_,i)=>(
-              <i key={i} className="fas fa-star" style={{color:'var(--accent-color)', fontSize:'1.3rem'}} />
+              <i key={i} className="fas fa-star text-brand-orange text-xl" />
             ))}
           </div>
-          <p style={{opacity:0.75, fontSize:'0.9rem', marginBottom:'1.2rem'}}>Rated by our customers worldwide</p>
+          <p className="opacity-75 text-sm mb-5">Rated by our customers worldwide</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Happy with our service?</h2>
-          <p style={{opacity:0.8, maxWidth:'480px', margin:'0 auto 1.5rem'}}>Share your experience and help others discover Artisbay Lite Inc.</p>
-          <Link href="/feedback">
-            <button style={{background:'var(--accent-color)', color:'#fff', border:'none', padding:'0.75rem 2.5rem', borderRadius:'6px', fontWeight:700, fontSize:'1rem', cursor:'pointer'}}>
-              Leave a Review
-            </button>
-          </Link>
-        </section>
+          <p className="opacity-80 max-w-md mx-auto mb-6">Share your experience and help others discover Artisbay Lite Inc.</p>
+          <Button variant="accent" href="/feedback">Leave a Review</Button>
+        </Section>
 
         {/* Why Choose Us */}
-        <section style={{boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'}} className="mx-auto px-4 py-12">
+        <Section className="mx-auto">
           <h1 className="text-3xl font-semibold text-center mb-8">Why Choose Us?</h1>
           <div className="flex flex-col gap-8 items-center">
             <div className="w-full">
@@ -391,25 +331,19 @@ function HomePage() {
               <p className="text-lg text-gray-700 mb-4 text-center font-bold" style={{maxWidth: '1200px'}}>
                 With over 40 years of experience and a passion for quality, we deliver high-standard used vehicles, tires, and parts tailored to your needs. Our transparent processes and detailed documentation ensure confidence and trust in every transaction.
               </p>
-              <Link
-                href="/help/artisbayInc/about-us/#whyChooseArtisbay"
-                className="px-6 py-2 text-white font-semibold rounded hover:bg-blue-700 transition-colors duration-300"
-                style={{backgroundColor: 'var(--secondary-color)'}}
-              >
+              <Button variant="accent" href="/help/artisbayInc/about-us/#whyChooseArtisbay" className="!px-6 !py-2">
                 Read More
-              </Link>
+              </Button>
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Contact CTA */}
-        <section style={{boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'}} className="container mx-auto px-4 py-12 text-center rounded-lg">
+        <Section className="container mx-auto text-center rounded-lg">
           <h2 className="text-3xl font-semibold mb-4">Need Help?</h2>
           <p className="text-lg mb-6">Contact us today and let us help you import your next car with ease!</p>
-          <button style={{border: 'none'}}><Link style={{background: 'var(--primary-color)', color: '#fff'}} href="/contact" className="inline-block px-8 py-3  font-semibold rounded transition-colors duration-300">
-            Contact Us
-          </Link></button>
-        </section>
+          <Button variant="primary" href="/contact">Contact Us</Button>
+        </Section>
       </div>
     </div>
   );

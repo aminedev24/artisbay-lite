@@ -5,7 +5,7 @@
 // thumbnail, tiny uppercase text, single-row spec line and one action button.
 import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGaugeHigh, faCalendarAlt, faGasPump, faTachometerAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faGaugeHigh, faCalendarAlt, faGasPump, faTachometerAlt, faHeart, faImages } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { useUser } from '../user/userContext';
 import { useFavorites, toggleFavorite } from './useFavorites';
@@ -101,6 +101,14 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
     return `${base}/${normalized}`;
   }, [car.images, car.image_urls, imgBasePath]);
 
+  const imageCount = useMemo(() => {
+    const candidates = [
+      ...parseImageCandidates(car.images),
+      ...parseImageCandidates(car.image_urls),
+    ];
+    return candidates.length;
+  }, [car.images, car.image_urls]);
+
   useEffect(() => { setImageLoaded(false); }, [mainImageUrl]);
 
   const handleFavoriteClick = async (event) => {
@@ -126,7 +134,7 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
   };
 
   return (
-    <div className="flex h-full flex-col bg-[var(--white)] rounded border border-[var(--border-color)] shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+    <div className="card-hover flex h-full flex-col bg-[var(--white)] rounded-xl border border-[var(--border-color)] shadow-sm transition-all duration-300 overflow-hidden">
 
       {/* Image Section */}
       <div className="relative h-32 overflow-hidden cursor-pointer" onClick={() => onViewDetails && onViewDetails(car)}>
@@ -167,6 +175,12 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
               Under Negotiation
             </div>
           </div>
+        )}
+        {imageCount > 1 && (
+          <span className="absolute bottom-1 right-1 z-10 flex items-center gap-1 rounded bg-black/60 px-1.5 py-0.5 text-[9px] font-semibold text-white">
+            <FontAwesomeIcon icon={faImages} className="h-2.5 w-2.5" />
+            {imageCount}
+          </span>
         )}
       </div>
 

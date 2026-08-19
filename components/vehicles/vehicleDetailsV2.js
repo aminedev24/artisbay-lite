@@ -568,9 +568,9 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
           </div>
 
           {/* Disclaimer */}
-          <div class="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-6">
-			<i class="fas fa-exclamation-triangle text-amber-500 text-sm mt-0.5 shrink-0"></i>
-			<div class="text-[11px] text-amber-700 leading-relaxed space-y-1">
+          <div className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-6">
+			<i className="fas fa-exclamation-triangle text-amber-500 text-sm mt-0.5 shrink-0"></i>
+			<div className="text-[11px] text-amber-700 leading-relaxed space-y-1">
 			<p>Prices are approximate FOB Japan and exclude freight, insurance, and import duties.</p>
 			<p>Vehicles are listed online and viewed by many buyers daily; reservation alone does not guarantee availability until your payment is reflected in our account.</p>
 			<p>If the vehicle is unavailable when your payment is reflected, we will offer a similar unit or process a refund based on your decision.</p>

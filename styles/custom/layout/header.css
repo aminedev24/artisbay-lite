@@ -64,7 +64,7 @@
   border-radius: 24px;
   border: 1px solid rgba(30, 58, 138, 0.35);
   background: #ffffff;
-  color: #1e3a8a;
+  color: var(--primary-color);
   box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15); /* Subtler shadow */
 }
 
@@ -211,7 +211,7 @@
   right: 0; /* Adjust right positioning as needed */
   border-width: 10px;
   border-style: solid;
-  border-color: transparent transparent #2980b9  transparent; /* Arrow pointing down */
+  border-color: transparent transparent var(--primary-color) transparent; /* Arrow pointing down */
 }
 
 /* Enhanced dropdown styles for used cars, used tires, and right links */
@@ -221,14 +221,15 @@
   top: 25px; /* Slightly adjusted for better placement */
   right: 0;
   background-color: #ffffff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
+  border-radius: 10px;
   padding: 12px;
   z-index: 1000;
   color: #333; /* Darker text for better readability */
   text-align: center; /* Aligned left for better UX */
   width: 180px; /* Slightly wider for more content */
   transition: all 0.3s ease; /* Smooth transition for dropdown appearance */
-  
+
 }
 
 
@@ -253,8 +254,8 @@
 }
 
 .dropdown-content a:hover {
-  background-color: #e0f3ff; /* Softer highlight color */
-  color: #1a73e8; /* Google blue for emphasis */
+  background-color: rgba(30, 58, 138, 0.08); /* Navy-tinted highlight */
+  color: var(--primary-color);
   border-radius: 6px;
 }
 
@@ -387,7 +388,7 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: #1c1f33 !important;
+    background: var(--charcoal-color) !important;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
   }
@@ -521,7 +522,7 @@
 
   .header-bottom {
     display: none; 
-    background-color: #1c1f33;
+    background-color: var(--charcoal-color);
   }
 
   .header-bottom.mobile-menu-open {
@@ -534,7 +535,7 @@
     z-index: 1000;
     top: 100%;
     left: 0;
-    background: #1c1f33;
+    background: var(--charcoal-color);
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   }
 

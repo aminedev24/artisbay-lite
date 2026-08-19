@@ -7,6 +7,7 @@ import RevertImpersonationButton from '../utilities/handleRevert';
 import Link from 'next/link';
 import ImageWithLoader from '../misc/imageWithLoader';
 import TopBar from './topbar';
+import helpLinks from './helpLinks';
 
 const MOBILE_MENU_BREAKPOINT = 1000;
 const AUTH_MAINTENANCE_MODE = false;
@@ -179,8 +180,8 @@ const Header = () => {
             <div className="menu-logo-container flex items-center gap-3">
               <Link className="logo flex items-center shrink-0" href="/">
                 <ImageWithLoader
-                  src="/images/logo3.png"
-                  alt="logo"
+                  src="/images/logo3new.png"
+                  alt="Artisbay Lite Inc. logo"
                   className="logo-img"
                 />
               </Link>
@@ -354,23 +355,9 @@ const Header = () => {
                   activeDropdown === 'overview' ? 'show' : ''
                 }`}
               >
-                <Link href="/help/artisbayInc/help">Help</Link>
-                <Link href="/help/artisbayInc/about-us">About Us</Link>
-                <Link href="/help/artisbayInc/bank-information">Bank Information</Link>
-                <Link href="/help/artisbayInc/about-us#whyChooseArtisbay">
-                  Why Artisbay Lite Inc.
-                </Link>
-                <Link href="/help/artisbayInc/terms-and-conditions">
-                  Terms & Conditions
-                </Link>
-                <Link href="/help/artisbayInc/anti-social-force-policy">
-                  Anti-Social Force Policy
-                </Link>
-                <Link href="/help/artisbayInc/how-to-buy-used-cars">
-                  How To Buy
-                </Link>
-                <Link href="/help/artisbayInc/about-payment">About Payment</Link>
-                <Link href="/feedback">Customer Feedback</Link>
+                {helpLinks.map((link) => (
+                  <Link key={link.path} href={link.path}>{link.text}</Link>
+                ))}
               </div>
             </li>
           </ul>
