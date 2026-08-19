@@ -1,0 +1,70 @@
+/* Car List */
+.car-list {
+  display: grid; /* Use grid layout for car items */
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); /* Create a responsive grid with a minimum item width of 200px */
+  gap: 20px; /* Space between grid items */
+  padding: 20px; /* Padding around the grid */
+}
+
+/* Adjust the layout when there are no cars */
+.no-cars-found-container {
+  grid-column: 1 / -1; /* Span across all columns */
+  padding: 40px; /* Padding around the container */
+  text-align: center; /* Center the text */
+}
+
+.no-cars-found {
+ /* Larger font size for visibility */
+  color: #e67e22; /* Color for 'No cars found' message */
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding around the message */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Zero State */
+.zero {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center; /* Center the content */
+  align-items: center; /* Vertically center the content */
+  height: 300px; /* Set a fixed height for the zero state */
+  background-color: #f2f2f2; /* Light gray background */
+}
+
+/* Car Card Styling (assumes a basic card structure) */
+.car-card {
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+  overflow: hidden; /* Hide overflow */
+  transition: box-shadow 0.3s; /* Smooth transition for hover effect */
+  background-color: #fff; /* White background */
+  padding: 10px; /* Padding inside the card */
+}
+
+/* Car Card Image */
+.car-card img {
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Car Card Title */
+.car-card h2 {
+ /* Slightly larger font for the title */
+  margin: 10px 0; /* Margin for spacing */
+}
+
+/* Car Card Description */
+.car-card p {
+ /* Smaller font size */
+  color: #666; /* Gray color for description */
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.car-card h4 {
+  margin: 0;
+}
+/* Hover effect */
+.car-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+}

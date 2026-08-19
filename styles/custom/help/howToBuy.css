@@ -1,0 +1,156 @@
+/* Center the entire wrapper and allow it to fill the page */
+.howToBuy-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;  /* Align items at the top of the page */
+    padding: 20px;
+    height: auto; /* Allow content to expand */
+  }
+  
+  /* Main container adjustments */
+  .howToBuy-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+  }
+  
+
+  .howToBuy-image img {
+    width: 100%; /* Adjust the width as needed */
+    height: auto;
+    margin-bottom: 20px; /* Space between image and heading */
+  }
+
+  .howToBuy-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .intro-text {
+    margin-bottom: 40px;
+    color: #555;
+    max-width: 700px;
+  }
+  
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Increase the gap between steps */
+    align-items: center;
+    width: 100%;
+  }
+  
+  .step {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+  }
+  
+  .step-text {
+    flex: 1;
+    max-width: 450px;  /* Allow text to take more width */
+    text-align: left;
+    padding-right: 20px;  /* Add some space between text and image */
+  }
+  
+  .step-text h3 {
+    margin-bottom: 15px;
+  }
+  
+  .step-text ul {
+    list-style-type: disc;
+    margin: 0;
+    padding-left: 35px;
+  }
+  
+  .step-text li {
+    margin-bottom: 12px;  /* Increase space between list items */
+  }
+  
+  .step-image {
+    flex: 0 0 200px;  /* Increase image size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .step-image img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 8px;
+  }
+  
+ 
+  /* Container for the icons */
+.overview-icons {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  margin-bottom: 40px;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Individual icon item */
+.icon-item {
+  text-align: center;
+  max-width: 120px;
+  width: 100%; /* Allow it to be responsive */
+}
+
+/* Icon image styles */
+.icon-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain; /* To prevent distortion */
+  margin-bottom: 10px;
+}
+
+/* Title under the icon */
+.icon-item h4 {
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+
+.cta-container {
+  text-align: center;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.cta-button {
+  padding: 15px 30px;
+  color: white;
+  background-color: #f1892b; /* Change to your preferred color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #f2913d; /* Darker shade on hover */
+}
+
+@media screen and (max-width:900px){
+  .step{
+    flex-direction: column;
+    gap: 0;
+  }
+  .overview-icons {
+    flex-wrap: wrap;
+  }
+
+  .step-image img {
+    max-width: 200px;
+  }
+
+  .sub-text h4 {
+      padding: 0 85px;
+  }
+
+}

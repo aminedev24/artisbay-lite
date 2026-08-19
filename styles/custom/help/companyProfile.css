@@ -1,0 +1,88 @@
+  .company-profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .company-profile-container h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--text-color);
+  }
+  
+  .company-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .detail-item {
+    width: 48%; /* Allows two items per row on larger screens */
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .detail-item h3 {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 5px;
+  }
+  
+  .detail-item p {
+    color: var(--text-color);
+    line-height: 1.5;
+    text-align: center;
+  }
+  
+  .detail-item a {
+    color: var(--secondary-color);
+    text-decoration: none;
+  }
+  
+  .detail-item a:hover {
+    text-decoration: underline;
+  }
+
+  .location-container {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+   
+  }
+
+
+
+  .why-choose-container {
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .why-choose-container , .overview {
+    background-color: var(--background-color);
+  }
+  
+  .content-title {
+    color: var(--text-color);
+    margin-bottom: 20px;
+  }
+  
+  .text-content {
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 15px;
+  }
+
+  .location-banner {
+    background-image: url('../../../public/images/head-office.jpg');
+    background-position: center;
+    background-size: cover; /* Ensures the entire image is visible */
+    background-repeat: no-repeat; /* Prevents repeating of the image */
+    width: 100%; /* Full width */
+    height: 400px; /* Controls the height */
+    margin: 10px 0;
+  }
+

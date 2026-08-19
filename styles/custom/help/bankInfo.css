@@ -1,0 +1,76 @@
+.bank-information {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.bank-info-table {
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Remove space between borders */
+}
+
+.bank-info-table th {
+  padding: 10px; /* Padding for table cells */
+  border: 1px solid var(--border-color-dark); /* Border for table cells */
+  text-align: center; /* Align text to the left */
+  width: 50%;
+}
+.bank-info-table td {
+  border: 1px solid var(--border-color-dark);
+  width: 50%;
+}
+.bank-info-table th {
+  background-color: var(--background-color); /* Light background for headers */
+  color: var(--text-color); /* Header text color */
+}
+
+.bank-info-table td {
+  color: var(--text-color); /* Data text color */
+}
+
+
+.notice {
+  color: var(--cancel-btn-color);
+  margin: 0;
+}
+
+.wise-info-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap:20px;
+  justify-content: center;
+}
+
+@media screen and (max-width:1100px){
+  .wise-info-container {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .bank-info-table thead {
+    display: none;
+  }
+
+  .bank-info-table tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border: 1px solid #ddd; /* Optional: Add a border to each row */
+  }
+
+  .bank-info-table td {
+    display: block;
+    padding: 8px;
+    text-align: center; /* Reset text alignment */
+    width: 100%;
+  }
+
+  .bank-info-table th {
+    width: 100%;
+  }
+
+  /* Style for the header "labels" */
+  .bank-info-table td:first-child {
+    font-weight: bold;
+    /* Optionally add more styling to the "header" */
+  }
+}

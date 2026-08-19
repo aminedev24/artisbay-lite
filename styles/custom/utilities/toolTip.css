@@ -1,0 +1,48 @@
+/* Tooltip Styles */
+.tooltip-container {
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+  }
+  
+  .tooltip-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #1da1f2;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tooltip-icon:hover {
+    background-color: #007bff;
+  }
+  
+  .tooltip-message {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .tooltip-message::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #2c3e50 transparent;
+  }

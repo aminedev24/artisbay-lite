@@ -1,0 +1,181 @@
+
+
+/* Banner Section */
+.banner {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+}
+
+/* Introduction Section */
+.introduction-section {
+  margin-bottom: 60px;
+  text-align: center;
+  background: #fff;
+  padding: 40px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.introduction-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.introduction-section p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Services Section */
+  .service {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 40px;
+  }
+  .service i {
+      font-size: 24px;
+      color: var(--primary-color);
+      margin-right: 10px;
+  }
+  .service h2 {
+      font-size: 20px;
+      color: var(--text-color);
+      margin: 0 0 10px 0;
+  }
+  .service p {
+      font-size: 16px;
+      color: var(--text-color);
+      margin: 0;
+  }
+
+/*
+@media (min-width: 768px) {
+.congo-agent-container .services {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+}
+.congo-agent-container .service {
+width: 48%;
+}
+}
+*/
+/* Automated Invoice System Section */
+.invoice-section {
+  padding: 20px;
+
+}
+
+.invoice-section-content {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 40px 20px;
+  border-radius: 12px;
+
+  margin-bottom: 60px;
+}
+
+.invoice-section-content a {
+  text-align: center;
+}
+
+.invoice-section h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.invoice-section p {
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.invoice-section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.invoice-section ul li {
+  margin-bottom: 10px;
+}
+
+.invoice-link {
+  display: inline-block;
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.invoice-link:hover {
+  background: #1a2f6b;
+}
+
+/* Contact Section */
+.congo-agent-container .contact-section {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.congo-agent-container .contact-section {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contact-section h1 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.contact-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-section strong {
+  color: var(--primary-color);
+}
+
+.congo-agent {
+  background: url('/images/localServices/congoagentrecent.png');
+}
+
+.congo-agent .services-text {
+  left:60px;
+  max-width: 526px;
+}
+
+.congo-agent .sub-text span {
+  line-height: 2;
+}
+
+@media (min-width:1500px){
+  .congo-agent .services-text {
+    max-width: 490px;
+    left: 20px;
+  }
+}
+
+.congo-agent .into-content p {
+  padding: 44px 20px;
+}
+
+.congo-agent .sub-text {
+  right: 0;
+  top: 10%;
+}
+

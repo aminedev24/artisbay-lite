@@ -1,0 +1,197 @@
+/* src/components/Login.css */
+
+.login-container {
+    width: 400px;
+    margin: 5rem auto;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .login-container h2 {
+
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+ .login-container .input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .login-container .input-group input {
+    width: 100%;
+    padding: 0.8rem 0.5rem;
+
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: border 0.3s;
+  }
+  
+  .input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .login-form .input-group label {
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: 0.2s ease all;
+  }
+  
+  .input-group input:focus + label,
+  .input-group .float {
+    top: -0.5rem;
+  }
+
+  .password-input-group input {
+    padding-right: 2.5rem;
+  }
+
+  .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    color: #888;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .password-toggle:hover {
+    color: #333;
+  }
+  
+  .login-button {
+    padding: 0.8rem;
+
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .message {
+    margin: 18px auto;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 83%;
+    text-align: center;
+  }
+  
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .register-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .login-container .message {
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+
+   
+  .register-container .modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .register-container .modal-content {
+    background-color: #fff;
+  }
+
+  .register-container .terms-container {
+    max-width: 800px;
+  }
+
+  .login-form-wrapper , .register-wrapper, .contact-wrapper, .help-page, .enquiry-wrapper, 
+  .forgot-password-container, .reset-password-container , .profile-wrapper, .invoice-wrapper,
+  .calculator-container , .verifiation-wrapper{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+  }
+
+  .welcome-message {
+    text-align: center;
+  }
+
+  .login-container .welcome-message {
+    color: #155724;
+    font-weight: bold;
+  }
+
+  .login-container .logo-form {
+    width: 25%;
+  }
+
+  .logout-btn {
+    background-color: #1da1f2; /* Red color */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: #007bff; /* Darker red */
+  }
+  
+  .logout-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #e67e22; /* Light red glow */
+  }
+  
+  .profile a {
+    text-align: left;
+    padding: 8px 24px;
+  }
+
+  @media screen and (max-width:900px){
+    .login-container {
+      margin :0;
+      width:100%;
+    }
+
+  }

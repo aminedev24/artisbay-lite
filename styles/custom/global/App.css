@@ -1,0 +1,229 @@
+/* Force desktop styles for smaller screens */
+
+html {
+  -webkit-text-size-adjust: 100%; /* Disable auto-scaling on Android */
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+
+}
+
+
+
+
+
+
+/*
+p, ul li, ol li, .list-item, .services-text, .logistics-agent-info, .cta-link, 
+.bank-info-table td, .footer-inner a, .paypay-link {
+  font-size: clamp(.9rem, 1vw, 1.1rem);
+}
+*/
+
+
+
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: bold;
+}
+svg , img{
+  display: inline-block;
+}
+
+
+/*
+label {
+  font-size: clamp(0.9rem, 1vw, 1.1rem); 
+}
+td {
+  font-size: clamp(0.9rem, 1vw, 1.1rem); 
+}
+
+th {
+  font-size: clamp(1rem, 1.2vw, 1.2rem); 
+}
+input {
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem); 
+}
+
+.logistics-agent-info, .services-text, .logistics-agent-info a {
+  font-size: clamp(0.875rem, 1.8vw, 2rem) !important;
+}
+
+@media (min-width: 1400px) {
+  .intro-content p, .logistics-agent-info, .services-text, .logistics-agent-info a {
+    font-size: clamp(1rem, 1.8vw, 1.5rem); 
+  }
+
+
+  .links a {
+    font-size: clamp(1.125rem, 1vw, 1.50rem);
+  }
+
+  .congo-agent-container .intro-content p {
+    font-size: clamp(1.4rem, 1.25vw, 1.25rem) ;
+  }
+}
+
+*/
+/*
+@media  (min-width: 1280px) {
+  p, ul li, ol li, .list-item, .services-text, .logistics-agent-info, .cta-link, 
+  .bank-info-table td, .footer-inner a, .paypay-link , .intro-content p{
+    font-size: clamp(1.8rem, 1.2vw, 1.2rem);
+  }
+}
+*/
+
+select, input[type='date']{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+body {
+  overflow-x:hidden ;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.header-container{
+
+  max-width: 100%;
+}
+
+#root , #__next{
+    display: flex;
+    flex-direction: column;
+    min-height:100dvh;
+   /* background-color: var(--background-color);*/
+}
+
+
+
+@media screen and (max-width: 9999px) {
+  .layout {
+    max-width: 1265px;
+    margin: 0 auto;
+  }
+     .car-details, .help-page , .footer-inner, .shipping-container ,
+    .top-bar, .profile-wrapper .japan-exports , .namibia-agent-container, .congo-agent-container {
+        margin: 0 auto;
+        
+        max-width: 1087px; 
+    }
+    .header-bottom, .header-top, .local-services-banner {
+        margin: 0 auto;
+        width: 90%;
+        max-width: 1087px;
+    }
+
+    .top-bar {
+        max-width: 1730px;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .extra-info {
+        margin: 0 -89px;
+    }
+
+
+}
+
+@media screen and (max-width: 1760px) {
+    .layout,.car-details, .help-page , .footer-inner, .shipping-container ,
+    .top-bar , .japan-exports{
+        margin: 0 auto;
+        width: 90%;
+        max-width: 1291px; 
+    }
+    .namibia-agent-container, .congo-agent-container {
+      width: 100%;
+    }
+    .header-top, .header-bottom {
+        width: 90%; 
+        max-width: 1460px; 
+    }
+}
+
+@media screen and (max-width: 1530px) {
+    .layout, .header-top, .local-services-banner, .car-details, .help-page, 
+    .footer-inner, .shipping-container ,.top-bar , .profile-wrapper , 
+    .japan-exports  {
+        margin: 0 auto;
+        width: 90%; 
+        max-width: 1330px; 
+    }
+    .header-bottom {
+        width: 90%; 
+        max-width: 1330px; 
+    }
+}
+
+@media screen and (max-width: 1500px) {
+  .layout, .local-services-banner, .car-details, .help-page,
+  .footer-inner, .shipping-container , .top-bar ,.profile-wrapper, .profile-container , 
+   .japan-exports {
+      margin: 0 auto;
+      width: 100%; 
+      max-width: 100%;
+  }
+  .header-bottom {
+      width: 90%;
+      max-width: 1330px; 
+  }
+
+
+
+  
+}
+
+@media screen and (min-width:1500px) {
+    /*
+    .terms-container, .asf, .whyChoose, .dismantling, .overview, .envirement-policy, 
+    .security-notice, .paypal, .howtopay, .aboutusedtires {
+        margin: 0 !important;
+      }
+    */
+      .sidebar {
+        padding: 0 !important;
+      }
+    
+}
+
+
+
+
+
+/* 404 Page Styles */
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  background-color: var(--background-color);
+  text-align: center;
+  padding: 20px;
+}
+
+.not-found-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--cancel-btn-color);
+  margin-bottom: 10px;
+}
+
+.not-found-description {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.not-found-description a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.not-found-description a:hover {
+  text-decoration: underline;
+}

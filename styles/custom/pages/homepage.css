@@ -1,0 +1,817 @@
+/* General Styles */
+.main-content {
+  display: flex;
+}
+
+.layout {
+    position: relative;
+}
+
+option {
+    background-color: var(--background-color);
+}
+
+.homepage {
+    padding: 20px 20px 0px 20px;
+    overflow: hidden; /* Prevent overflow issues */
+    color: #444; /* Soft dark gray for general text */
+    display: flex; /* Use flexbox to align elements */
+    flex-direction: column; /* Keep the layout vertical for desktop */
+    flex: 1;
+}
+
+.banner {
+    width: 100%;
+}
+
+/* Why Choose Us */
+.why-choose-us {
+    padding:20px;
+    text-align: center;
+}
+
+.why-choose-us h2 {
+    margin-bottom: 20px;
+ /* Larger font size for emphasis */
+    font-weight: 700; /* Bold text */
+}
+
+.why-choose-us p {
+    margin-bottom: 30px; /* Increased bottom margin for spacing */
+ /* Slightly larger font for readability */
+    line-height: 1.8; /* Improved line height for better readability */
+    color: var(--text-color);
+}
+
+.why-choose-us ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.why-choose-us li {
+    margin: 15px 0;
+ /* Slightly larger font for readability */
+    position: relative; /* For adding icons or styles */
+}
+
+.why-choose-us img {
+    width: 100%; /* Responsive image */
+    height: auto; /* Maintain aspect ratio */
+    margin-top: 20px; /* Space above the image */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the image */
+}
+
+.why-choose-us .cta-button, .bordered .cta-button {
+
+  
+}
+
+/* Stocklist Section */
+.stocklist-section {
+    background-color: var(--background-color);
+    text-align: center;
+    margin: 20px;
+}
+
+.stocklist-section h2 {
+    color: #2c3e50;
+}
+
+/* Contact CTA Section */
+.contact-cta {
+    padding: 50px 0;
+    background-color: var(--secondary-color);
+    color: white;
+    text-align: center;
+    margin: 20px;
+}
+
+.contact-cta p {
+    margin-bottom: 30px;
+}
+
+.contact-cta h2 {
+    color: var(--text-color);
+}
+
+.contact-cta .cta-button {
+    background-color: #e67e22;
+    color: var(--text-color);
+    padding: 12px 30px;
+    text-decoration: none;
+}
+
+.cta-button a {
+    text-decoration: none;
+    color: var(--white);
+}
+
+.contact-cta .cta-button:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+ 
+    .why-choose-us h2,
+    .stocklist-section h2 {
+ /* Adjusted heading size */
+    }
+
+    .cta-button {
+ /* Adjust button font size */
+        padding: 10px 20px; /* Adjust button padding */
+    }
+
+    /* Testimonials Section */
+    .testimonial {
+ /* Adjust testimonial font size */
+    }
+
+    .contact-cta p {
+ /* Smaller contact CTA text */
+    }
+}
+
+.info-cards-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px; /* Increased space between cards */
+    padding: 20px; /* Padding around the container */
+    background-color: var(--accent-color);
+    margin: 5px 20px;
+    border: solid 4px var(--primary-color);
+}
+
+
+@media (max-width: 1000px){
+    .info-cards-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.news-icon {
+    max-width: 25%;
+}
+
+.info-card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Deeper shadow for more depth */
+    text-align: center; /* Center align text */
+    transition: transform 0.2s ease; /* Smooth scaling effect */
+}
+
+.info-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.info-card-image {
+    width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+    border: solid 2px var(--background-color);
+}
+
+.info-card-title {
+    margin-top: 10px; /* Space between image and text */
+ /* Adjust font size for better readability */
+    font-weight: 600; /* Bold text for emphasis */
+    color: #2c3e50; /* Darker text color */
+}
+
+
+
+.info-card-link {
+    text-decoration: none;
+    color: inherit; /* Inherit text color */
+  }
+
+.info-card:hover .info-card-title {
+    color: #f1892b; /* Highlighted title color when info-card is hovered */
+}
+
+
+.main-container {
+    display: flex; /* Aligns the containers side by side */
+    justify-content: space-between; /* Ensures equal spacing between them */
+    gap: 10px;
+    flex-direction: column; /* Stack vertically on mobile */
+}
+
+@media screen and (min-width: 768px) {
+    .main-container {
+        flex-direction: row; /* Side by side on tablets and larger */
+    }
+}
+
+.type-container, .make-container {
+    flex: 1; /* Allows both containers to take equal space */
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+
+
+
+.title {
+
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.type-container .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    gap: 10px;
+}
+
+@media screen and (min-width: 640px) {
+    .type-container .grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on tablets */
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .type-container .grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+    }
+}
+
+.type-container .grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--white);
+    color: var(--text-color);
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.type-container .grid-item:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.type-container .grid-item img {
+    max-width: 90px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.type-container .grid-item span {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+
+
+.brands {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive! */
+    gap: 10px;
+}
+
+@media screen and (min-width: 640px) {
+    .brands {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on tablets */
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .brands {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+    }
+}
+
+.brand {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.brand:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.brand img {
+    max-width: 52px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.brand p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.models-container {
+    margin-top: 15px;
+}
+
+.model-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.model-chip {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.model-chip:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+
+.banner-header-container {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Align items vertically centered */
+    padding: 20px; /* Padding around the header container */
+    position: relative;
+    width: 100%;
+}
+
+.banner-header-container .image-wrapper,
+.banner-header-container img {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+}
+
+.pointer {
+    position: absolute; /* Position the pointer */
+    top:48%; /* Center vertically */
+    right: 0%; /* Position the pointer to the right */
+    transform: translate(-50%, -50%); /* Offset the center */
+ /* Size of the pointer */
+    cursor: pointer; /* Pointer cursor */
+    width: 25%;
+    height: 50%;
+}
+.order-now , .pointer ,.cta-btn-link , .register-now-btn ,
+ .paypal-btn, .bank-btn, .sell-btn{
+    background-color: transparent;
+    color: transparent;
+}
+
+.cta-btn-link {
+    position: absolute;
+    bottom: 15%;
+    left: 40%;
+    width: 12%;
+}
+
+.register-now-btn {
+    position: absolute;
+    top: 69%;
+    left: 62%;
+    width: 30%;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    height: 20%;
+}
+
+.bank-btn {
+    position: absolute;
+    top: 10%;
+    left: 2%;
+    width: 29%;
+    height: 33%;
+}
+
+.paypal-btn {
+    position: absolute;
+    top: 59%;
+    left: 3%;
+    width: 29%;
+    height: 33%;
+}
+.order-now {
+    position: absolute;
+    bottom: 26%;
+    width: 16%;
+    left: 74%;
+    height: 8%;
+    
+}
+
+@media screen and (max-width: 768px) {
+  .bordered {
+    position: relative;
+  }
+  .bordered .bank-btn,
+  .bordered .paypal-btn {
+    left: 5%;
+    width: 90%;
+    height: 28%;
+  }
+  .bordered .bank-btn {
+    top: 6%;
+  }
+  .bordered .paypal-btn {
+    top: 37%;
+  }
+}
+
+.ad-banner {
+    height: auto; /* Set height for the banner */
+    flex: 1; /* Allow the banner to take available space */
+    width: 100%;
+    
+}
+
+.small-image-container {
+    margin-left: 20px; /* Space between the banner and small image */
+    position: relative;
+}
+
+.small-banner-container img {
+    width: 100%;
+}
+
+.small-image {
+    width: 250px; /* Set width for the small image */
+    height: auto; /* Maintain aspect ratio */
+
+}
+
+.text-content {
+    padding: 0 20px; /* Padding around the text content */
+}
+
+.icon-container {
+    position: absolute; /* Position absolute to overlay the small image */
+    top: 50%; /* Center vertically */
+    right: 5%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset the center */
+    text-align: center; /* Center text */
+    z-index: 5;
+}
+
+.small-icon {
+ /* Size of the hand pointer icon */
+    color: var(--accent-color);
+}
+
+.small-icon , .click-text {
+    text-shadow: 1px 1px 1px #fff;
+}
+
+.click-text {
+    display: block; /* Make the text a block element */
+    margin-top: 5px; /* Space between icon and text */
+ /* Font size for the text */
+    color: #e67e22; /* Text color */
+    text-transform: uppercase;
+}
+
+
+.overlay {
+    position: absolute; /* Position absolute to overlay the small image */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.3); /* Black background with 50% opacity */
+    z-index: 1; /* Ensure the overlay is above the image */
+}
+
+
+/*
+@media  screen and (max-width:1200px) {
+    .slick-slide img {
+        height: 300px !important;
+    }
+    
+}
+*/
+.ad-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.ad-container {
+    padding: 30px;
+}
+
+.bold-text {
+    font-weight: bold; /* Makes the text bold */
+ /* Increases the font size */
+    text-align: center; /* Centers the text */
+    margin: 10px 0; /* Adds some space above and below the text */
+
+}
+
+.bordered {
+    border: 2px solid var(--accent-color); /* Adds a border with a bright, eye-catching orange color */
+    padding: 15px; /* Adds space inside the border */
+    margin: 10px 0; /* Adds space between each container */
+    text-align: center;
+    position: relative;
+  }
+  
+  .small-banners {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .bordered .cta-btn {
+    position: absolute;
+    top: 70%;
+    right: 14%;
+    background-color: var(--secondary-color);
+    font-weight: bold;
+
+  }
+
+  .small-banner-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .small-banner-btn img {
+    width: 100%;
+  }
+  .small-banner-btn {
+    position: absolute;
+    top: 57%;
+    left: 52%;
+
+    width: 18%;
+  }
+
+  .sell-btn {
+    position: absolute;
+    bottom: 12%;
+    right: 6%;
+    width: 30%;
+    height: 11%;
+
+  }
+
+/* Useful links */
+.usefulLinks_wrapper {
+    margin: 0 20px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+}
+
+.usefulLinks_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    width: 100%;
+    position: relative;
+   
+}
+
+.header h1 {
+
+    text-shadow: 2px 2px 5px var(--secondary-color);
+    display: inline-block;
+    background: #fff;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+    left: 73px;
+}
+
+.title-img {
+    width: 100%;
+}
+
+.usefulLinks_wrapper .header::before, .wrapper .header::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: var(--accent-color);
+    z-index: 0;
+}
+
+.links {
+    flex: 1;
+    display: flex;
+    gap: 20px; /* Increased space between items */
+}
+
+.links a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block; /* Make the link a block element */
+    width: 100%; /* Ensure it takes full width */
+    padding: 10px; /* Add padding for better click area */
+    box-sizing: border-box; /* Include padding in width */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Remove default margin */
+}
+
+.links ul li {
+
+    
+    margin-bottom: 10px; /* Add bottom margin for spacing */
+    font-weight: bold;
+}
+
+.image-usefulLinks_container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.image-usefulLinks_container img {
+    height: auto;
+}
+
+@media screen and (max-width:1200px){
+    .image-usefulLinks_container img {
+        margin: 15px;
+        object-fit: cover;
+    }    
+
+    .image-usefulLinks_container {
+        align-items:unset;
+    }
+
+}
+/*image spinner */
+.image-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.image-spinner-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+  .image-spinner {
+    border: 8px solid var(--background-color); /* Light grey */
+    border-top: 8px solid var(--secondary-color); /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+@media screen and (max-width: 900px) {
+    .info-cards-container {
+        padding: 10px;
+        gap: 10px;
+        margin:0;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+    }
+
+    .usefulLinks_container img {
+        display: none;
+    }
+
+    .usefulLinks_container {
+        flex-wrap: wrap;
+    }
+
+    .info-card-link {
+        width: 70%;
+    }
+    .image-usefulLinks_container {
+        flex: unset;
+    }
+
+      .banner-header-container {
+        padding:0;
+    }
+
+    .wrapper, .usefulLinks_wrapper , .contact-cta{
+        margin: 0;
+    }
+
+    .links {
+        gap:3px;
+    }
+
+    .image-usefulLinks_container img {
+        max-width: 100%;
+        margin: auto;
+        width:100%;
+    }
+
+    .grid-item img {
+        width: 50px; /* Adjusted size for smaller screens */
+    }
+
+    .brand img {
+        max-width: 60px;
+    }
+
+    .brand {
+        padding: 0px; /* Reduced padding for smaller size */
+    }
+
+    .homepage {
+        padding: 0;
+    }
+
+    
+
+  
+}
+
+
+@media screen and (max-width:600px) {
+  .usefulLinks_container {
+        flex-direction: column;
+    }
+}
+
+/* Useful Links Styles */
+.useful-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.useful-links-list li {
+  flex: 1 1 190px; /* allow to shrink and grow */
+  min-width: 120px;
+  max-width: 100%;
+  text-align: left;
+  font-weight: bold;
+}
+
+.useful-links-list li a {
+    white-space: normal;
+}
+
+/* On small screens, allow links to take full width if needed */
+@media (max-width: 600px) {
+  .useful-links-list li {
+    flex: 1 1 45%; /* about 2 per row, but will wrap as needed */
+    min-width: 100px;
+    font-size: 0.95em;
+  }
+}
+
+
+
+
+.makes-wrapper {
+    padding: 20px;
+}

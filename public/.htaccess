@@ -1,0 +1,56 @@
+RewriteEngine On
+
+# Dynamic routes: Next.js's static export (ssr:false + fallback) builds a
+# generic fallback shell for each of these at the literal "[paramName]"
+# folder name (e.g. vehicle/[vehicleId]/index.html). Apache has no way to
+# match that automatically against a real id like "0534" — without an
+# explicit rule per route, every concrete URL under these paths silently
+# falls through to the generic SPA rule below and serves the homepage
+# instead of the real page.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^vehicle/[^/]+/?$ /vehicle/[vehicleId]/index.html [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^cars/[^/]+/?$ /cars/[id]/index.html [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin/[^/]+/?$ /admin/[adminSection]/index.html [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^reset-password/[^/]+/?$ /reset-password/[token]/index.html [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^profile(/.*)?$ /profile/[[...section]]/index.html [L]
+
+# Serve static assets directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# SPA fallback to index.html for client routing
+RewriteRule ^.*$ /index.html [L]
+
+# ── Security Headers ────────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  # Prevent clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Stop MIME-type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Enforce HTTPS for 1 year (enable once HTTPS is confirmed stable)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Limit referrer leakage
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Restrict browser feature access
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # Basic XSS filter (legacy browsers)
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>

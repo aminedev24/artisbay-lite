@@ -1,0 +1,59 @@
+.logistics-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.section {
+    width: 50%;
+    text-align: center;
+}
+.section img {
+    margin-bottom: 20px;
+}
+.section h5 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.section p {
+    line-height: 1.5;
+    margin: 5px 0;
+}
+
+.skybridge {
+    max-width: 120px;
+}
+
+.tanzania-agent {
+    background-image: url('/images/localServices/tanzaniaagentrecent2.png'); 
+    margin: 40px 0;
+    background-position: center center;
+
+}   
+
+.tanzania-agent .sub-text {
+    top: 13%;
+    right: 10%;
+}
+
+.tanzania-agent .main-title {
+    position: relative;
+    top:-1%;
+    right: 13px;
+}
+
+.tanzania-agent .services-text {
+    left: 20px; 
+    max-width: 500px;
+
+}
+
+@media (min-width: 1400px) {
+    .tanzania-agent .services-text {
+        max-width: 570px;
+    }
+}
+
+.faq-list h1 , .faq-list button {
+    display: inline-block;
+    margin: 0 10px;
+}

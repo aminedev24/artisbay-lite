@@ -1,0 +1,114 @@
+
+  .saved-car-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+  }
+
+  .saved-cars-details {
+    /* Use CSS Grid to create a 2-column layout */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust spacing between columns/rows as needed */
+  }
+  
+  .saved-cars-details p {
+    margin: 0; /* Remove default paragraph margins */
+    padding: 5px 0; /* Optional spacing within each item */
+  }
+  
+  
+  .car-info {
+    margin-bottom: 30px;
+  }
+  
+  .car-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .car-info p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #555;
+  }
+
+  
+  .items-table th {
+      text-align: left;
+  }
+
+  .scroll-hint {
+    color: #1e3a8a;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+
+  .order-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  .saved-orders-tabs {
+    display: flex;
+    gap: 10px;
+  }
+
+  .p-4 th, .p-4 td {
+    text-align: center;
+  }
+
+  .filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter-button {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.search {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.clear {
+    background-color: #6c757d;
+    color: white;
+}
+
+.filter-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filter-button {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.under-construction {
+  background-image: url('../../../public/images/underconstructionstamp.jpeg'); 
+}
+

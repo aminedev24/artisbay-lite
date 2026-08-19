@@ -1,0 +1,180 @@
+.terms-container ,.asf, .whyChoose, .overview , .envirement-policy, .paypal, .howtopay {
+    line-height: 1.6;
+    color: #333;
+    padding: 10px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x:hidden ;
+  }
+
+  .terms-container h1, .asf h1, .whyChoose h1, .overview h1, .pypal h1, .howtopay h1 {
+
+    margin-bottom: 20px;
+  }
+
+  .terms-container h2 , .asf h2 , .whyChoose h2 ,.envirement-policy h2 , .paypal h2, .howtopay h2 {
+
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .terms-container p, .asf p , .whyChoose p , .overview p , .envirement-policy p, .paypal p, .howtopay p {
+    margin-bottom: 10px;
+    padding: 0 20px;
+  }
+
+  .terms-container ul, .asf ul, .whyChoose ul, .paypal ul , .howtopay ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+
+  .terms-container ul li, .terms-container ol li, .asf ul li , .whyChoose ul li, .whyChoose ol li, .paypal ul li , .paypal ol li , .howtopay ul li, .howtopay ol li {
+    margin-bottom: 10px !important;
+    margin-left: 30px;
+  }
+  
+
+  .cta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cta-text {
+    margin-bottom: 10px;
+    
+    color: #333;
+  }
+  
+  .cta-btn {
+    padding: 10px 20px;
+
+    color: #fff;
+    background-color: #e67e22;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cta-btn a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .envirement-policy {
+    padding: 20px; /* Add padding to the container */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow for better visibility */
+    margin: 20px auto; /* Center the container */
+    background-color: rgba(255, 255, 255, 0.5);
+    max-width: 800px;
+}
+
+.envirement-policy h1 {
+ /* Larger font size for the header */
+    color: #2c3e50; /* Darker color for better readability */
+    margin-bottom: 15px; /* Space below the header */
+}
+
+.envirement-policy p {
+ /* Increase font size for better readability */
+    line-height: 1.6; /* Increase line height for better spacing */
+    margin-bottom: 15px; /* Space between paragraphs */
+    font-weight: bold;
+}
+
+.cta-link {
+    color: #1da1f2; /* Color for the link */
+    font-weight: bold; /* Bold text for emphasis */
+    text-decoration: underline; /* Underline for links */
+    padding: 0 5px;
+}
+
+.cta-link:hover {
+    color: #0d8bcf; /* Darker color on hover */
+}
+
+.terms-container .contact-prompt {
+  display: none;
+}
+
+.terms-container .contact-container {
+  scale: unset !important;
+}
+
+.terms-container .contact-wrapper {
+  height: unset !important;
+}
+
+
+.user-agreement-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.user-agreement-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.user-agreement-container label {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.user-agreement-container input[type="text"],
+.user-agreement-container input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.user-agreement-container input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.user-agreement-container button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #1da1f2;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.user-agreement-container button:hover {
+  background-color: #1e3a8a;
+}
+
+.user-agreement-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.user-agreement-container .success {
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.success {
+  text-align: center;
+}

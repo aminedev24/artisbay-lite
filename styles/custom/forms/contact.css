@@ -1,0 +1,88 @@
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  /*background-color: var(--background-color);*/
+  width: 50%;
+}
+
+.contact-container .phone-code {
+  top: unset !important;
+}
+.contact-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.contact-container input[type="text"],
+.contact-container input[type="tel"],
+.contact-container input[type="email"],
+.contact-container select,
+.contact-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color-dark);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.contact-container input[type="text"]::placeholder,
+.contact-container input[type="email"]::placeholder,
+.contact-container input[type="tel"]::placeholder,
+.contact-container textarea::placeholder {
+  color: var(--border-color);
+}
+ .required {
+  color: var(--cancel-btn-color);
+}
+
+.submit-section button {
+  width: 100%;
+
+}
+.contact-container button {
+  padding: 10px;
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+
+  font-weight: bold;
+  color: var(--white);
+  cursor: pointer;
+}
+.contact-container button:hover {
+  background-color: var(--secondary-color-hover);
+}
+
+.contact-container h2 {
+
+  color: var(--secondary-color);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+.contact-container h3 {
+  color: var(--text-color);
+  text-align: center;
+  margin: 20px 0;
+}
+
+.contact-prompt {
+  margin-bottom: 25px;
+}
+
+@media  (max-width: 900px) {
+  .contact-container {
+    width: 100%;
+    margin: 0;
+  }
+
+  
+}

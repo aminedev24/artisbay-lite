@@ -1,0 +1,115 @@
+.accountancyForm {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.accountancyForm label {
+  display: block;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.accountancyForm input,
+.accountancyForm select,
+.accountancyForm textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.accountancyForm button {
+  grid-column: 1 / -1;  /* Span both columns */
+  background: var(--secondary-color);
+  border: none;
+  color: var(--white);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.accountancyForm button:hover {
+  background: var(--primary-color-hover);
+}
+
+/* Make fields that need full width span across both columns */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.conversion-container {
+  margin: 20px 0;
+  padding: 12px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.conversion-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-color);
+  color: #333;
+  gap: 5px;
+}
+
+.conversion-item:last-child {
+  border-bottom: none;
+}
+
+.conversion-item strong {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.conversion-item span {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+
+.conversion-container button{
+  font-size: 10px;
+}
+
+
+.conversion-edit-btn {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.conversion-edit-btn.cancel {
+  background-color: var(--cancel-btn-color);
+}
+
+.conversion-edit-btn:hover {
+  opacity: 0.9;
+}
+
+.conversion-values button {
+  padding: 10px 13px;
+}
+
+.conversion-values input { 
+  width: 43%;
+}

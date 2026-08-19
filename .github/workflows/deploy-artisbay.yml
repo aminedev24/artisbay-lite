@@ -1,0 +1,93 @@
+name: Deploy site (HostGator)
+
+# Manual trigger only — never runs on push.
+# Fire from any device:
+#   gh workflow run deploy-artisbay.yml -R artisbay-inc/artisbay-inc -f scope=quick
+#   gh workflow run deploy-artisbay.yml -R artisbay-inc/artisbay-inc -f scope=full
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "quick = server/ PHP only | full = build + deploy whole site"
+        required: true
+        default: quick
+        type: choice
+        options: [quick, full]
+
+concurrency:
+  group: deploy-artisbay
+  cancel-in-progress: false
+
+env:
+  SRV: yqjezvte@gator4421.hostgator.com
+  WEBROOT: /home2/yqjezvte/public_html/artisbay
+  SERVERROOT: /home2/yqjezvte/public_html/server
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: artisbay-inc-main
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.HG_AURORA_SSH_KEY }}" > ~/.ssh/hg_key
+          chmod 600 ~/.ssh/hg_key
+
+      # The chatbot's data feed ships on EVERY run, quick and full, so it can
+      # never silently go stale (lesson from the Ichinomiya search.php incident).
+      # File-level copy only — NEVER sync the whole inventory folder: the live
+      # fetchStock.php on the server differs from the repo copy and a blind
+      # sync would revert it.
+      - name: Ship bot vehicle feed
+        run: |
+          ssh -i ~/.ssh/hg_key -o StrictHostKeyChecking=no "$SRV" "mkdir -p $SERVERROOT/inventory/cars"
+          scp -i ~/.ssh/hg_key -o StrictHostKeyChecking=no server/inventory/cars/vehicles_bot.php "$SRV:$SERVERROOT/inventory/cars/vehicles_bot.php"
+          ssh -i ~/.ssh/hg_key -o StrictHostKeyChecking=no "$SRV" "chmod 644 $SERVERROOT/inventory/cars/vehicles_bot.php"
+
+      # server/ is a sibling of artisbay/ on the host, and isn't part of the
+      # Next build output — must be synced separately (DEV_GUIDE.md).
+      - name: Quick deploy (server/ PHP only)
+        if: inputs.scope == 'quick'
+        run: |
+          scp -r -i ~/.ssh/hg_key -o StrictHostKeyChecking=no server/api server/auth "$SRV:$SERVERROOT/"
+          ssh -i ~/.ssh/hg_key -o StrictHostKeyChecking=no "$SRV" \
+            "find $SERVERROOT -type d -exec chmod 755 {} \; && find $SERVERROOT -type f -exec chmod 644 {} \; && echo QUICK_DONE"
+
+      - uses: actions/setup-node@v4
+        if: inputs.scope == 'full'
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: artisbay-inc-main/package-lock.json
+
+      # preload-fix.cjs is mandatory on Node v20 (EISDIR / Promise.withResolvers) — DEV_GUIDE.md.
+      - name: Full build
+        if: inputs.scope == 'full'
+        run: |
+          npm ci
+          node --require ./preload-fix.cjs ./node_modules/next/dist/bin/next build
+
+      - name: Full deploy (whole static site)
+        if: inputs.scope == 'full'
+        run: |
+          tar -czf deploy_site.tar.gz -C out .
+          scp -i ~/.ssh/hg_key -o StrictHostKeyChecking=no deploy_site.tar.gz "$SRV:/home2/yqjezvte/"
+          ssh -i ~/.ssh/hg_key -o StrictHostKeyChecking=no "$SRV" \
+            "mkdir -p $WEBROOT && tar xzf /home2/yqjezvte/deploy_site.tar.gz -C $WEBROOT/ && \
+             rm -f /home2/yqjezvte/deploy_site.tar.gz && \
+             find $WEBROOT -type d -exec chmod 755 {} \; && \
+             find $WEBROOT -type f -exec chmod 644 {} \; && \
+             echo FULL_DONE"
+
+      - name: Verify
+        run: |
+          curl -sf -o /dev/null -w "site: %{http_code}\n" https://artisbay.com
+          # The bot feed must return real JSON, not an HTML 404 served as 200
+          # (that exact failure hid a dead bot for a week on the Ichinomiya side).
+          curl -s "https://artisbay.com/server/inventory/cars/vehicles_bot.php" | grep -q '"total":' \
+            && echo "bot feed: real JSON OK" || { echo "bot feed: NOT returning JSON"; exit 1; }

@@ -1,0 +1,54 @@
+/* theme.css */
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #1da1f2;
+    --accent-color: #f1892b;
+    --accent-color-hover: #ec971f;
+    --text-color: #333;
+    --background-color: #f3f3f3;
+    --white: #fefefe;
+    --grey-text:#666;
+    /* Button colors */
+    --edit-btn-color: #1da1f2;
+    --save-btn-color: #4CAF50;
+    --save-btn-background: #d4edda;
+    --save-btn-border: #c3e6cb;
+    --cancel-btn-color: #f44336;
+    --cancel-btn-border: #f5c6cb;
+    --cancel-btn-background: #f8d7da;
+    --secondary-color-hover: #1991db;
+    --primary-color-hover: #0056b3;
+    --border-color-dark: #000;
+    --border-color: #ddd;
+
+    /* Sidebar specific */
+    --sidebar-width: 250px;
+}
+
+/* Dark theme — darker and muted */
+.dark {
+    --primary-color: #0f172a; /* Very dark blue */
+    --secondary-color: #1e293b; /* Darker steel blue */
+    --accent-color: #f59e0b; /* Muted gold */
+    --accent-color-hover: #d97706; /* Slightly darker gold on hover */
+    --text-color: #d1d5db; /* Soft light gray text */
+    --background-color: #0a0f1a; /* Almost black */
+    --white: #111827; /* Dark navy for "white" areas */
+
+    /* Buttons */
+    --edit-btn-color: #2563eb; /* Muted blue */
+    --save-btn-color: #15803d; /* Darker green */
+    --save-btn-background: #14532d; /* Very dark green */
+    --save-btn-border: #166534; /* Dark green border */
+    --cancel-btn-color: #dc2626; /* Dark red */
+    --cancel-btn-border: #b91c1c;
+    --cancel-btn-background: #7f1d1d;
+
+    --secondary-color-hover: #334155; /* Even darker blue-gray */
+    --primary-color-hover: #1d4ed8; /* Stronger dark blue */
+
+    --border-color-dark: #4b5563; /* Grayish borders */
+    --border-color: #374151;
+
+    --sidebar-width: 250px;
+}

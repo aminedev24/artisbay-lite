@@ -1,0 +1,160 @@
+
+  .enquiryContainer {
+    width: 55%;
+    margin: 0 auto;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 720px;
+    font-size: 13px;
+  }
+  .enquiryContainer h3 {
+    text-align: left;
+    color: #000;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+    font-size: 15px;
+}
+.form-section {
+    margin-bottom: 14px;
+}
+.enquiryContainer .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-direction: row;
+}
+.enquiryContainer .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+    color:var(--text-color);
+    font-size: 12px;
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 13px;
+}
+.form-group textarea {
+    width: 100%;
+    height: 70px;
+    font-size: 13px;
+}
+.form-group .full-width {
+    width: 100%;
+}
+.form-group .half-width {
+    width: 48%;
+}
+.form-group .quarter-width {
+    width: 48%;
+}
+.form-group .third-width {
+    width: 31%;
+}
+.form-group .small-width {
+    width: 48%;
+}
+.form-group .info-icon {
+    margin-left: 5px;
+    color: var(--secondary-color);
+    position: absolute;
+    margin-top: 15px;
+    display: none;
+}
+.form-group .info-icon:hover {
+    cursor: pointer;
+}
+.submit-section {
+    text-align: center;
+    margin-top: 20px;
+}
+.submit-section button {
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    width: unset;
+    cursor: pointer;
+    font-size: 13px;
+}
+.submit-section button:hover {
+    background-color: var(--accent-color-hover);
+}
+.checkbox-section {
+    text-align: center;
+    margin-top: 10px;
+}
+.checkbox-section input {
+    margin-right: 5px;
+}
+.required-star {
+    color: var(--cancel-btn-color);
+}
+
+.enquiryContainer textarea {
+    resize: none;
+}
+
+
+.message-status {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+
+    font-weight: bold;
+    transition: opacity 0.5s ease;
+  }
+  
+  .message-status.success {
+    background-color: var(--save-btn-background);
+    color: var(--save-btn-color);
+    border: 1px solid var(--save-btn-border);
+  }
+  
+  .message-status.error {
+    background-color: var(--cancel-btn-background);
+    color: var(--cancel-btn-color);
+    border: 1px solid var(--cancel-btn-border);
+  }
+  
+  .login-note {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.login-note button {
+    background-color: var(--secondary-color); /* Bootstrap primary color */
+    color: var(--white); /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 7px 12px; /* Padding for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    text-transform: lowercase;
+}
+
+.login-note button:hover {
+    background-color: var(--secondary-color-hover); /* Darker shade on hover */
+}
+
+@media screen and (max-width:950px) {
+    .enquiryContainer {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+}

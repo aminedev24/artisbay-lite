@@ -1,0 +1,340 @@
+
+.user-homepage-container .grid-cols-2 {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+
+}
+.header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+.news-updates, .important-notice, .purchased-car-search, .car-listings, .sidebar {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.profile-welcome-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary-color), #16275e);
+    color: var(--white);
+    box-shadow: 0 6px 16px rgba(30, 58, 138, 0.25);
+    flex-wrap: wrap;
+}
+
+.pwc-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.pwc-info {
+    flex: 1;
+    min-width: 220px;
+}
+
+.pwc-greeting {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 4px;
+}
+
+.pwc-sub {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pwc-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #22c55e;
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
+
+.pwc-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.pwc-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pwc-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.pwc-actions a:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.pwc-actions svg {
+    width: 14px;
+    height: 14px;
+}
+
+.purchased-car-search {
+  background-color: #f3f3f3;
+}
+.news-updates h2, .important-notice h2, .purchased-car-search h2, .sidebar h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.important-notice h2 {
+    color: #dc2626;
+}
+.important-notice a {
+    color: #dc2626;
+    font-weight: bold;
+}
+.purchased-car-search label {
+    display: block;
+    margin-bottom: 4px;
+}
+.purchased-car-search select, .purchased-car-search input {
+    width: 100%;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px;
+}
+.purchased-car-search .search-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.purchased-car-search .search-buttons button {
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+.purchased-car-search .search-buttons .search-btn {
+    background-color: #f59e0b;
+    color: #ffffff;
+}
+.purchased-car-search .search-buttons .clear-btn {
+    background-color: #d1d5db;
+    color: #000000;
+}
+.car-listings {
+  background-color: #f6f6f6;
+  border: 1px solid #d1d5db;
+  padding: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+.user-homepage-container .image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 24px;
+  cursor: pointer;
+}
+.details {
+  flex: 1;
+}
+.details p {
+  margin: 4px 0;
+}
+.details .title {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #1a202c;
+}
+.details .subtitle {
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+.details .price {
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+.details .price span {
+  font-weight: bold;
+  color: #1a202c;
+}
+.price-info {
+  text-align: right;
+}
+.buttons {
+  margin-top: 16px;
+  display: flex;
+}
+.buttons button {
+  background-color: #e2e8f0;
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.buttons button:hover {
+  background-color: #cbd5e0;
+}
+.buttons .primary {
+  background-color: #2b6cb0;
+  color: #ffffff;
+  margin-left: auto;
+}
+.buttons .primary:hover {
+  background-color: #2c5282;
+}
+
+.price-info p {
+  font-size: 14px;
+  margin-bottom: 0;
+  border-bottom: 1px solid;
+  padding-bottom: 3px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+  
+.sidebar .amount {
+    background-color: #f97316;
+    color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+.profile-sidebar .calendar {
+    background-color: #ffffff;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+.profile-sidebar .calendar table {
+    width: 100%;
+    text-align: center;
+    height: 147px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.controls button {
+  font-size: 10px;
+}
+.profile-sidebar .calendar th, .profile-sidebar .calendar td {
+    padding: 4px;
+    font-size: 0.575rem;
+    text-align: center;
+}
+.profile-sidebar .calendar .highlight {
+    background-color: #fbbf24;
+}
+.profile-sidebar .calendar .public-holiday {
+    color: #dc2626;
+    font-size: inherit;
+}
+
+.read-more-btn {
+  color: var(--secondary-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.important-notice p, .news-updates li {
+  font-size: inherit;
+  line-height: 1.6;
+}
+
+.important-notice-slot {
+  position: relative;
+}
+
+.important-notice.important-notice-expanded {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.purchased-car-search  label {
+  color: inherit;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 769px) {
+  .card {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 640px) {
+  .car-listings {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .car-listings .image {
+    width: 60%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+
+  .price-info {
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .price-info p {
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .info-title {
+    width: 130px;
+  }
+}

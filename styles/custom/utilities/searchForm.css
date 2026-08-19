@@ -1,0 +1,137 @@
+.search-container-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: stretch;
+  padding: 20px;
+}
+
+.search-container {
+  border: 4px solid var(--primary-color);
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow: hidden; /* Prevent overflow */
+  width: 100%;
+  background: var(--background-color);
+}
+
+.search-container h4 {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 5px;
+  color: var(--text-color);
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns for Make, Model, Type */
+  grid-template-rows: auto auto auto; /* Three rows for input sections and button */
+  gap: 5px; /* Adjust gap as needed */
+  align-items: center;
+}
+
+.year-group {
+  display: flex;
+  margin: 0; /* Remove margin to prevent overflow */
+  max-width: 100%;
+  gap: 5px;
+}
+
+
+.year-group .form-group {
+  flex: 1;
+}
+
+.search-form input, .search-form select {
+  border:solid 2px var(--border-color-dark) !important;
+
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container .form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--text-color) !important;
+}
+
+.form-group select,
+.form-group input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-btn {
+  padding: 10px 20px;
+  background-color: #1485fe;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-self: center; /* Center the button */
+}
+
+.shipping-banner {
+  flex: 0 0 340px;
+  max-width: 360px;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.shipping-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.search-btn:hover {
+  background-color: #1485fe;
+}
+
+/* Style options when hovered */
+.search-form select option:hover {
+  background-color: #7d2020; /* Change to the desired hover color */
+  color: #fff; /* Text color when hovering */
+}
+
+
+
+@media (max-width: 930px) {
+  .year-group .form-group {
+    flex: 1;
+    margin: 0 4px;
+  }
+
+  .search-container-wrapper {
+    flex-direction: column;
+    gap: 0;
+  }
+  .search-container {
+    width: 100%;
+  }
+  .search-container-wrapper .shipping-banner {
+    display: none;
+  }
+
+  .search-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .year-group label {
+    white-space: nowrap;
+  }
+}

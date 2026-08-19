@@ -1,0 +1,168 @@
+/* General Styles */
+.vehicle-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--white);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Left Panel */
+.left-panel {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+  background: var(--white);
+}
+
+.main-image {
+  width: 100%;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out;
+}
+
+.vehicle-info-container .text-center {
+  font-size: 14px;
+  color: var(--grey-text);
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* Thumbnail Grid */
+.thumbnail-grid {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.thumbnail-grid .image-wrapper {
+  display: flex;
+  
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.vehicle-info-container .thumbnail:hover , .vehicle-info-container .image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-color: var(--secondary-color);
+}
+
+/* Right Panel */
+.right-panel {
+  flex: 1.5;
+  padding: 20px;
+  background: var(--background-color);
+}
+
+.right-panel th {
+  background-color: inherit;
+  font-size: 14px;
+  color: inherit;
+}
+
+.vehicle-info-wrapper h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: var(--grey-text);
+}
+
+.price {
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+/* Tables */
+.vehicle-info-container h3 {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: var(--grey-text);
+  border-bottom: 2px solid var(--secondary-color);
+  display: inline-block;
+  padding-bottom: 3px;
+}
+
+.vehicle-info-wrapper .btn {
+  font-size: 17px;
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.img-container {
+  position: relative;
+}
+.img-container p {
+  position: absolute;
+  bottom: 0 ;
+  left: 0;
+  background-color: var(--background-color);
+}
+
+
+.title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info-column {
+  flex: 1;
+  min-width: 200px;
+  padding: 0 1rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center; /* Ensures alignment */
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Fixed width for titles */
+.info-title {
+  font-weight: 600;
+  width: 125px;  /* Keeps titles the same width */
+  font-size: 14px;
+  flex-shrink: 0; /* Prevents shrinking */
+
+}
+
+/* Ensures all values align properly */
+.info-value {
+  flex-grow: 1; /* Makes all values align consistently */
+  font-size: 14px;
+  text-align: left; /* Aligns text properly */
+  white-space: normal; /* Allows wrapping */
+  word-break: break-word; /* Ensures long words wrap instead of overflowing */
+}
+
+@media (max-width: 900px) {
+  .info-column {
+    flex: 1 1 100%; /* Stacks columns on smaller screens */
+    padding: 0.5rem 0; /* Adjusts padding for smaller screens */
+    min-width: 100%;;
+  }
+}

@@ -1,0 +1,47 @@
+import React, { useEffect, useRef } from 'react';
+
+const Chatbot = () => {
+  // Use a ref to make sure we don't accidentally duplicate the widget on re-renders
+  const widgetContainerRef = useRef(null);
+
+  useEffect(() => {
+    // 1. Create the script element
+    const script = document.createElement('script');
+    script.src = "https://aurora-lumen.com/partners/artisbay/widget/widget.js";
+    script.async = true;
+
+    // Optional: If the widget requires custom attributes, set them here
+    // script.setAttribute('data-client-id', 'your-id');
+
+    // 2. Append the script to the document body (or to the widget container itself)
+    document.body.appendChild(script);
+
+    // 3. Cleanup function: Remove the script if the component unmounts
+    return () => {
+      document.body.removeChild(script);
+      
+      // If the widget injects HTML inside your container, 
+      // you may want to clear it out on unmount so it doesn't persist
+      if (widgetContainerRef.current) {
+        widgetContainerRef.current.innerHTML = '';
+      }
+    };
+  }, []); // Empty array ensures this only runs once when the component mounts
+
+  return (
+    <div className="widget-wrapper">
+      {/*<h3>Our Artisbay Widget</h3>*/}
+      
+      {/* Many external widgets look for a specific ID or class to render into.
+        Check the widget's documentation to see if it requires a specific ID 
+        like id="artisbay-widget-container" 
+      */}
+      <div ref={widgetContainerRef} id="artisbay-widget">
+        {/* The widget will inject its UI here once the script loads */}
+        {/*<p>Loading widget...</p>*/}
+      </div>
+    </div>
+  );
+};
+
+export default Chatbot;

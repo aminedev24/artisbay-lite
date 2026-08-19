@@ -1,0 +1,547 @@
+/* Ensure all elements use border-box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100%; /* Ensure the body and HTML element take full height */
+}
+
+/* Slider container adjustments */
+.slider-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;            /* stretch to the available layout width */
+    max-width: 100%;
+    align-items: stretch;    /* keep slider and banner aligned vertically */
+}
+
+.image-slider-section {
+    height: 280px !important;
+    max-height: 280px !important;
+    overflow:hidden;
+}
+
+.slick-slide img {
+    max-height: 280px;
+}
+
+/* The slider area */
+.slider {
+    flex: 1 1 360px;         /* allow the slider to fill remaining space */
+    min-width: 0;            /* allow the slider to shrink inside narrow layouts */
+    overflow: hidden;        /* Prevent overflow */
+    height: 100% !important;
+    max-height: 280px !important;
+}
+
+/* Right image container */
+.right-image {
+    position: relative;
+    text-align: center;      /* Optional: Center the image inside the container */
+    height: 100%;            /* Make it take full height of container */
+    flex: 0 0 292px;         /* keep a consistent column width on desktop */
+    max-width: 315px;
+}
+
+
+
+@media screen and (min-width:1760px) {
+  .right-image {
+    flex: 0 0 292px;
+  }
+}
+
+.right-image img {
+    display: block;
+    height: 100%;            /* Make image fill container height */
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+
+
+
+
+.slick-list img {      /* Ensure the image fills the container width */
+    height: 100% !important;       /* Maintain enforced height */
+    object-fit: cover;  /* Ensure the image covers the container without distortion */
+    display: block;     /* Prevent any inline spacing below the image */
+    border: none;       /* Remove border to avoid extra height */
+    width:100%;
+  }
+
+/* Slider height control */
+.image-slider-section {
+    width: 100%;
+    border: 6px solid var(--primary-color);
+    overflow: hidden;
+}
+
+@media screen and (max-width: 770px) {
+    /* Mobile: let images size naturally to show full content */
+    .image-slider-section {
+      height: auto !important;
+      max-height: none !important;
+    }
+    .slider {
+      height: auto !important;
+      max-height: none !important;
+      border: none;
+    }
+    .image-slider-section .slick-list,
+    .image-slider-section .slick-track,
+    .image-slider-section .slick-slide,
+    .image-slider-section .slick-slide > div {
+      height: auto !important;
+      max-height: 300px !important;
+    }
+    .image-slider-section .slick-slide img:not(.ab-slide-img),
+    .slick-list img:not(.ab-slide-img) {
+      height: auto !important;
+      max-height: none !important;
+      width: 100%;
+      object-fit: contain;
+    }
+}
+.image-slider-section .slick-list,
+.image-slider-section .slick-track,
+.image-slider-section .slick-slide {
+    height: 100% !important;
+    max-height: 280px;
+}
+
+.image-slider-section .slick-slide > div {
+    height: 100% !important;
+    max-height: 280px;
+}
+
+@media screen and (max-width:750px) {
+  .image-slider-section .slick-slide > div {
+    height: auto !important;
+    max-height: none !important;
+  }
+}
+
+.image-slider-section .slick-slide img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;     /* Fill container without distortion */
+}
+  
+
+/* Optional: Adjust position of slider dots */
+.slick-dots {
+}
+
+@media screen and (min-width:1300px) {
+    /* On large screens, ensure images scale well */
+    .slick-slide img {
+        height: 100% !important; /* keep height locked with container */
+        object-fit: cover;
+        width: 100%;
+    }
+}
+
+
+
+.slick-dots {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    bottom: 3px !important;
+
+}
+
+.slick-dots li button:before {
+
+}
+
+ .slick-prev {
+    left: 0 !important;
+ }
+
+ .slick-next {
+    right: 0 !important;
+ }
+.slick-prev, .slick-next {
+    z-index: 5;
+   
+}
+
+.right-image-group .shipping-banner {
+    display: none;
+}
+
+/* ...existing code... */
+
+@media screen and (max-width: 1270px) {
+    .slider {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .right-image {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .register-banner , .shipping-banner {
+      display: none;
+    }
+
+    .right-image img {
+        height: auto;
+        object-fit: cover;
+    }
+
+    .slider img {
+      object-fit: fill;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .right-image {
+        display: none;
+    }
+
+    .slider {
+        width: 100%;
+    }
+}
+
+
+
+/* ...existing code... */
+
+
+/* CSS for the right sidebar container */
+.right-sidebar {
+  width: 300px;
+  background-color: #fff;
+  margin: 20px 5px 0px 0px;
+  display: flex;
+  flex-direction: column; 
+  box-sizing: border-box; /* Include padding in the total dimensions */
+}
+
+/* Make right sidebar elements fill available space */
+.right-sidebar > * {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shipment-banner {
+  margin-top: 20px;
+}
+
+.profile-btn , .contact-btn {
+  position: absolute;
+}
+
+.profile-btn {
+  left: 5%;
+  top: 18%;
+  width: 41%;
+}
+
+.contact-btn {
+  top: 18%;
+  right: 7%;
+  width: 39%;
+}
+/* Optional: Images should adjust dynamically */
+.right-sidebar img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.right-sidebar .account-container {
+  flex-direction: column;
+  padding: 0;
+  background-color: unset;
+  border: unset;
+  box-shadow: unset;
+  margin: 0 5px ;
+}
+.register-banner, .welcome-banner, .shipment-banner {
+  position: relative;
+} 
+
+.register-banner {
+  border: 4px solid var(--primary-color);
+}
+.sign-in-btn, .register-btn , .contact-btn ,.profile-btn , .shipping-btn {
+  background-color: transparent;
+  color: transparent;
+}
+
+.sign-in-btn {
+  position: absolute;
+  top: 83%;
+  width: 100%;
+  left: 0%;
+}
+
+.right-image .register-btn {
+  position: absolute;
+  top: 3%;
+  width: 96%;
+  height: 23%;
+  left: 2%;
+}
+
+.welcome-banner {
+  display: flex;
+  justify-content: center;
+}
+
+.welcome-banner h2 {
+  position: absolute;
+  max-width: 73%;
+  color: #fff;
+  display: -webkit-box;          /* Create a flexible box */
+  -webkit-box-orient: vertical;  /* Define the direction of the box */
+  overflow: hidden;              /* Hide overflowed content */
+  -webkit-line-clamp: 3;         /* Limits the content to 3 lines */
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  font-size: 20px;
+  top: 5%;
+}
+
+
+.shipping-btn {
+  bottom: 11%;
+  position: absolute;
+  left: 25%;
+  height: 13%;
+  width: 49%;
+}
+
+.sign-in-btn {
+    color: #FFf;
+    /* font-weight: bold; */
+    font-family: anton;
+    background-color: var(--accent-color);
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.sign-in-btn:hover {
+  background-color: #1e3a8a;
+}
+
+/* Adding lines with pseudo-elements */
+.sign-in-btn::before,
+.sign-in-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 10px;
+  width: 100px; /* Adjust length of the lines as needed */
+  background-color: #fff; /* Line color */
+}
+
+.sign-in-btn::before {
+  left: 10px; /* Space between line and button */
+}
+
+.sign-in-btn::after {
+  right: 10px; /* Space between line and button */
+}
+
+.sign-in-btn:hover::before,
+.sign-in-btn:hover::after {
+  background-color: #FFf; /* Line color on hover */
+}
+
+@media screen and (max-width: 900px) {
+  .sign-in-btn {
+    font-size: 16px;
+    top:75%;
+  }
+
+  .sign-in-btn::before,.sign-in-btn::after {
+    content: none;
+  }
+
+}
+
+/* ── Artisbay branded slide overlays ───────────────────────── */
+.ab-slide {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  display: block;
+}
+
+.ab-slide-img {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+/* Override the generic mobile img rule that sets height:auto !important (specificity 0-2-1).
+   We need 0-3-0 to win regardless of viewport size. */
+.image-slider-section .slick-slide .ab-slide-img {
+  height: 100% !important;
+  max-height: none !important;
+  object-fit: cover !important;
+}
+
+.ab-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.ab-slide--left .ab-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(10, 18, 40, 0.92) 0%,
+    rgba(10, 18, 40, 0.55) 48%,
+    transparent 78%
+  );
+  justify-content: flex-start;
+}
+
+.ab-slide--right .ab-overlay {
+  background: linear-gradient(
+    to left,
+    rgba(10, 18, 40, 0.92) 0%,
+    rgba(10, 18, 40, 0.55) 48%,
+    transparent 78%
+  );
+  justify-content: flex-end;
+}
+
+.ab-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 4%;
+  max-width: 50%;
+}
+
+.ab-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1892b;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  margin-bottom: 9px;
+}
+
+.ab-flag {
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1;
+}
+
+.ab-headline {
+  color: #fff;
+  font-size: clamp(17px, 2.3vw, 28px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0 0 9px 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.ab-sub {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(10px, 1vw, 13px);
+  margin: 0 0 14px 0;
+  line-height: 1.55;
+  max-width: 260px;
+}
+
+.ab-cta {
+  display: inline-flex;
+  align-items: center;
+  background: #f1892b;
+  color: #fff;
+  font-size: clamp(10px, 1vw, 12px);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.ab-cta:hover {
+  background: #ec971f;
+}
+
+@media screen and (max-width: 640px) {
+  .ab-slide {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .ab-slide--left .ab-overlay,
+  .ab-slide--right .ab-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10, 18, 40, 0.93) 0%,
+      rgba(10, 18, 40, 0.5) 50%,
+      transparent 100%
+    );
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  .ab-text {
+    max-width: 100%;
+    padding: 0 5% 12px;
+    width: 100%;
+  }
+
+  .ab-sub {
+    display: none;
+  }
+
+  .ab-headline {
+    font-size: 17px;
+    margin-bottom: 5px;
+  }
+
+  .ab-tag {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+  }
+
+  .ab-cta {
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+}

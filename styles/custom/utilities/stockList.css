@@ -1,0 +1,82 @@
+/* Stocklist container */
+.stocklist {
+  padding: 20px;
+  flex: 1;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.stock-room .text-3xl {
+  text-align: inherit;
+}
+/* New Arrivals Container */
+.new-arrivals-container {
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding around the container */
+  margin: 20px 0; /* Margin above and below the container */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Buttons Row and Countries Row */
+.buttons-row,
+.countries-row {
+  display: flex; /* Use flexbox for horizontal alignment */
+  justify-content: space-around; /* Space items evenly */
+  margin-bottom: 10px; /* Margin below the row */
+}
+
+.buttons-row {
+  width: 100%; /* Full width */
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: nowrap;
+}
+
+.countries-row {
+  width: 60%; /* Decrease width for the countries row */
+  justify-content: center; /* Center align the buttons */
+  margin: 0 auto; /* Center the row within the parent */
+}
+
+/* Button Styles — scoped to the stock page so they never leak to the rest of the site */
+.stock-room button {
+  background-color: #fff; /* Button background color */
+  color: #304c9a; /* Button text color */
+  border: solid 1px; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 5px 10px; /* Padding inside the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  text-transform: uppercase;
+  
+}
+
+.stock-room .countries-row button {
+  padding: 0 20px;
+}
+
+.stock-room .buttons-row button {
+  font-weight: bold;
+  flex: 1 0 120px;
+  display: flex;
+  align-items: center;
+  padding:9px 5px ;
+  justify-content: center;
+  gap: 9px;
+}
+
+.stock-room button:hover {
+  background-color: #f1892b; /* Darker shade on hover */
+  color: #fff;
+}
+
+.country-btn {
+  margin: 5px; /* Space between country buttons */
+}
+
+
+.car-card {
+  width: 85%;
+}
+

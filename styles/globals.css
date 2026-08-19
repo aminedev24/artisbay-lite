@@ -1,0 +1,173 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'DM Sans', sans-serif;
+  background: #f3f4f6;
+}
+
+/* Hide the chat widget on admin pages */
+body[data-hide-widget] #aurora-widget-root {
+  display: none !important;
+}
+
+.font-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.font-serif-display {
+  font-family: 'DM Serif Display', serif;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 0.5rem;
+  padding-right: 1.5rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float-bob 3s ease-in-out infinite;
+}
+
+@keyframes pulse-custom {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.animate-pulse-custom {
+  animation: pulse-custom 1.8s infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 0.25rem;
+}
+
+@keyframes loader-bar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.loader-bar {
+  animation: loader-bar 1.5s ease-in-out infinite;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  /*margin: 0;*/
+}
+#root , #__next{
+    display: flex;
+    flex-direction: column;
+    min-height:100dvh;
+   /* background-color: var(--background-color);*/
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-hover {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 6px 32px rgba(30, 64, 175, 0.12);
+  transform: translateY(-3px);
+}
+
+/* theme.css */
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #1da1f2;
+    --accent-color: #f1892b;
+    --accent-color-hover: #ec971f;
+    --text-color: #333;
+    --background-color: #f3f3f3;
+    --white: #fefefe;
+    --grey-text:#666;
+    /* Button colors */
+    --edit-btn-color: #1da1f2;
+    --save-btn-color: #4CAF50;
+    --save-btn-background: #d4edda;
+    --save-btn-border: #c3e6cb;
+    --cancel-btn-color: #f44336;
+    --cancel-btn-border: #f5c6cb;
+    --cancel-btn-background: #f8d7da;
+    --secondary-color-hover: #1991db;
+    --primary-color-hover: #0056b3;
+    --border-color-dark: #000;
+    --border-color: #ddd;
+
+    /* Sidebar specific */
+    --sidebar-width: 250px;
+}
+
+/* Dark theme — darker and muted */
+.dark {
+    --primary-color: #0f172a; /* Very dark blue */
+    --secondary-color: #1e293b; /* Darker steel blue */
+    --accent-color: #f59e0b; /* Muted gold */
+    --accent-color-hover: #d97706; /* Slightly darker gold on hover */
+    --text-color: #d1d5db; /* Soft light gray text */
+    --background-color: #0a0f1a; /* Almost black */
+    --white: #111827; /* Dark navy for "white" areas */
+
+    /* Buttons */
+    --edit-btn-color: #2563eb; /* Muted blue */
+    --save-btn-color: #15803d; /* Darker green */
+    --save-btn-background: #14532d; /* Very dark green */
+    --save-btn-border: #166534; /* Dark green border */
+    --cancel-btn-color: #dc2626; /* Dark red */
+    --cancel-btn-border: #b91c1c;
+    --cancel-btn-background: #7f1d1d;
+
+    --secondary-color-hover: #334155; /* Even darker blue-gray */
+    --primary-color-hover: #1d4ed8; /* Stronger dark blue */
+
+    --border-color-dark: #4b5563; /* Grayish borders */
+    --border-color: #374151;
+
+    --sidebar-width: 250px;
+}

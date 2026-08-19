@@ -1,0 +1,107 @@
+/* topbar.css */
+.top-bar-wrapper {
+  background-color: #1da1f2;
+}
+
+.stock {
+  visibility: hidden;
+}
+.top-bar {
+    padding: 3px 10px;  /* Reduced padding */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+
+}
+
+.app-info .app-name {
+    font-weight: bold;
+    color: #fff;
+    margin-right: 15px;  /* Reduced space */
+}
+
+.extra-info {
+    display: flex;
+    align-items: center;  /* Align items vertically centered */
+    gap: 10px;  /* Reduced gap */
+}
+
+.extra-info .time,
+.extra-info .exchange-rate {
+    color: #fff;
+}
+
+.extra-info select {
+    margin-left: 8px; /* Reduced space */
+    padding: 3px; /* Reduced padding */
+    border-radius: 4px; /* Rounded corners for select boxes */
+    border: 1px solid #ccc; /* Border style */
+}
+
+.app-info span {
+    margin: 0 10px; /* Reduced margin significantly from 20px */
+}
+
+.exchange-rate input {
+  width: 20%;
+  font-size: inherit;
+  color: #000;
+}
+
+.exchange-rate button {
+  background-color: var(--primary-color);
+}
+
+/* Updated mobile styles for topbar.css */
+@media (max-width: 992px) {
+  .top-bar {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+
+  }
+
+  .app-info {
+    display: none;
+  }
+
+  .extra-info {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: auto;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 25px;
+  }
+
+  .stock {
+    display: none;
+  }
+
+  .exchange-rate input.rate-edit-input {
+    width: 60px;
+  }
+
+  .extra-info .time,
+  .extra-info .exchange-rate {
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
+/* Further adjustments for very small screens if needed */
+@media (max-width: 480px) {
+    .top-bar {
+
+        gap: 5px;
+        padding: 3px;
+    }
+    .exchange-rate input.rate-edit-input {
+        width: 50px;
+    }
+}

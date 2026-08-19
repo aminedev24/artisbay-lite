@@ -1,0 +1,94 @@
+/* Send Email Verification Component */
+.send-email-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .send-email-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .send-email-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .send-email-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .send-email-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .send-email-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .send-email-message {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .send-email-success {
+    color: green;
+  }
+  
+  .send-email-error {
+    color: red;
+  }
+  
+  /* Verify Email Component */
+  .verify-email-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .verify-email-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .verify-email-message {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .verify-email-success {
+    color: green;
+  }
+  
+  .verify-email-error {
+    color: red;
+  }
+  

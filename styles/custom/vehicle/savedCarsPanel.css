@@ -1,0 +1,167 @@
+/* Container */
+.saved-cars-container {
+    /*width: 600px;*/
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 20px 0;
+    border: solid 1px #ccc;
+    flex:1;
+  }
+
+  .saved-cars-panel {
+    position: relative;
+    height: 100%;
+  }
+  
+  /* Tabs */
+  .tabs-container {
+    width: 97%;
+    overflow-x: auto;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 0;
+    
+  }
+  
+  .saved-cars-tabs {
+    display: flex;
+    overflow-x: scroll;
+    gap: 8px;
+    scrollbar-color: #e67e22 transparent; /* Custom scrollbar */
+  }
+  
+  /* Tab Buttons */
+  .tab-button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+    flex-shrink: 0; /* Prevent stretching */
+    font-size: 14px;
+  }
+  
+  .tab-button.active {
+    background-color: #e67e22;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Scrollbar for Webkit Browsers */
+  .saved-cars-tabs::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .saved-cars-tabs::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
+  
+  .saved-cars-tabs::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Car Details */
+  .table-car-details {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 50px;
+    flex-shrink: 0;
+  }
+  
+  .selected-car h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Collapsible Table Button */
+  .collapse-button, .edit-button , .submit-button{
+    display: block;
+    padding: 6px 10px;
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .collapse-button:hover , .edit-button:hover, .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table */
+  .table-container {
+    overflow-x: auto;
+    
+  }
+  
+  .saved-cars-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top:0;
+  }
+  
+  .saved-cars-table th,
+  .saved-cars-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  
+  .saved-cars-table td {
+    background-color: #fff;
+    width: 67%;
+  }
+
+  .cut-selection-table td {
+    width: 75%;
+  }
+  
+  /* Summary Section */
+  .summary-section {
+    margin-top: 16px;
+    padding: 12px;
+
+  }
+
+  .selected-car {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .summary-section table {
+    min-width: 40%;
+  }
+
+  .summary-section table td {
+    width: 50%;
+  }
+
+  .summary-section td, .summary-section th {
+    text-align: center;
+  }
+
+  .remove-car-button {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    margin-left: 8px;
+    border-radius: 4px;
+  }
+
+  /* Style for unchecked items */
+.unchecked-item {
+    opacity: 0.5; /* Makes the row appear dimmed */
+    text-decoration: line-through; /* Optional: Adds a strikethrough to unchecked items */
+  }
+  

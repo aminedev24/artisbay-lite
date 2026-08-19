@@ -1,0 +1,234 @@
+/* Container for the account creation section */
+
+.register-wrapper {
+    margin: 30px;
+}
+.account-container {
+    background-color: #ffffff; /* Changed to white for better contrast */
+    padding: 40px 20px; /* Increased padding for a more spacious feel */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+    width: 100%; /* Full width */
+    margin: 0 auto; /* Center the container */
+    max-width: 600px; /* Limiting the maximum width */
+    transition: transform 0.3s ease;
+}
+
+/* Header for the Create Account section */
+.account-container .header , .login-container .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e3a8a; /* Darker blue for better readability */
+    font-weight: bold;
+    margin-bottom: 20px; /* Space below header */
+}
+
+/* Header text styling */
+.header h2 {
+    margin: 0; /* Remove default margin */
+}
+
+/* Subtitle */
+.header-subtitle {
+    color: #555; /* Darker gray for better readability */
+    margin-bottom: 20px; /* Increased margin for spacing */
+    font-size: 16px; /* Slightly larger subtitle */
+}
+
+/* Input Group Styling */
+.input-group {
+    position: relative;
+    margin-bottom: 30px; /* Space between input groups */
+}
+
+/* Input Styling */
+.input-group input, .input-group select {
+    width: 100%; /* Full width for inputs */
+    padding: 12px 15px; /* Increased padding for comfort */
+    border: 2px solid #e0e0e0; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    background: #f7f9fc; /* Light background */
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Input Focus Effect */
+.input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+    outline: none;
+    border-color: #1da1f2; /* Change border color on focus */
+    box-shadow: 0 0 8px rgba(29, 161, 242, 0.5); /* Subtle shadow effect */
+}
+
+/* Floating Label */
+.input-group label {
+    position: absolute;
+    left: 10px;
+    top:-10px;
+    transform: translateY(-50%);
+    background: #f7f9fc;
+    padding: 0 5px;
+    transition: 0.3s ease;
+    font-weight: bold;
+}
+
+.password {
+    margin-bottom: -10px;
+}
+
+/* Label Animation */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group select:focus + label,
+.input-group select:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+
+}
+#country::placeholder {
+    color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+}
+/* Button Styling */
+.signup-form button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    background: #1da1f2; /* Button color */
+    color: white; /* Text color */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease; /* Added transform for hover */
+}
+
+/* Button Hover Effect */
+.signup-form button:hover {
+    background: linear-gradient(90deg, #1e3a8a, #1da1f2); /* Gradient on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Phone Number Group Styling */
+.phone-number-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.register-container .phone-number-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    background: #f7f9fc;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.phone-number-group .phone-code {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.invoice-wrapper .phone-number-group .phone-code {
+    top: unset;
+}
+
+.phone-number-group input.shrink {
+    padding-left: calc(15px + 50px); /* Adjust based on phone code width */
+}
+
+
+
+/* Label Animation for Phone Input */
+.phone-number-group input:focus + label,
+.phone-number-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+}
+
+/* Message Styling */
+.message {
+    margin-bottom: 20px; /* Space below the message */
+    font-weight: bold; /* Bold text color: #1da1f2; /* Color for messages */
+}
+
+/* Error Message Styling */
+.error {
+    color: red; /* Error message color */
+}
+
+/* Success Message Styling */
+.success {
+    color: green; /* Success message color */
+}
+
+/* Checkbox Group Styling */
+.checkbox-group {
+    display: flex; /* Flex layout for checkbox */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below checkbox group */
+    justify-content: center;
+}
+
+/* Terms Highlight Styling */
+.terms-highlight {
+    color: #1da1f2; /* Highlight color for terms */
+    text-decoration: underline; /* Underline for emphasis */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Logo Styling */
+.logo-form {
+    width: 100px; /* Adjust the size as needed */
+    margin: 0 auto;
+    display: block;
+}
+
+.person-icon {
+    color: #e67e22;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Password Criteria List */
+.password-criteria {
+    margin: 10px;
+    font-size: 14px;
+    color: #555; /* Default color for criteria text */
+}
+
+.confirm-password{
+    margin-top: 20px;
+}
+.password-criteria ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+}
+
+.password-criteria li {
+    margin: 5px 0; /* Space between criteria */
+    font-size: inherit;
+}
+
+/* Color for met criteria */
+.password-criteria li.green {
+    color: green; /* Color for met criteria */
+}
+
+/* Color for unmet criteria */
+.password-criteria li.red {
+    color: red; /* Color for unmet criteria */
+}
+
+@media screen and (max-width:900px) {
+    .register-wrapper {
+        margin: 0;
+    }
+}
