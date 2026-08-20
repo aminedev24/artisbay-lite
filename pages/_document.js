@@ -28,13 +28,6 @@ export default function Document() {
 
       </Head>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: `
-          window.addEventListener('error', function(e) {
-            if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
-              location.replace('/maintenance.html');
-            }
-          }, true);
-        `}} />
         <Main />
         <NextScript />
         <script
