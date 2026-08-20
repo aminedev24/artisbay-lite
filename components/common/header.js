@@ -189,7 +189,7 @@ const Header = () => {
 
             {/* Mobile Search Input */}
             {isMobileViewport && (
-              <div className="header-search mobile-only relative flex items-center gap-2 rounded-2xl px-4 py-2 text-sm flex-1">
+              <div className="header-search mobile-only relative flex items-center gap-2 px-4 py-2 text-sm flex-1">
                 <input
                   type="text"
                   placeholder="Search by keyword..."
@@ -203,7 +203,7 @@ const Header = () => {
             )}
 
             <div className="header-main-row desktop-only">
-              <div className="header-search relative flex items-center gap-2 rounded-2xl px-4 py-2 text-sm">
+              <div className="header-search relative flex items-center gap-2 px-4 py-2 text-sm">
                 <input
                   type="text"
                   placeholder="Search by keyword..."

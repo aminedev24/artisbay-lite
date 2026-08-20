@@ -51,15 +51,6 @@ const MediaSlider = () => {
       imgPosition: 'center bottom',
     },
     {
-      src: `/images/overview.jpg`,
-      link: '/register',
-      side: 'left',
-      tag: 'Join Meridian Motors',
-      headline: ['Investing in', 'Each Other'],
-      sub: 'No membership fees. No hidden costs. Grow your business with a trusted partner.',
-      cta: 'Register Free',
-    },
-    {
       src: `/images/localServices/namibia-port-banner.png`,
       link: '/local-services/Namibia/Walvisbay/',
       side: 'left',

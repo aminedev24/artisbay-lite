@@ -7,7 +7,6 @@ import Link from "next/link";
 import CarList from "../dataFetch/fetchStock";
 import Button from "../common/Button";
 import Section from "../common/Section";
-import helpLinks from "../common/helpLinks";
 
 function ThumbnailCarousel({ cards }) {
   const wrapperRef = useRef(null);
@@ -227,24 +226,6 @@ function HomePage() {
         
         
         <CarList />
-       
-       <div className="usefulLinks_wrapper">
-          <h2 className="usefulLinks-heading">Useful Links</h2>
-
-          <div className="usefulLinks_container">
-            <div className="links">
-              <ul className="useful-links-list">
-                {helpLinks.map((link) => (
-                  <li key={link.path}>
-                    <Link href={link.path}>{link.text}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        
 
         {/* Feedback CTA */}
         <Section tone="navy" className="mx-auto text-center">
