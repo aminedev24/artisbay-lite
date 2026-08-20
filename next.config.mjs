@@ -1,10 +1,16 @@
+// GitHub Pages serves this repo at /artisbay-lite/ (no custom domain), so the
+// Pages workflow sets GITHUB_PAGES=true to build with that subpath. The
+// HostGator workflow (deploy-artisbay.yml) never sets this, so it keeps
+// building as if at root, unaffected — .htaccess serves that from /artisbay/.
+const isGithubPages = process.env.GITHUB_PAGES === 'true';
+const basePath = isGithubPages ? '/artisbay-lite' : '';
+
 const nextConfig = {
   output: 'export',
   productionBrowserSourceMaps: false,
 
-  // build as if at root – .htaccess will serve from /artisbay/
-  basePath: '',
-  assetPrefix: '/',
+  basePath,
+  assetPrefix: isGithubPages ? `${basePath}/` : '/',
 
   images: { unoptimized: true },
   trailingSlash: true,
@@ -12,7 +18,7 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
 
   publicRuntimeConfig: {
-    basePath: '',
+    basePath,
   },
 };
 
