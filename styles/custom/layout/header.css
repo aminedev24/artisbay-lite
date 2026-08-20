@@ -3,7 +3,8 @@
 /* General Styles */
 .header-wrapper {
   width: 100%;
-  background-color: var(--primary-color);
+  background-color: #ffffff;
+  border-bottom: 3px solid var(--accent-color);
 }
 
 .header-container {
@@ -13,9 +14,9 @@
 }
 
 .main-header {
-  background-color: var(--primary-color);
+  background-color: #ffffff;
   padding: 8px 20px; /* Reduced from 10px 30px */
-  color: white;
+  color: var(--primary-color);
 }
 
 .header-item a {
@@ -48,7 +49,7 @@
 
 .app-name {
   font-weight: bold;
-  color: white;
+  color: var(--primary-color);
 
   margin: 0 30px; /* Reduced from 55px */
 }
@@ -61,20 +62,19 @@
   max-width: 600px; /* Reduced from 720px */
   margin: 0 auto;
   padding: 6px 20px; /* Reduced from 10px 24px */
-  border-radius: 24px;
-  border: 1px solid rgba(15, 76, 92, 0.35);
-  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: #fafafa;
   color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(15, 76, 92, 0.15); /* Subtler shadow */
 }
 
 .header-search input {
   width: 100%;
   padding: 4px 38px 4px 8px; /* Reduced padding */
   border: none;
-  border-radius: 16px;
+  border-radius: 0;
   background: transparent;
-  color: var(--accent-color);
+  color: var(--primary-color);
  /* Slightly smaller */
 }
 
@@ -171,14 +171,14 @@
 }
 
 .signin-disabled-link {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(15, 76, 92, 0.6);
   text-decoration: line-through;
   cursor: not-allowed;
 }
 
 .maintenance-help-link {
   font-size: 0.7rem;
-  color: #f8fafc;
+  color: var(--primary-color);
   text-decoration: underline;
   opacity: 0.9;
 }
@@ -299,9 +299,9 @@
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
 }
 
 .aurora-link {

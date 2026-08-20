@@ -92,30 +92,30 @@ const MediaSlider = () => {
           {mediaItems.map((item, index) => (
             <div key={index}>
               <Link href={item.link}>
-                <div className={`ab-slide ab-slide--${item.side}`}>
-                  <img
-                    src={withBasePath(item.src)}
-                    alt={item.tag}
-                    className="ab-slide-img"
-                    style={{
-                      objectPosition: item.imgPosition || 'center',
-                      ...(item.imgScale ? { transform: `scale(${item.imgScale})`, transformOrigin: 'center center' } : {}),
-                    }}
-                  />
-                  <div className="ab-overlay">
-                    <div className="ab-text">
-                      <span className="ab-tag">
-                        {item.flag && <span className="ab-flag">{item.flag}</span>}
-                        {item.tag}
-                      </span>
-                      <h2 className="ab-headline">
-                        {item.headline.map((line, i) => (
-                          <span key={i}>{line}{i < item.headline.length - 1 && <br />}</span>
-                        ))}
-                      </h2>
-                      <p className="ab-sub">{item.sub}</p>
-                      <span className="ab-cta">{item.cta} &rarr;</span>
-                    </div>
+                <div className="ab-slide">
+                  <div className="ab-panel-text">
+                    <span className="ab-tag">
+                      {item.flag && <span className="ab-flag">{item.flag}</span>}
+                      {item.tag}
+                    </span>
+                    <h2 className="ab-headline">
+                      {item.headline.map((line, i) => (
+                        <span key={i}>{line}{i < item.headline.length - 1 && <br />}</span>
+                      ))}
+                    </h2>
+                    <p className="ab-sub">{item.sub}</p>
+                    <span className="ab-cta">{item.cta} &rarr;</span>
+                  </div>
+                  <div className="ab-panel-image">
+                    <img
+                      src={withBasePath(item.src)}
+                      alt={item.tag}
+                      className="ab-slide-img"
+                      style={{
+                        objectPosition: item.imgPosition || 'center',
+                        ...(item.imgScale ? { transform: `scale(${item.imgScale})`, transformOrigin: 'center center' } : {}),
+                      }}
+                    />
                   </div>
                 </div>
               </Link>

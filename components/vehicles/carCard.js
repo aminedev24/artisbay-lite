@@ -5,7 +5,7 @@
 // thumbnail, tiny uppercase text, single-row spec line and one action button.
 import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGaugeHigh, faCalendarAlt, faGasPump, faTachometerAlt, faHeart, faImages } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faImages } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { useUser } from '../user/userContext';
 import { useFavorites, toggleFavorite } from './useFavorites';
@@ -134,7 +134,7 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
   };
 
   return (
-    <div className="card-hover flex h-full flex-col bg-[var(--white)] rounded-xl border border-[var(--border-color)] shadow-sm transition-all duration-300 overflow-hidden">
+    <div className="group flex h-full flex-col bg-[var(--white)] border border-[var(--border-color)] transition-colors duration-300 overflow-hidden hover:border-[var(--primary-color)]">
 
       {/* Image Section */}
       <div className="relative h-32 overflow-hidden cursor-pointer" onClick={() => onViewDetails && onViewDetails(car)}>
@@ -155,7 +155,7 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
           aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
           title={isFavorite ? "Remove from favorites" : "Add to favorites"}
           onClick={handleFavoriteClick}
-          className={`absolute top-0 right-0 z-20 flex h-7 w-7 items-center justify-center rounded-bl-lg border-b border-l border-[var(--border-color)] bg-white/95 transition ${
+          className={`absolute top-0 right-0 z-20 flex h-7 w-7 items-center justify-center border-b border-l border-[var(--border-color)] bg-white/95 transition ${
             isFavorite ? "text-red-500" : "text-[var(--grey-text)] hover:text-[var(--primary-color)]"
           }`}
         >
@@ -185,37 +185,40 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
       </div>
 
       {/* Details Section */}
-      <div className="p-2 flex flex-col flex-1">
-        <h3 className="text-[11px] font-extrabold text-[var(--text-color)] uppercase truncate leading-tight cursor-pointer" onClick={() => onViewDetails && onViewDetails(car)}>
+      <div className="p-3 flex flex-col flex-1">
+        <h3 className="font-display text-[12px] font-bold text-[var(--text-color)] uppercase truncate leading-tight cursor-pointer" onClick={() => onViewDetails && onViewDetails(car)}>
           {make} {model}
         </h3>
         {isSold || isReserved ? (
-          <div className="mt-0.5 text-[13px] font-extrabold italic text-[var(--grey-text)]">Price on request</div>
+          <div className="mt-1 font-display text-[15px] font-bold italic text-[var(--grey-text)]">Price on request</div>
         ) : (
-          <div className="mt-0.5 text-[15px] font-extrabold text-[var(--accent-color)]">
-            {price} {priceAmount > 0 && <small className="text-[9px] text-gray-500 font-normal">FOB</small>}
+          <div className="mt-1 font-display text-[18px] font-bold text-[var(--accent-color)]">
+            {price} {priceAmount > 0 && <small className="text-[9px] text-gray-500 font-normal not-italic">FOB</small>}
           </div>
         )}
-        <div className="mt-1.5 flex justify-between text-[9px] text-[var(--grey-text)] uppercase font-bold border-t border-[var(--border-color)] pt-1.5">
-          <span className="flex items-center gap-0.5"><FontAwesomeIcon icon={faGaugeHigh} className="w-2.5 h-2.5 text-[var(--accent-color)]" />{cc}</span>
-          <span className="flex items-center gap-0.5"><FontAwesomeIcon icon={faTachometerAlt} className="w-2.5 h-2.5 text-[var(--accent-color)]" />{mileage}km</span>
-          <span className="flex items-center gap-0.5"><FontAwesomeIcon icon={faGasPump} className="w-2.5 h-2.5 text-[var(--accent-color)]" />{fuel}</span>
-          <span className="flex items-center gap-0.5"><FontAwesomeIcon icon={faCalendarAlt} className="w-2.5 h-2.5 text-[var(--accent-color)]" />{transmission}</span>
+        <div className="mt-2 flex flex-wrap gap-x-2 text-[9px] text-[var(--grey-text)] uppercase tracking-wide border-t border-[var(--border-color)] pt-2">
+          <span>{cc}</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>{mileage}km</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>{fuel}</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>{transmission}</span>
         </div>
         <span className="mt-1 text-[9px] text-gray-400">{car.ref_no || car.stock_no || ""}</span>
 
         <button
           type="button"
           onClick={() => onViewDetails(car)}
-          className="mt-2 border border-[var(--primary-color)] bg-white text-[var(--primary-color)] py-1.5 text-[10px] font-extrabold uppercase tracking-wider rounded hover:bg-[var(--primary-color)] hover:text-white transition"
+          className="mt-3 text-left text-[10px] font-bold uppercase tracking-wider text-[var(--primary-color)] border-b border-transparent group-hover:border-[var(--primary-color)] transition w-fit"
         >
-          View Details
+          View Details &rarr;
         </button>
         {typeof onRequestInvoice === "function" && (
           <button
             type="button"
             onClick={() => onRequestInvoice(car)}
-            className="mt-1 border border-[var(--primary-color)] bg-[var(--primary-color)] text-white py-1.5 text-[10px] font-extrabold uppercase tracking-wider rounded hover:bg-[var(--primary-color-hover)] transition"
+            className="mt-2 bg-[var(--primary-color)] text-white py-1.5 text-[10px] font-bold uppercase tracking-wider hover:bg-[var(--primary-color-hover)] transition"
           >
             Request Invoice
           </button>

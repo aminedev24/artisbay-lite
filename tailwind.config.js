@@ -22,7 +22,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-dm-sans)', '"DM Sans"', 'sans-serif'],
+        sans: ['var(--font-inter)', '"Inter"', 'sans-serif'],
+        display: ['var(--font-display)', '"Space Grotesk"', 'sans-serif'],
       },
     },
   },

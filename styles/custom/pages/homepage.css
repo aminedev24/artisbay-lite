@@ -246,19 +246,17 @@ option {
     justify-content: center;
     padding: 14px 10px;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-bottom: 2px solid transparent;
     background-color: var(--white);
     color: var(--text-color);
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    transition: border-color 0.2s ease;
 }
 
 .type-container .grid-item:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 10px 24px rgba(15, 76, 92, 0.15);
-    transform: translateY(-4px);
+    border-color: var(--border-color);
+    border-bottom-color: var(--accent-color);
 }
 
 .type-container .grid-item img {
@@ -295,23 +293,21 @@ option {
 .brand {
     background-color: var(--white);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-bottom: 2px solid transparent;
     text-align: center;
     padding: 14px 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     cursor: pointer;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    transition: border-color 0.2s ease;
 }
 
 .brand:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 10px 24px rgba(15, 76, 92, 0.15);
-    transform: translateY(-4px);
+    border-color: var(--border-color);
+    border-bottom-color: var(--accent-color);
 }
 
 .brand img {

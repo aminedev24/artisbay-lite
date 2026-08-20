@@ -386,12 +386,28 @@ html, body {
 
 /* ── Artisbay branded slide overlays ───────────────────────── */
 .ab-slide {
-  position: relative;
+  display: flex;
+  align-items: stretch;
   width: 100%;
   height: min(58vh, 520px);
   min-height: 340px;
   overflow: hidden;
-  display: block;
+}
+
+.ab-panel-text {
+  flex: 0 0 44%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--primary-color);
+  padding: 5% 4%;
+}
+
+.ab-panel-image {
+  position: relative;
+  flex: 1 1 56%;
+  overflow: hidden;
 }
 
 .ab-slide-img {
@@ -412,42 +428,6 @@ html, body {
   object-fit: cover !important;
 }
 
-.ab-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  z-index: 2;
-}
-
-.ab-slide--left .ab-overlay {
-  background: linear-gradient(
-    to right,
-    rgba(10, 18, 40, 0.92) 0%,
-    rgba(10, 18, 40, 0.55) 48%,
-    transparent 78%
-  );
-  justify-content: flex-start;
-}
-
-.ab-slide--right .ab-overlay {
-  background: linear-gradient(
-    to left,
-    rgba(10, 18, 40, 0.92) 0%,
-    rgba(10, 18, 40, 0.55) 48%,
-    transparent 78%
-  );
-  justify-content: flex-end;
-}
-
-.ab-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 5%;
-  max-width: 56%;
-}
-
 .ab-tag {
   display: inline-flex;
   align-items: center;
@@ -459,8 +439,8 @@ html, body {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   padding: 4px 14px;
-  border-radius: 999px;
-  margin-bottom: 14px;
+  border-radius: 2px;
+  margin-bottom: 16px;
 }
 
 .ab-flag {
@@ -472,68 +452,59 @@ html, body {
 
 .ab-headline {
   color: #fff;
-  font-size: clamp(16px, 2.4vw, 28px);
-  font-weight: 900;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin: 0 0 10px 0;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+  font-size: clamp(22px, 2.8vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 12px 0;
 }
 
 .ab-sub {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: clamp(11px, 1vw, 14px);
-  margin: 0 0 16px 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: clamp(12px, 1vw, 15px);
+  margin: 0 0 20px 0;
   line-height: 1.55;
-  max-width: 300px;
+  max-width: 340px;
 }
 
 .ab-cta {
   display: inline-flex;
   align-items: center;
-  background: var(--accent-color);
+  background: transparent;
   color: #fff;
-  font-size: clamp(10px, 1vw, 12px);
-  font-weight: 800;
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 8px 18px;
-  border-radius: 999px;
+  padding: 8px 0;
   border: none;
+  border-bottom: 2px solid var(--accent-color);
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: gap 0.2s ease, color 0.2s ease;
   text-decoration: none;
+  gap: 6px;
 }
 
 .ab-cta:hover {
-  background: var(--accent-color-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  color: var(--accent-color);
+  gap: 12px;
 }
 
 @media screen and (max-width: 640px) {
   .ab-slide {
+    flex-direction: column;
     height: auto;
+  }
+
+  .ab-panel-image {
+    flex: none;
+    width: 100%;
     aspect-ratio: 16 / 9;
   }
 
-  .ab-slide--left .ab-overlay,
-  .ab-slide--right .ab-overlay {
-    background: linear-gradient(
-      to top,
-      rgba(10, 18, 40, 0.93) 0%,
-      rgba(10, 18, 40, 0.5) 50%,
-      transparent 100%
-    );
-    justify-content: flex-start;
-    align-items: flex-end;
-  }
-
-  .ab-text {
-    max-width: 100%;
-    padding: 0 6% 20px;
+  .ab-panel-text {
+    flex: none;
     width: 100%;
+    padding: 24px 6%;
   }
 
   .ab-sub {
@@ -541,18 +512,17 @@ html, body {
   }
 
   .ab-headline {
-    font-size: 17px;
-    margin-bottom: 5px;
+    font-size: 19px;
+    margin-bottom: 8px;
   }
 
   .ab-tag {
     font-size: 10px;
     letter-spacing: 2px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
 
   .ab-cta {
     font-size: 12px;
-    padding: 6px 14px;
   }
 }

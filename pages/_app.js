@@ -48,7 +48,7 @@ import "../styles/custom/components/emailConfirmation.css"; // Import CSS file
 import '../styles/custom/pages/feedback.css';
 import '../styles/custom/utilities/scrollToTop.css';
 import Head from 'next/head';
-import { DM_Sans } from 'next/font/google';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import { ThemeProvider } from '../components/utilities/toggletheme';
 import { UserProvider } from '../components/user/userContext';
 import Header from '../components/common/header';
@@ -56,7 +56,8 @@ import Footer from '../components/common/footer';
 import WidgetDock from '../components/utilities/widgetDock';
 //import Chatbot from '../components/utilities/chatbot';
 
-const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--font-display' });
 
 export default function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout ?? ((page) => (
@@ -70,7 +71,7 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider>
-      <div className={`${dmSans.variable} contents`}>
+      <div className={`${inter.variable} ${spaceGrotesk.variable} contents`}>
       <Head>
         <title>Meridian Motors Inc. | Japanese Used Cars, Tires & Auto Parts Exporter</title>
         <meta
