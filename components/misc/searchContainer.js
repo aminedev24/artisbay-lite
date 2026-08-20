@@ -35,7 +35,7 @@ const SearchForm = () => {
         <h4>Search vehicles</h4>
         <form className="search-form" onSubmit={handleSubmit}>
           <VehicleSelector formData={formData} setFormData={setFormData} />
-          <div className="form-group">
+          <div className="search-submit-row">
             <button type="submit" className="search-btn">
               Search
             </button>

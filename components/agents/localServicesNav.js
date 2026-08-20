@@ -39,7 +39,7 @@ const LocalServicesNav = ({ scrollToSection }) => {
         />
       </button>
       <Link
-        href="/help/artisbayInc/auction"
+        href="/help/auction"
         className="shrink-0 transition-transform hover:scale-105 focus-visible:scale-105 focus-visible:outline-none"
         aria-label="Auction help"
       >

@@ -1,13 +1,13 @@
 // stockSidebarV2.js
 // Left "Shop by" filter sidebar — adapted from Ichinomiya's Sidebar, reduced to
-// Make / Body / Price panels and rebranded to Artisbay Lite. Counts are computed from
+// Make / Body / Price panels and rebranded to Meridian Motors. Counts are computed from
 // the live stock (passed in), not from a static stock.json. Clicking an active
 // row toggles it off.
 import React from "react";
 
 const Panel = ({ title, count, children }) => (
   <div className="mb-3 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-    <div className="flex items-center gap-2 bg-[#1e3a8a] px-3.5 py-2 text-[11px] font-bold uppercase tracking-wider text-white">
+    <div className="flex items-center gap-2 border-b border-gray-200 bg-white px-3.5 py-2 text-[11px] font-bold uppercase tracking-wider text-brand-navy">
       {title}
       {count != null && <span className="ml-auto text-[10px] opacity-70">{count}</span>}
     </div>
@@ -21,8 +21,8 @@ const Row = ({ active, onClick, children }) => (
     onClick={onClick}
     className={`flex w-full items-center justify-between border-b border-gray-100 px-3.5 py-1.5 text-xs transition last:border-b-0 ${
       active
-        ? "bg-[#1e3a8a]/10 font-semibold text-[#1e3a8a]"
-        : "text-gray-600 hover:bg-blue-50 hover:text-[#1e3a8a]"
+        ? "bg-brand-navy/10 font-semibold text-brand-navy"
+        : "text-gray-600 hover:bg-brand-navy/5 hover:text-brand-navy"
     }`}
   >
     {children}

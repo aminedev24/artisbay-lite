@@ -6,8 +6,13 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-inter), 'Inter', sans-serif;
   background: #f3f4f6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), 'Space Grotesk', sans-serif;
+  letter-spacing: -0.01em;
 }
 
 /* Hide the chat widget on admin pages */
@@ -113,16 +118,17 @@ a {
 }
 
 .card-hover:hover {
-  box-shadow: 0 6px 32px rgba(30, 64, 175, 0.12);
+  box-shadow: 0 6px 32px rgba(15, 76, 92, 0.16);
   transform: translateY(-3px);
 }
 
 /* theme.css */
 :root {
-    --primary-color: #1e3a8a;
-    --secondary-color: #1da1f2;
-    --accent-color: #f1892b;
-    --accent-color-hover: #ec971f;
+    --primary-color: #0f4c5c;
+    --secondary-color: #2a9d8f;
+    --charcoal-color: #16232a;
+    --accent-color: #e8622c;
+    --accent-color-hover: #d1531f;
     --text-color: #333;
     --background-color: #f3f3f3;
     --white: #fefefe;
@@ -135,8 +141,8 @@ a {
     --cancel-btn-color: #f44336;
     --cancel-btn-border: #f5c6cb;
     --cancel-btn-background: #f8d7da;
-    --secondary-color-hover: #1991db;
-    --primary-color-hover: #0056b3;
+    --secondary-color-hover: #23857a;
+    --primary-color-hover: #0a3641;
     --border-color-dark: #000;
     --border-color: #ddd;
 
@@ -148,6 +154,7 @@ a {
 .dark {
     --primary-color: #0f172a; /* Very dark blue */
     --secondary-color: #1e293b; /* Darker steel blue */
+    --charcoal-color: #05060a; /* Near-black neutral for footer/topbar */
     --accent-color: #f59e0b; /* Muted gold */
     --accent-color-hover: #d97706; /* Slightly darker gold on hover */
     --text-color: #d1d5db; /* Soft light gray text */

@@ -89,7 +89,7 @@
 }
 
 .cta-link {
-    color: #1da1f2; /* Color for the link */
+    color: #2a9d8f; /* Color for the link */
     font-weight: bold; /* Bold text for emphasis */
     text-decoration: underline; /* Underline for links */
     padding: 0 5px;
@@ -152,7 +152,7 @@
 .user-agreement-container button {
   padding: 10px 20px;
   border: none;
-  background-color: #1da1f2;
+  background-color: #2a9d8f;
   color: white;
   border-radius: 4px;
   cursor: pointer;
@@ -161,7 +161,7 @@
 }
 
 .user-agreement-container button:hover {
-  background-color: #1e3a8a;
+  background-color: #0f4c5c;
 }
 
 .user-agreement-container button:disabled {

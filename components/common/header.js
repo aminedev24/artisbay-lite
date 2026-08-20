@@ -7,6 +7,7 @@ import RevertImpersonationButton from '../utilities/handleRevert';
 import Link from 'next/link';
 import ImageWithLoader from '../misc/imageWithLoader';
 import TopBar from './topbar';
+import helpLinks from './helpLinks';
 
 const MOBILE_MENU_BREAKPOINT = 1000;
 const AUTH_MAINTENANCE_MODE = false;
@@ -68,7 +69,7 @@ const Header = () => {
       return;
     }
     try {
-      setSearchKeyword(sessionStorage.getItem('artisbay_last_search') || '');
+      setSearchKeyword(sessionStorage.getItem('meridian_last_search') || '');
     } catch (e) {
       setSearchKeyword('');
     }
@@ -174,13 +175,13 @@ const Header = () => {
     <div className="header-wrapper" ref={headerRef}>
       <TopBar />
       <div className="header-container px-2 sm:px-4 lg:px-6">
-        <header className="main-header header rounded-lg shadow-sm">
+        <header className="main-header header">
           <div className="header-top flex items-center gap-2">
             <div className="menu-logo-container flex items-center gap-3">
               <Link className="logo flex items-center shrink-0" href="/">
                 <ImageWithLoader
-                  src="/images/logo3.png"
-                  alt="logo"
+                  src="/images/logo-meridian-dark.svg"
+                  alt="Meridian Motors Inc. logo"
                   className="logo-img"
                 />
               </Link>
@@ -188,7 +189,7 @@ const Header = () => {
 
             {/* Mobile Search Input */}
             {isMobileViewport && (
-              <div className="header-search mobile-only relative flex items-center gap-2 rounded-2xl px-4 py-2 text-sm flex-1">
+              <div className="header-search mobile-only relative flex items-center gap-2 px-4 py-2 text-sm flex-1">
                 <input
                   type="text"
                   placeholder="Search by keyword..."
@@ -202,7 +203,7 @@ const Header = () => {
             )}
 
             <div className="header-main-row desktop-only">
-              <div className="header-search relative flex items-center gap-2 rounded-2xl px-4 py-2 text-sm">
+              <div className="header-search relative flex items-center gap-2 px-4 py-2 text-sm">
                 <input
                   type="text"
                   placeholder="Search by keyword..."
@@ -241,7 +242,7 @@ const Header = () => {
             {/* Mobile Menu Toggle */}
             {isMobileViewport && (
               <div
-                className="menu-toggle flex h-10 w-10 items-center justify-center rounded-md border border-white/30 text-xl text-white"
+                className="menu-toggle flex h-10 w-10 items-center justify-center rounded-md border border-brand-navy/20 text-xl text-brand-navy"
                 role="button"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
@@ -257,7 +258,7 @@ const Header = () => {
           </div>
 
           <nav
-            className="header-icons header-buttons-row mobile-actions md:mt-2 md:mb-2 flex w-full flex-wrap items-center gap-4 text-sm text-white md:w-auto md:justify-start"
+            className="header-icons header-buttons-row mobile-actions md:mt-2 md:mb-2 flex w-full flex-wrap items-center gap-4 text-sm text-brand-navy md:w-auto md:justify-start"
             aria-label="Mobile quick actions"
           >
             <ul className="flex w-full flex-wrap items-center justify-center gap-4 list-none p-0 m-0">
@@ -304,7 +305,7 @@ const Header = () => {
 
         {/* Mobile Menu Content */}
         <nav
-          className={`header-bottom border-t border-white/20 pt-2 ${mobileMenuClass}`}
+          className={`header-bottom border-t border-brand-navy/10 pt-2 ${mobileMenuClass}`}
           aria-label="Primary navigation"
         >
           <ul className="left-links flex flex-col gap-4 md:flex-row md:items-center">
@@ -354,23 +355,9 @@ const Header = () => {
                   activeDropdown === 'overview' ? 'show' : ''
                 }`}
               >
-                <Link href="/help/artisbayInc/help">Help</Link>
-                <Link href="/help/artisbayInc/about-us">About Us</Link>
-                <Link href="/help/artisbayInc/bank-information">Bank Information</Link>
-                <Link href="/help/artisbayInc/about-us#whyChooseArtisbay">
-                  Why Artisbay Lite Inc.
-                </Link>
-                <Link href="/help/artisbayInc/terms-and-conditions">
-                  Terms & Conditions
-                </Link>
-                <Link href="/help/artisbayInc/anti-social-force-policy">
-                  Anti-Social Force Policy
-                </Link>
-                <Link href="/help/artisbayInc/how-to-buy-used-cars">
-                  How To Buy
-                </Link>
-                <Link href="/help/artisbayInc/about-payment">About Payment</Link>
-                <Link href="/feedback">Customer Feedback</Link>
+                {helpLinks.map((link) => (
+                  <Link key={link.path} href={link.path}>{link.text}</Link>
+                ))}
               </div>
             </li>
           </ul>

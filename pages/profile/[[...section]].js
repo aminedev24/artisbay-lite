@@ -6,7 +6,6 @@ import Settings from '../../components/misc/settings';
 import Privacy from '../../components/help/privacy';
 import TermsConditions from '../../components/help/terms';
 import AntiSocialPolicy from '../../components/help/asf';
-import BankInformation from '../../components/help/bankInfo';
 import SalesAgreement from '../../components/sales/salesAgreement';
 import InquiryList from '../../components/dataFetch/fetchIquiries';
 import InvoiceList from '../../components/dataFetch/fetchInvoices';

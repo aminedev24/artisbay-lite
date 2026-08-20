@@ -33,7 +33,7 @@ const ForgotPassword = () => {
     <div className="forgot-password-container">
 
       <form onSubmit={handleForgotPassword}>
-      <img src={`/images/logo3new.png`} alt="Logo" className="logo-form" />
+      <img src={`/images/logo-meridian-dark.svg`} alt="Logo" className="logo-form" />
 
         <h2>Forgot Password</h2>
         <input

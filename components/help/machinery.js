@@ -8,7 +8,7 @@ const MachineryService = () => {
       <h4>Machinery Sourcing</h4>
 
       <p>
-        At Artisbay Lite Inc., we source machinery through two complementary channels — direct access to Japanese auctions and an exclusive network of domestic partners who do not have the ability to export or reach overseas markets on their own.
+        At Meridian Motors Inc., we source machinery through two complementary channels — direct access to Japanese auctions and an exclusive network of domestic partners who do not have the ability to export or reach overseas markets on their own.
       </p>
 
       <h4>Direct Auction Sourcing</h4>
@@ -18,7 +18,7 @@ const MachineryService = () => {
 
       <h4>Partner Network</h4>
       <p>
-        Many of Japan's dealers, dismantlers, and equipment owners operate exclusively in the domestic market. They have quality stock but no export licence, no overseas contacts, and no knowledge of international logistics. Artisbay Lite Inc. bridges that gap. Through our established relationships with these partners, we can source machinery that never appears on public auction platforms — giving our clients access to inventory unavailable anywhere else.
+        Many of Japan's dealers, dismantlers, and equipment owners operate exclusively in the domestic market. They have quality stock but no export licence, no overseas contacts, and no knowledge of international logistics. Meridian Motors Inc. bridges that gap. Through our established relationships with these partners, we can source machinery that never appears on public auction platforms — giving our clients access to inventory unavailable anywhere else.
       </p>
 
       <h4>What We Can Source</h4>

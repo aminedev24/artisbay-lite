@@ -5,7 +5,7 @@ const AutomatedInvoice = () => {
     <div className="automated-invoice terms-container">
       <h4>Generate Your Invoice Instantly with Our Automated System</h4>
       <p>
-        At Artisbay Lite Inc., we understand the importance of efficiency and accuracy in your business
+        At Meridian Motors Inc., we understand the importance of efficiency and accuracy in your business
         operations. That’s why we’ve created our Automated Invoice Generator—a tool uniquely
         designed for importers of used cars, used tires, and dismantled vehicles. Generate
         professional invoices tailored to your needs in seconds.

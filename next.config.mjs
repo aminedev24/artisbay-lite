@@ -1,16 +1,22 @@
-// GitHub Pages serves this repo at /meridian-motors/, but the HostGator
-// production build (deploy-artisbay.yml) needs root-absolute paths.
-// GITHUB_PAGES is set only by the nextjs.yml workflow.
-const isGhPages = process.env.GITHUB_PAGES === 'true';
-const ghPagesBase = '/meridian-motors';
+// GitHub Pages serves this repo at /meridian-motors/ (no custom domain), so the
+// Pages workflow sets GITHUB_PAGES=true to build with that subpath. The
+// HostGator workflow (deploy-artisbay.yml) never sets this, so it keeps
+// building as if at root, unaffected - .htaccess serves that from /artisbay/.
+var isGithubPages = process.env.GITHUB_PAGES === 'true';
+var basePath = '';
+var assetPrefix = '/';
 
-const nextConfig = {
+if (isGithubPages) {
+  basePath = '/meridian-motors';
+  assetPrefix = '/meridian-motors/';
+}
+
+var nextConfig = {
   output: 'export',
   productionBrowserSourceMaps: false,
 
-  // build as if at root – .htaccess will serve from /artisbay/
-  basePath: isGhPages ? ghPagesBase : '',
-  assetPrefix: isGhPages ? `${ghPagesBase}/` : '/',
+  basePath: basePath,
+  assetPrefix: assetPrefix,
 
   images: { unoptimized: true },
   trailingSlash: true,
@@ -18,10 +24,8 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
 
   publicRuntimeConfig: {
-    basePath: isGhPages ? ghPagesBase : '',
+    basePath: basePath,
   },
 };
-
-
 
 export default nextConfig;

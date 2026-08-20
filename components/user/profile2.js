@@ -6,7 +6,6 @@ import Settings from '../misc/settings';
 import Privacy from '../help/privacy';
 import TermsConditions from '../help/terms';
 import AntiSocialPolicy from '../help/asf';
-import BankInformation from '../help/bankInfo';
 import SalesAgreement from '../sales/salesAgreement';
 import InquiryList from '../dataFetch/fetchIquiries';
 import TireOrderList from '../dataFetch/submittedTireOrders';

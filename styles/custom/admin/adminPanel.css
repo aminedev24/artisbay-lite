@@ -54,8 +54,8 @@
 .admin-content select:focus,
 .admin-content textarea:focus {
   outline: none;
-  border-color: #1e3a8a;
-  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+  border-color: #0f4c5c;
+  box-shadow: 0 0 0 3px rgba(15, 76, 92, 0.1);
 }
 
 /* Tables */
@@ -150,5 +150,5 @@
 /* Checkbox / radio groups */
 .admin-content input[type="checkbox"],
 .admin-content input[type="radio"] {
-  accent-color: #1e3a8a;
+  accent-color: #0f4c5c;
 }

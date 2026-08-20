@@ -70,7 +70,7 @@ const TopBar = () => {
     <div className="top-bar-wrapper">
       <div className="top-bar">
         <div className="app-info">
-          <span className="app-name">Artisbay Lite Inc.</span>
+          <span className="app-name">Meridian Motors Inc.</span>
           <span className="total-cars stock">Total Cars in Stock: 120</span>
           <span className="cars-added-today stock">Cars Added Today: 5</span>
         </div>

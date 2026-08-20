@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
+import { Page, Text, View, Document } from "@react-pdf/renderer";
 import { InvoiceHeaders } from "./invoiceHeaders";
 import SalesAgreementPDF from "./salesAgreementPdf";
 import "./pdfFonts";
@@ -155,7 +155,7 @@ const AdminInvoicePdf = ({ invoiceData }) => {
               "1 Please indicate the purpose of money transfer as 'CAR' or 'CAR PAYMENT'.",
               "2 This invoice is valid for 3 business days only from the date herein. The sale is conducted first come, first served basis and secured upon payment proof.",
               "3 Customer needs to pay remaining balance payment within 15 days from shipment date.",
-              "4 Failure to meet payment terms instructed, Artisbay Lite Inc reserves the right to re-sell the car without any notice and no claim will be accepted.",
+              "4 Failure to meet payment terms instructed, Meridian Motors Inc reserves the right to re-sell the car without any notice and no claim will be accepted.",
             ].map((text, i) => (
               <Text key={i} style={styles.noteText}>{text}</Text>
             ))}
@@ -170,10 +170,6 @@ const AdminInvoicePdf = ({ invoiceData }) => {
             </View>
             <View style={[styles.invoiceFooter]}>
               <Text style={styles.invoiceSignatureText}>Authorised Sales Signature</Text>
-              <View style={styles.signatureContainer}>
-                <Image style={styles.signature} src={`${process.env.PUBLIC_URL}/images/signature/absignature.png`} />
-                <Image style={styles.stamp} src={`${process.env.PUBLIC_URL}/images/signature/abstamp.png`} />
-              </View>
               <Text style={styles.invoiceSignatureText}>Thank you for your business!</Text>
             </View>
           </View>

@@ -146,7 +146,7 @@
 
 
 .important .notice {
-    background-color: #1da1f2;
+    background-color: #2a9d8f;
     color: #000;
     font-weight: bold;
     padding: 10px;
@@ -294,7 +294,7 @@
 }
 
 .invoice-container .icon {
-    color: #1e3a8a;
+    color: #0f4c5c;
     margin-right: 3px;
 }
 
@@ -406,7 +406,7 @@
   
   .warning-notice{ 
     background-color: #f9f9f9;
-    border-left-color: #1da1f2;
+    border-left-color: #2a9d8f;
     border-left-width:5px ;
     padding: 10px;
     

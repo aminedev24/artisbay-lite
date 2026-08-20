@@ -46,7 +46,7 @@ const TanzainaAgent = () => {
           <div className="mx-auto flex flex-col lg:flex-row items-stretch gap-8">
             <div className="w-full lg:w-1/2 border border-gray-200 p-4 flex items-center">
               <p className="text-lg text-gray-700">
-                At Artisbay Lite Inc., we understand that importing vehicles, tires, or parts into Namibia requires efficient and reliable clearing services. That’s why we’ve partnered with <strong>star Voyage Shippers Company Limited</strong>, a trusted clearing agent with over 10 years of experience, to offer you hassle-free logistics solutions in Dar Essalam.
+                At Meridian Motors Inc., we understand that importing vehicles, tires, or parts into Namibia requires efficient and reliable clearing services. That’s why we’ve partnered with <strong>star Voyage Shippers Company Limited</strong>, a trusted clearing agent with over 10 years of experience, to offer you hassle-free logistics solutions in Dar Essalam.
               </p>
             </div>
             <div className="w-full lg:w-1/2">
@@ -160,7 +160,7 @@ const TanzainaAgent = () => {
               We are your Partner for Stress-Free Imports
             </h1>
             <p className="text-gray-600 text-lg leading-relaxed">
-              With <strong className="font-semibold text-gray-800">Artisbay Lite Inc.</strong> and <strong className="font-semibold text-gray-800">StarVoyage Shippers Company Limited.</strong>, you can rest assured that your goods are in safe hands. We take care of the paperwork, customs processes, and transportation so you can focus on your business.
+              With <strong className="font-semibold text-gray-800">Meridian Motors Inc.</strong> and <strong className="font-semibold text-gray-800">StarVoyage Shippers Company Limited.</strong>, you can rest assured that your goods are in safe hands. We take care of the paperwork, customs processes, and transportation so you can focus on your business.
               <strong className="font-semibold text-gray-800 block mt-3">
                 Get started today!
               </strong>

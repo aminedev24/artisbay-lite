@@ -25,7 +25,7 @@
     border-radius: 14px;
     background: linear-gradient(135deg, var(--primary-color), #16275e);
     color: var(--white);
-    box-shadow: 0 6px 16px rgba(30, 58, 138, 0.25);
+    box-shadow: 0 6px 16px rgba(15, 76, 92, 0.25);
     flex-wrap: wrap;
 }
 

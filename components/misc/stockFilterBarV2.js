@@ -1,6 +1,6 @@
 // stockFilterBarV2.js
 // Top horizontal filter bar  adapted from Ichinomiya's FilterForm, rebranded to
-// Artisbay Lite and wired to Artisbay Lite's filter keys (make, bodyType, price tier,
+// Meridian Motors and wired to Meridian Motors's filter keys (make, bodyType, price tier,
 // transmission, fuel, yearFrom, yearTo, search). Controlled component: option
 // lists are derived from live stock and passed in by stockListV2.
 // Compact layout mirrors the Ichinomiya marketplace: 6-column grid, tiny
@@ -12,7 +12,7 @@ import { faSliders, faSearch, faUndo } from "@fortawesome/free-solid-svg-icons";
 const labelCls =
   "block text-[9px] font-extrabold uppercase tracking-wider text-gray-500 mb-1";
 const fieldCls =
-  "w-full rounded border border-gray-300 bg-white px-2 py-1.5 text-xs text-[#0f172a] outline-none transition focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]/30";
+  "w-full rounded border border-gray-300 bg-white px-2 py-1.5 text-xs text-brand-charcoal outline-none transition focus:border-brand-navy focus:ring-1 focus:ring-brand-navy/30";
 
 const StockFilterBarV2 = ({
   filters = {},
@@ -39,7 +39,7 @@ const StockFilterBarV2 = ({
 
   return (
     <div className="mb-4 rounded-lg border border-gray-300 bg-white p-3.5 shadow-sm md:p-4">
-      <h3 className="mb-2.5 flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-wider text-[#1e3a8a]">
+      <h3 className="mb-2.5 flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-wider text-brand-navy">
         <FontAwesomeIcon icon={faSliders} className="h-3 w-3" />
         Search vehicles
         <span className="ml-1 h-px flex-1 bg-gray-200" />

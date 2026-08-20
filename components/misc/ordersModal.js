@@ -7,7 +7,7 @@ const Modal = ({ isOpen, onClose, orders, setIsModalOpen }) => {
     const handleAfterPrint = () => {
       const printTable = document.querySelector('.print-table');
       if (printTable) {
-        printTable.style.backgroundImage = `url(/images/printwatermark.png)`;
+        printTable.style.backgroundImage = `url(/images/printwatermark-meridian.svg)`;
       }
       setIsModalOpen(false);
     };
@@ -23,8 +23,8 @@ const Modal = ({ isOpen, onClose, orders, setIsModalOpen }) => {
 
   const handlePrint = () => {
     const printContent = document.getElementById('printable-content');
-    const logoSrc = `/images/logo.png`;
-    const watermarkSrc = `/images/printwatermark.png`;
+    const logoSrc = `/images/logo-meridian-dark.svg`;
+    const watermarkSrc = `/images/printwatermark-meridian.svg`;
     const printWindow = window.open('', '_blank');
 
     // Sanitize DOM content before injecting into print window
@@ -94,7 +94,7 @@ const Modal = ({ isOpen, onClose, orders, setIsModalOpen }) => {
             }
 
             th {
-              background-color: rgba(29, 161, 242, 0.7);
+              background-color: rgba(42, 157, 143, 0.7);
             }
 
             .total {
@@ -144,7 +144,7 @@ const Modal = ({ isOpen, onClose, orders, setIsModalOpen }) => {
           <table
             className="orders-table print-table"
             style={{
-              backgroundImage: `url(/images/printwatermark.png)`,
+              backgroundImage: `url(/images/printwatermark-meridian.svg)`,
               WebkitPrintColorAdjust: 'exact',
             }}
           >

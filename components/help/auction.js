@@ -5,13 +5,13 @@ const AuctionLanding = () => {
   return (
     <div className="terms-container space-y-8">
       <div className="">
-        <h4>Source Cars from Japanese Auctions with Artisbay Lite Inc.</h4>
+        <h4>Source Cars from Japanese Auctions with Meridian Motors Inc.</h4>
         <p>
-          At Artisbay Lite Inc., we connect overseas buyers with reliable suppliers in Japan, granting you access to high-quality cars directly from auctions at exceptionally fair prices. Whether you&rsquo;re an individual buyer or a dealer, our goal is to simplify the process and maximize your value.
+          At Meridian Motors Inc., we connect overseas buyers with reliable suppliers in Japan, granting you access to high-quality cars directly from auctions at exceptionally fair prices. Whether you&rsquo;re an individual buyer or a dealer, our goal is to simplify the process and maximize your value.
         </p>
       </div>
       <div className="">
-        <h4>Why Choose Artisbay Lite?</h4>
+        <h4>Why Choose Meridian Motors?</h4>
         <ul>
           <li>Fair and Transparent Pricing</li>
           <li>Tailored Dealer Packages</li>
@@ -66,9 +66,9 @@ const AuctionLanding = () => {
         </p>
       </div>
       <div className="">
-        <h4>Start Your Auction Journey with Artisbay Lite Inc.</h4>
+        <h4>Start Your Auction Journey with Meridian Motors Inc.</h4>
         <p>
-          Take control of your car-sourcing experience with Artisbay Lite Inc. Whether you&rsquo;re ready to buy or need assistance with the process, we&rsquo;re here to help.
+          Take control of your car-sourcing experience with Meridian Motors Inc. Whether you&rsquo;re ready to buy or need assistance with the process, we&rsquo;re here to help.
         </p>
         <p>
           <strong><Link className='cta-link' href='/contact'>Contact us today</Link></strong> to discuss your needs and secure the best vehicles from Japanese auctions.

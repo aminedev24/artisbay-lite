@@ -1,5 +1,5 @@
 
-import { Document, Text, View, StyleSheet, Font, Image } from '@react-pdf/renderer';
+import { Document, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 import React from 'react';
 import { FaEnvelope, FaGlobe } from "react-icons/fa";
 
@@ -73,17 +73,10 @@ export const InvoiceHeaders = ({invoiceData, formattedInvoiceNumber, commercial}
       </View>
       <View style={styles.headers}>
         <View style={styles.headerLeft}>
-          <Image
-            style={styles.logo}
-            src={`/images/Signatureforemail.png`}
-          />
           <View style={styles.contactInfo}>
             <Text style={styles.description}>
               An online platform for the sale and export of used vehicles and
               auto parts
-            </Text>
-            <Text style={styles.headerText}>
-              Registered in Japan | under the Yokohama Legal Affairs Bureau
             </Text>
             <Text style={styles.iconParagraph}>
              
@@ -95,7 +88,7 @@ export const InvoiceHeaders = ({invoiceData, formattedInvoiceNumber, commercial}
           </View>
         </View>
         <View style={styles.headerRight}>
-          <Text style={styles.companyName}>Artisbay Lite Inc</Text>
+          <Text style={styles.companyName}>Meridian Motors Inc</Text>
           <Text style={styles.rightText}>
             <Text style={{ fontWeight: "bold" }}>Date:</Text>{" "}
             {invoiceData.invoiceDate}

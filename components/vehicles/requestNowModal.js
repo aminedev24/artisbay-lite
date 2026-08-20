@@ -4,7 +4,7 @@ import { useUser } from "../user/userContext";
 import { normalizeCurrency } from "../utilities/ichinomiyaCardAdapter";
 
 const PLACEHOLDER_IMAGE = "/images/vehicles/artisbay-placeholder.svg";
-const HELP_URL = "/help/artisbayInc/how-to-buy-used-cars/";
+const HELP_URL = "/help/how-to-buy-used-cars/";
 
 // Minimal country/port/delivery rules based on provided guidance.
 const countryPortRules = [

@@ -1,6 +1,6 @@
 /* topbar.css */
 .top-bar-wrapper {
-  background-color: #1da1f2;
+  background-color: var(--charcoal-color);
 }
 
 .stock {

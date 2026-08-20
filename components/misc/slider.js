@@ -3,8 +3,13 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import getConfig from 'next/config';
 import { useUser } from "../user/userContext";
 import ImageWithLoader from './imageWithLoader';
+
+const { publicRuntimeConfig } = getConfig() || {};
+const basePath = publicRuntimeConfig?.basePath || "";
+const withBasePath = (src) => (src.startsWith("/") ? `${basePath}${src}` : src);
 
 const MediaSlider = () => {
   const settings = {
@@ -37,22 +42,13 @@ const MediaSlider = () => {
     },
     {
       src: `/images/head-office.jpg`,
-      link: '/help/artisbayInc/about-us',
+      link: '/help/about-us',
       side: 'left',
       tag: 'Based in Japan',
       headline: ['Sourced Directly', "from Japan's Top Auctions"],
       sub: 'Decades of local expertise. Your trusted gateway to the Japanese auto market.',
       cta: 'About Us',
       imgPosition: 'center bottom',
-    },
-    {
-      src: `/images/overview.jpg`,
-      link: '/register',
-      side: 'left',
-      tag: 'Join Artisbay Lite',
-      headline: ['Investing in', 'Each Other'],
-      sub: 'No membership fees. No hidden costs. Grow your business with a trusted partner.',
-      cta: 'Register Free',
     },
     {
       src: `/images/localServices/namibia-port-banner.png`,
@@ -87,30 +83,30 @@ const MediaSlider = () => {
           {mediaItems.map((item, index) => (
             <div key={index}>
               <Link href={item.link}>
-                <div className={`ab-slide ab-slide--${item.side}`}>
-                  <img
-                    src={item.src}
-                    alt={item.tag}
-                    className="ab-slide-img"
-                    style={{
-                      objectPosition: item.imgPosition || 'center',
-                      ...(item.imgScale ? { transform: `scale(${item.imgScale})`, transformOrigin: 'center center' } : {}),
-                    }}
-                  />
-                  <div className="ab-overlay">
-                    <div className="ab-text">
-                      <span className="ab-tag">
-                        {item.flag && <span className="ab-flag">{item.flag}</span>}
-                        {item.tag}
-                      </span>
-                      <h2 className="ab-headline">
-                        {item.headline.map((line, i) => (
-                          <span key={i}>{line}{i < item.headline.length - 1 && <br />}</span>
-                        ))}
-                      </h2>
-                      <p className="ab-sub">{item.sub}</p>
-                      <span className="ab-cta">{item.cta} &rarr;</span>
-                    </div>
+                <div className="ab-slide">
+                  <div className="ab-panel-text">
+                    <span className="ab-tag">
+                      {item.flag && <span className="ab-flag">{item.flag}</span>}
+                      {item.tag}
+                    </span>
+                    <h2 className="ab-headline">
+                      {item.headline.map((line, i) => (
+                        <span key={i}>{line}{i < item.headline.length - 1 && <br />}</span>
+                      ))}
+                    </h2>
+                    <p className="ab-sub">{item.sub}</p>
+                    <span className="ab-cta">{item.cta} &rarr;</span>
+                  </div>
+                  <div className="ab-panel-image">
+                    <img
+                      src={withBasePath(item.src)}
+                      alt={item.tag}
+                      className="ab-slide-img"
+                      style={{
+                        objectPosition: item.imgPosition || 'center',
+                        ...(item.imgScale ? { transform: `scale(${item.imgScale})`, transformOrigin: 'center center' } : {}),
+                      }}
+                    />
                   </div>
                 </div>
               </Link>

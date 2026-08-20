@@ -191,7 +191,7 @@ const Login = () => {
     <div className="login-form-wrapper">
       <div className="login-container">
         <img
-          src="/images/logo3new.png"
+          src="/images/logo-meridian-dark.svg"
           alt="Logo"
           className="logo-form"
         />
