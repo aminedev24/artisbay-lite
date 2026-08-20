@@ -2,13 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 
 const VARIANT_CLASSES = {
-  primary: 'bg-brand-navy text-white shadow-lg shadow-brand-navy/20 hover:bg-brand-navy-dark hover:-translate-y-0.5',
-  accent: 'bg-brand-orange text-white shadow-lg shadow-brand-orange/30 hover:bg-brand-orange-hover hover:-translate-y-0.5',
-  outline: 'border-2 border-brand-navy text-brand-navy bg-transparent hover:bg-brand-navy hover:text-white hover:-translate-y-0.5',
+  primary: 'bg-brand-navy text-white hover:bg-brand-navy-dark',
+  accent: 'bg-brand-orange text-white hover:bg-brand-orange-hover',
+  outline: 'border border-brand-navy text-brand-navy bg-transparent hover:bg-brand-navy hover:text-white',
 };
 
 const Button = ({ variant = 'primary', href, className = '', children, ...props }) => {
-  const classes = `inline-block px-8 py-3 rounded-full font-semibold text-center transition-all duration-300 ${VARIANT_CLASSES[variant] || VARIANT_CLASSES.primary} ${className}`;
+  const classes = `font-display inline-block px-8 py-3 font-bold text-center uppercase text-sm tracking-wide transition-colors duration-200 ${VARIANT_CLASSES[variant] || VARIANT_CLASSES.primary} ${className}`;
 
   if (href) {
     return (

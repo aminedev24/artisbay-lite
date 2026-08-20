@@ -17,6 +17,7 @@
 
 .footer-upper {
   background-color: var(--primary-color);
+  border-top: 3px solid var(--accent-color);
   color: white;
   padding: 20px;
   display: flex;
