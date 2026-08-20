@@ -79,6 +79,13 @@
   box-sizing: border-box;
 }
 
+.search-submit-row {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
 .search-btn {
   padding: 10px 28px;
   background-color: var(--accent-color);
@@ -91,7 +98,6 @@
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(241, 137, 43, 0.3);
   transition: background-color 0.2s ease, transform 0.2s ease;
-  justify-self: center; /* Center the button */
 }
 
 .search-btn:hover {

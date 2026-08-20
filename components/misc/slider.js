@@ -3,8 +3,13 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import getConfig from 'next/config';
 import { useUser } from "../user/userContext";
 import ImageWithLoader from './imageWithLoader';
+
+const { publicRuntimeConfig } = getConfig() || {};
+const basePath = publicRuntimeConfig?.basePath || "";
+const withBasePath = (src) => (src.startsWith("/") ? `${basePath}${src}` : src);
 
 const MediaSlider = () => {
   const settings = {
@@ -89,7 +94,7 @@ const MediaSlider = () => {
               <Link href={item.link}>
                 <div className={`ab-slide ab-slide--${item.side}`}>
                   <img
-                    src={item.src}
+                    src={withBasePath(item.src)}
                     alt={item.tag}
                     className="ab-slide-img"
                     style={{
