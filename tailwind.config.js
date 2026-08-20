@@ -11,14 +11,14 @@ module.exports = {
         md2: '720px',
       },
       colors: {
-        primary: '#1e3a8a',
+        primary: '#0f4c5c',
         brand: {
-          navy: '#1e3a8a',
-          'navy-dark': '#16305f',
-          charcoal: '#1c1f33',
-          sky: '#1da1f2',
-          orange: '#f1892b',
-          'orange-hover': '#ec971f',
+          navy: '#0f4c5c',
+          'navy-dark': '#0a3641',
+          charcoal: '#16232a',
+          sky: '#2a9d8f',
+          orange: '#e8622c',
+          'orange-hover': '#d1531f',
         },
       },
       fontFamily: {

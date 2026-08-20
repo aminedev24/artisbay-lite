@@ -732,16 +732,6 @@ const MyPdfDocument = ({ invoiceData, assets = {} }) => {
               <Text style={styles.contactInfoText}>
                 Authorised Sales Signature
               </Text>
-              <View style={styles.signatureContainer}>
-                <Image
-                  style={styles.signature}
-                  src={assets.signature || resolvePublicAsset("/images/signature/absignature.png")}
-                />
-                <Image
-                  style={styles.stamp}
-                  src={assets.stamp || resolvePublicAsset("/images/signature/abstamp.png")}
-                />
-              </View>
               <Text style={styles.contactInfoText}>
                 Thank you for your business!
               </Text>

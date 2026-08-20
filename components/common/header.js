@@ -69,7 +69,7 @@ const Header = () => {
       return;
     }
     try {
-      setSearchKeyword(sessionStorage.getItem('artisbay_last_search') || '');
+      setSearchKeyword(sessionStorage.getItem('meridian_last_search') || '');
     } catch (e) {
       setSearchKeyword('');
     }
@@ -180,8 +180,8 @@ const Header = () => {
             <div className="menu-logo-container flex items-center gap-3">
               <Link className="logo flex items-center shrink-0" href="/">
                 <ImageWithLoader
-                  src="/images/logo3new.png"
-                  alt="Artisbay Lite Inc. logo"
+                  src="/images/logo-meridian.svg"
+                  alt="Meridian Motors Inc. logo"
                   className="logo-img"
                 />
               </Link>

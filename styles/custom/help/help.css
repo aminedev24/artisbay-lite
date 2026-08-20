@@ -38,13 +38,13 @@
   top: 50%;
   left: 6%;
   transform: translateY(-50%);
-  color: #1da1f2;
+  color: #2a9d8f;
   padding: 10px;
   text-shadow: 1px 1px 1px #ffffff; /* Added text shadow */
 }
 
 .help-header {
-  color: #1da1f2;
+  color: #2a9d8f;
   justify-self: center;
   text-align: center;
   text-shadow: 1px 1px 1px #333; /* Added text shadow */
@@ -166,7 +166,7 @@
 }
 
 .sidebar button.active {
-  background-color: #f1892b; /* Original active color */
+  background-color: #e8622c; /* Original active color */
   color: white; /* Original active text color */
   text-shadow: none; /* Original active text shadow */
 }

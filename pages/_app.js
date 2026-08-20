@@ -72,10 +72,10 @@ export default function MyApp({ Component, pageProps }) {
     <ThemeProvider>
       <div className={`${dmSans.variable} contents`}>
       <Head>
-        <title>Artisbay Lite Inc. | Japanese Used Cars, Tires & Auto Parts Exporter</title>
+        <title>Meridian Motors Inc. | Japanese Used Cars, Tires & Auto Parts Exporter</title>
         <meta
           name="description"
-          content="Artisbay Lite Inc. exports genuine Japanese used vehicles, tires, and auto parts. Trusted by buyers worldwide for quality and reliability."
+          content="Meridian Motors Inc. exports genuine Japanese used vehicles, tires, and auto parts. Trusted by buyers worldwide for quality and reliability."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>

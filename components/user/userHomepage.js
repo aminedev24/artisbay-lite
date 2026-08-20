@@ -153,9 +153,9 @@ const UserHomepage = ({ user = {} }) => {
           <div className="news-updates">
             <h2>News & Updates</h2>
             <ul className="list-disc pl-5">
-              <li>2024/11/15 Artisbay Lite Inc was born</li>
-              <li>2024/12/02 Artisbay Lite Inc website published</li>
-              <li>25/03/01 Artisbay Lite Inc. moved to Yokohama</li>
+              <li>2024/11/15 Meridian Motors Inc was born</li>
+              <li>2024/12/02 Meridian Motors Inc website published</li>
+              <li>25/03/01 Meridian Motors Inc. moved to Yokohama</li>
             </ul>
           </div>
           <div className="important-notice-slot">

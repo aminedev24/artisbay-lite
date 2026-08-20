@@ -189,11 +189,11 @@ function ThumbnailCarousel({ cards }) {
 
 function HomePage() {
   const infoCards = [
-    { imgSrc: `/images/howToBuy.png`, link: "/help/artisbayInc/how-to-buy-used-cars", alt: "How to Buy" },
-    { imgSrc: `/images/Thumbnails/payment.png`, link: "/help/artisbayInc/about-payment", alt: "How to Pay" },
-    { imgSrc: `/images/Thumbnails/auction.png`, link: "/help/artisbayInc/auction", alt: "Auctions" },
-    { imgSrc: `/images/Thumbnails/about-us.png`, link: "/help/artisbayInc/about-us", alt: "About Us" },
-    { imgSrc: `/images/Thumbnails/machinery.png`, link: "/help/artisbayInc/machinery", alt: "Machinery" },
+    { imgSrc: `/images/howToBuy.png`, link: "/help/how-to-buy-used-cars", alt: "How to Buy" },
+    { imgSrc: `/images/Thumbnails/payment.png`, link: "/help/about-payment", alt: "How to Pay" },
+    { imgSrc: `/images/Thumbnails/auction.png`, link: "/help/auction", alt: "Auctions" },
+    { imgSrc: `/images/Thumbnails/about-us.png`, link: "/help/about-us", alt: "About Us" },
+    { imgSrc: `/images/Thumbnails/machinery.png`, link: "/help/machinery", alt: "Machinery" },
     { imgSrc: `/images/Thumbnails/feedback.svg`, link: "/feedback", alt: "Feedback" },
   ];
 
@@ -250,16 +250,6 @@ function HomePage() {
                 ))}
               </ul>
             </div>
-            <div className="image-usefulLinks_container">
-              
-              
-              <ImageWithLoader
-                alt="A large signboard with the ARTISBAY LITE logo and the text 'ARTISBAY LITE INC. DESIGNED TO SERVE YOU' in front of a modern building with glass windows."
-                src={`/images/companyprofile.jpg`}
-              />
-              
-            </div>
-           
           </div>
         </div>
 
@@ -279,10 +269,10 @@ function HomePage() {
                 useWrapper={false}
                 alt='payment warning banner desktop'
               /> 
-              <Link href="/help/artisbayInc/paypal">
+              <Link href="/help/paypal">
                 <button className="paypal-btn">read more</button>
               </Link>
-              <Link href="/help/artisbayInc/telegraphic-transfer">
+              <Link href="/help/telegraphic-transfer">
                 <button className="bank-btn">read more</button>
               </Link>
             </div>
@@ -299,7 +289,7 @@ function HomePage() {
           </div>
           <p className="opacity-75 text-sm mb-5">Rated by our customers worldwide</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Happy with our service?</h2>
-          <p className="opacity-80 max-w-md mx-auto mb-6">Share your experience and help others discover Artisbay Lite Inc.</p>
+          <p className="opacity-80 max-w-md mx-auto mb-6">Share your experience and help others discover Meridian Motors Inc.</p>
           <Button variant="accent" href="/feedback">Leave a Review</Button>
         </Section>
 
@@ -314,10 +304,10 @@ function HomePage() {
                   className="banner w-full h-auto md:hidden transition-transform duration-300 group-hover:scale-105"
                   alt="Why Choose Us banner mobile"
                 />
-                <Link href="/help/artisbayInc/about-us/#whyChooseArtisbay">
+                <Link href="/help/about-us/#whyChooseUs">
                   <span
                     className="absolute inset-0 block cursor-pointer md:hidden"
-                    aria-label="Read more about why to choose Artisbay Lite"
+                    aria-label="Read more about why to choose Meridian Motors"
                   />
                 </Link>
               </div>
@@ -331,7 +321,7 @@ function HomePage() {
               <p className="text-lg text-gray-700 mb-4 text-center font-bold" style={{maxWidth: '1200px'}}>
                 With over 40 years of experience and a passion for quality, we deliver high-standard used vehicles, tires, and parts tailored to your needs. Our transparent processes and detailed documentation ensure confidence and trust in every transaction.
               </p>
-              <Button variant="accent" href="/help/artisbayInc/about-us/#whyChooseArtisbay" className="!px-6 !py-2">
+              <Button variant="accent" href="/help/about-us/#whyChooseUs" className="!px-6 !py-2">
                 Read More
               </Button>
             </div>

@@ -188,7 +188,7 @@ option {
   }
 
 .info-card:hover .info-card-title {
-    color: #f1892b; /* Highlighted title color when info-card is hovered */
+    color: #e8622c; /* Highlighted title color when info-card is hovered */
 }
 
 
@@ -257,7 +257,7 @@ option {
 
 .type-container .grid-item:hover {
     border-color: var(--primary-color);
-    box-shadow: 0 10px 24px rgba(30, 58, 138, 0.15);
+    box-shadow: 0 10px 24px rgba(15, 76, 92, 0.15);
     transform: translateY(-4px);
 }
 
@@ -310,7 +310,7 @@ option {
 
 .brand:hover {
     border-color: var(--primary-color);
-    box-shadow: 0 10px 24px rgba(30, 58, 138, 0.15);
+    box-shadow: 0 10px 24px rgba(15, 76, 92, 0.15);
     transform: translateY(-4px);
 }
 
@@ -352,7 +352,7 @@ option {
 .model-chip:hover {
     background-color: var(--primary-color);
     color: #fff;
-    box-shadow: 0 10px 24px rgba(30, 58, 138, 0.2);
+    box-shadow: 0 10px 24px rgba(15, 76, 92, 0.2);
     transform: translateY(-3px);
 }
 

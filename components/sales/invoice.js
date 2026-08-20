@@ -32,19 +32,18 @@ const ProformaInvoice = () => {
         <div className="container">
             <div className="header">
                 <img
-                    alt="Artisbay Lite Inc. Logo"
+                    alt="Meridian Motors Inc. Logo"
                     height="50"
                     src="https://storage.googleapis.com/a1aa/image/6LfMKmuZf0gmKUBiJiWK8XAj2bOII5VCjDDzF78NLd14VIenA.jpg"
                     width="150"
                 />
                 <div className="contact-info">
-                    <p>Artisbay Lite Inc</p>
+                    <p>Meridian Motors Inc</p>
                 </div>
             </div>
             <div className="header">
                 <div className="contact-info">
                     <p>An online platform for the sale and export of used vehicles and auto parts</p>
-                    <p>Registered in Japan | License No. 3700-01-051924</p>
                     <p>Email: contact@artisbay.com</p>
                 </div>
             </div>

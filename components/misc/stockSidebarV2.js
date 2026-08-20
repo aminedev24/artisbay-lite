@@ -1,6 +1,6 @@
 // stockSidebarV2.js
 // Left "Shop by" filter sidebar — adapted from Ichinomiya's Sidebar, reduced to
-// Make / Body / Price panels and rebranded to Artisbay Lite. Counts are computed from
+// Make / Body / Price panels and rebranded to Meridian Motors. Counts are computed from
 // the live stock (passed in), not from a static stock.json. Clicking an active
 // row toggles it off.
 import React from "react";

@@ -72,7 +72,7 @@
   }
   
   .cut-selection-table th, .optional-table th {
-    background-color: #1da1f2;
+    background-color: #2a9d8f;
     font-weight: bold;
     color: white;
   }
@@ -122,7 +122,7 @@
   
   .selection-column h3 {
     text-align: left;
-    color: #1e3a8a;
+    color: #0f4c5c;
     margin-bottom: 15px;
   }
   
@@ -163,7 +163,7 @@
   /* Button Styling */
  .calculator-container button {
     padding: 10px 20px;
-    background-color: #1e3a8a;
+    background-color: #0f4c5c;
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -177,7 +177,7 @@
   }
   
  .calculator-container button:hover {
-    background-color: #1da1f2;
+    background-color: #2a9d8f;
   }
   
   .component-cell {
@@ -191,12 +191,12 @@
     padding: 10px;
     border: solid;
     margin: 10px 0;
-    color: #1e3a8a;
+    color: #0f4c5c;
     font-size: 15px;
   }
 
   .collapse-btn:hover {
-    background-color: #f1892b;
+    background-color: #e8622c;
     color: #f9f9f9;
   }
 

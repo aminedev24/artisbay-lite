@@ -42,7 +42,7 @@
   }
 
   .scroll-hint {
-    color: #1e3a8a;
+    color: #0f4c5c;
     white-space: nowrap;
     text-align: center;
     font-size: 16px;
@@ -86,7 +86,7 @@
 }
 
 .search {
-    background-color: #1e3a8a;
+    background-color: #0f4c5c;
     color: white;
 }
 

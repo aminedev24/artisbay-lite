@@ -113,17 +113,17 @@ a {
 }
 
 .card-hover:hover {
-  box-shadow: 0 6px 32px rgba(30, 64, 175, 0.12);
+  box-shadow: 0 6px 32px rgba(15, 76, 92, 0.16);
   transform: translateY(-3px);
 }
 
 /* theme.css */
 :root {
-    --primary-color: #1e3a8a;
-    --secondary-color: #1da1f2;
-    --charcoal-color: #1c1f33;
-    --accent-color: #f1892b;
-    --accent-color-hover: #ec971f;
+    --primary-color: #0f4c5c;
+    --secondary-color: #2a9d8f;
+    --charcoal-color: #16232a;
+    --accent-color: #e8622c;
+    --accent-color-hover: #d1531f;
     --text-color: #333;
     --background-color: #f3f3f3;
     --white: #fefefe;
@@ -136,8 +136,8 @@ a {
     --cancel-btn-color: #f44336;
     --cancel-btn-border: #f5c6cb;
     --cancel-btn-background: #f8d7da;
-    --secondary-color-hover: #1991db;
-    --primary-color-hover: #16305f;
+    --secondary-color-hover: #23857a;
+    --primary-color-hover: #0a3641;
     --border-color-dark: #000;
     --border-color: #ddd;
 

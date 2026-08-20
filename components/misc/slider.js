@@ -42,7 +42,7 @@ const MediaSlider = () => {
     },
     {
       src: `/images/head-office.jpg`,
-      link: '/help/artisbayInc/about-us',
+      link: '/help/about-us',
       side: 'left',
       tag: 'Based in Japan',
       headline: ['Sourced Directly', "from Japan's Top Auctions"],
@@ -54,7 +54,7 @@ const MediaSlider = () => {
       src: `/images/overview.jpg`,
       link: '/register',
       side: 'left',
-      tag: 'Join Artisbay Lite',
+      tag: 'Join Meridian Motors',
       headline: ['Investing in', 'Each Other'],
       sub: 'No membership fees. No hidden costs. Grow your business with a trusted partner.',
       cta: 'Register Free',
