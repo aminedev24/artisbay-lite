@@ -180,7 +180,7 @@ const Header = () => {
             <div className="menu-logo-container flex items-center gap-3">
               <Link className="logo flex items-center shrink-0" href="/">
                 <ImageWithLoader
-                  src="/images/logo-meridian.svg"
+                  src="/images/logo-meridian-dark.svg"
                   alt="Meridian Motors Inc. logo"
                   className="logo-img"
                 />

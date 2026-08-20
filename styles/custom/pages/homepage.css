@@ -401,46 +401,33 @@ option {
     height: 20%;
 }
 
+.bordered {
+    position: relative;
+}
+
 .bank-btn {
     position: absolute;
-    top: 10%;
-    left: 2%;
-    width: 29%;
-    height: 33%;
+    top: 6%;
+    left: 5%;
+    width: 90%;
+    height: 28%;
 }
 
 .paypal-btn {
     position: absolute;
-    top: 59%;
-    left: 3%;
-    width: 29%;
-    height: 33%;
+    top: 88%;
+    left: 5%;
+    width: 90%;
+    height: 10%;
 }
+
 .order-now {
     position: absolute;
     bottom: 26%;
     width: 16%;
     left: 74%;
     height: 8%;
-    
-}
 
-@media screen and (max-width: 768px) {
-  .bordered {
-    position: relative;
-  }
-  .bordered .bank-btn,
-  .bordered .paypal-btn {
-    left: 5%;
-    width: 90%;
-    height: 28%;
-  }
-  .bordered .bank-btn {
-    top: 6%;
-  }
-  .bordered .paypal-btn {
-    top: 37%;
-  }
 }
 
 .ad-banner {
@@ -584,16 +571,33 @@ option {
 /* Useful links */
 .usefulLinks_wrapper {
     margin: 0 20px;
-    padding: 0;
+    padding: 48px 0;
     justify-content: center;
     align-items: center;
     background-color: var(--white);
 }
 
+.usefulLinks-heading {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 12px;
+}
+
+.usefulLinks-heading::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 3px;
+    background: var(--accent-color);
+    margin: 14px auto 32px;
+}
+
 .usefulLinks_container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .header {
@@ -782,24 +786,35 @@ option {
 
 /* Useful Links Styles */
 .useful-links-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 900px;
+  border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
 }
 
 .useful-links-list li {
-  flex: 1 1 190px; /* allow to shrink and grow */
-  min-width: 120px;
-  max-width: 100%;
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   text-align: left;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .useful-links-list li a {
+    display: block;
+    padding: 14px 18px;
     white-space: normal;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.useful-links-list li a:hover {
+    color: var(--primary-color);
+    background-color: rgba(15, 76, 92, 0.05);
 }
 
 /* On small screens, allow links to take full width if needed */

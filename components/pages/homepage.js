@@ -229,18 +229,9 @@ function HomePage() {
         <CarList />
        
        <div className="usefulLinks_wrapper">
+          <h2 className="usefulLinks-heading">Useful Links</h2>
 
-          <ImageWithLoader
-              src={`/images/usefullLinksTitle.png`} 
-              alt="usefullLinks" 
-              className="title-img"
-         
-          />
-          
           <div className="usefulLinks_container">
-         
-            {/*<img className="title-img" src={`/images/usefullLinksTitle.png`} alt="usefullLinks" />*/}
-            
             <div className="links">
               <ul className="useful-links-list">
                 {helpLinks.map((link) => (
@@ -253,31 +244,7 @@ function HomePage() {
           </div>
         </div>
 
-        <div>
-          <div className="banner-header-container">
-            
-            <div className='bordered '>
-              <ImageWithLoader
-                  src={`/images/paymentmethodhome3-mobile.png`}
-                  className="banner w-full h-auto md:hidden transition-transform duration-300 group-hover:scale-105"
-                  useWrapper={false}
-                  alt="payment warning banner mobile"
-               />
-              <ImageWithLoader
-                src={`/images/paymentmethodshome.png`}
-                className="banner hidden md:block"
-                useWrapper={false}
-                alt='payment warning banner desktop'
-              /> 
-              <Link href="/help/paypal">
-                <button className="paypal-btn">read more</button>
-              </Link>
-              <Link href="/help/telegraphic-transfer">
-                <button className="bank-btn">read more</button>
-              </Link>
-            </div>
-          </div>
-        </div>
+        
 
         {/* Feedback CTA */}
         <Section tone="navy" className="mx-auto text-center">
