@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: pnpm
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -64,8 +64,7 @@ jobs:
       - name: Build with Next.js
         env:
           GITHUB_PAGES: "true"
-        # preload-fix.cjs is mandatory on Node v20 (EISDIR / Promise.withResolvers) — see deploy-artisbay.yml.
-        run: node --require ./preload-fix.cjs ./node_modules/next/dist/bin/next build
+        run: pnpm exec next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
