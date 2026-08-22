@@ -9,7 +9,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders, faXmark, faCarSide } from "@fortawesome/free-solid-svg-icons";
+import { faSliders, faXmark, faCarSide, faGrip, faList, faTableCellsLarge } from "@fortawesome/free-solid-svg-icons";
 import CarCardV2 from "../vehicles/carCard";
 import StockFilterBarV2 from "./stockFilterBarV2";
 import StockSidebarV2 from "./stockSidebarV2";
@@ -26,6 +26,99 @@ import {
   displayStockId,
   parseImageUrls,
 } from "../utilities/ichinomiyaCardAdapter";
+import { formatNumberWithUnit } from "../utilities/numberFormat";
+import { useCompare } from "../vehicles/useCompare";
+
+// Denser row for the "list" view toggle - same fields as the grid card, laid
+// out horizontally instead of stacked, closer to an inventory-tool listing
+// than a marketplace card.
+const StockListRow = ({ car, onViewDetails }) => {
+  const { isComparing, toggleCompare, isFull } = useCompare();
+  const comparing = isComparing(car);
+  const priceAmount = getCarPriceUsd(car);
+  const currency = normalizeCurrency(car);
+  const stockRef = car.ref_no || car.stock_no || "";
+  const thumb = Array.isArray(car.images) ? car.images[0] : "";
+
+  return (
+    <div
+      className="flex items-center gap-3 border border-gray-200 bg-white p-2 transition hover:border-brand-navy cursor-pointer"
+      onClick={() => onViewDetails(car)}
+    >
+      <div className="h-16 w-24 shrink-0 overflow-hidden bg-gray-100">
+        {thumb && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={thumb} alt={`${car.make} ${car.model}`} className="h-full w-full object-cover" loading="lazy" />
+        )}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <h3 className="truncate font-display text-xs font-bold uppercase text-brand-charcoal">
+            {car.make} {car.model}
+          </h3>
+          {stockRef && (
+            <span className="shrink-0 font-mono text-[9px] font-bold text-white bg-[var(--grey-text)] px-1.5 py-0.5">
+              {stockRef}
+            </span>
+          )}
+        </div>
+        <div className="mt-1 flex flex-wrap gap-x-3 text-[10px] uppercase tracking-wide text-gray-500">
+          <span>{car.year || "N/A"}</span>
+          <span>{formatNumberWithUnit(car.mileage) || "N/A"} km</span>
+          <span>{formatNumberWithUnit(car.engine_capacity || car.cc) || "N/A"}</span>
+          <span>{car.transmission || "N/A"}</span>
+          <span>{car.fuel || "N/A"}</span>
+        </div>
+      </div>
+      <div className="shrink-0 text-right">
+        <div className="font-display text-sm font-bold text-[var(--accent-color)]">
+          {priceAmount > 0 ? `${currency} ${priceAmount.toLocaleString()}` : "TBD"}
+        </div>
+        <label
+          className="mt-1 flex items-center justify-end gap-1 text-[9px] font-semibold uppercase text-gray-400 cursor-pointer"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <input
+            type="checkbox"
+            checked={comparing}
+            disabled={!comparing && isFull}
+            onChange={() => toggleCompare(car)}
+            className="h-3 w-3 accent-[var(--primary-color)]"
+          />
+          Compare
+        </label>
+      </div>
+    </div>
+  );
+};
+
+// Table row for the "table" view toggle - matches jpctrade.com's spec-table
+// pattern (stock #, spec columns, price) more literally than the card/row
+// views.
+const StockTableRow = ({ car, onViewDetails }) => {
+  const priceAmount = getCarPriceUsd(car);
+  const currency = normalizeCurrency(car);
+  const stockRef = car.ref_no || car.stock_no || "";
+
+  return (
+    <tr className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer" onClick={() => onViewDetails(car)}>
+      <td className="p-3 font-mono text-xs font-bold text-brand-navy">{stockRef}</td>
+      <td className="p-3 font-semibold text-brand-charcoal">{car.make} {car.model}</td>
+      <td className="p-3 text-gray-600">{car.year || "N/A"}</td>
+      <td className="p-3 text-gray-600">{formatNumberWithUnit(car.mileage) || "N/A"} km</td>
+      <td className="p-3 text-gray-600">{formatNumberWithUnit(car.engine_capacity || car.cc) || "N/A"}</td>
+      <td className="p-3 text-gray-600">{car.transmission || "N/A"}</td>
+      <td className="p-3 font-bold text-[var(--accent-color)]">
+        {priceAmount > 0 ? `${currency} ${priceAmount.toLocaleString()}` : "TBD"}
+      </td>
+      <td className="p-3 text-right">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-brand-navy hover:underline">
+          View &rarr;
+        </span>
+      </td>
+    </tr>
+  );
+};
 
 const priceFilterOptions = [
   { label: "Any budget", value: "" },
@@ -99,6 +192,7 @@ const StocklistV2 = () => {
   const maxPageButtons = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState("newest");
+  const [viewMode, setViewMode] = useState("grid");
 
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [searchInput, setSearchInput] = useState("");
@@ -594,8 +688,16 @@ const StocklistV2 = () => {
     return Array.from(set).sort((a, b) => a.localeCompare(b));
   }, [availableMakes, unifiedMakesLoaded]);
 
+  // Same list, annotated with live stock counts (0 for catalog makes not
+  // currently in stock) so the top filter bar can show "Toyota (12)" the
+  // way the sidebar already does.
+  const filterMakesWithCounts = useMemo(() => {
+    const countMap = new Map(makesWithCounts.map((m) => [m.name, m.count]));
+    return filterMakes.map((name) => ({ name, count: countMap.get(name) || 0 }));
+  }, [filterMakes, makesWithCounts]);
+
   const filterOptions = {
-    makes: filterMakes,
+    makes: filterMakesWithCounts,
     bodyTypes: availableBodyTypes,
     models: availableModels,
     transmissions: availableTransmissions,
@@ -732,7 +834,30 @@ const StocklistV2 = () => {
                   vehicles
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1 rounded-md border border-gray-200 bg-gray-100 p-1">
+                  {[
+                    { id: "grid", icon: faGrip, label: "Grid view" },
+                    { id: "list", icon: faList, label: "List view" },
+                    { id: "table", icon: faTableCellsLarge, label: "Table view" },
+                  ].map((v) => (
+                    <button
+                      key={v.id}
+                      type="button"
+                      onClick={() => setViewMode(v.id)}
+                      title={v.label}
+                      aria-label={v.label}
+                      aria-pressed={viewMode === v.id}
+                      className={`flex h-7 w-7 items-center justify-center rounded transition ${
+                        viewMode === v.id
+                          ? "bg-white text-brand-navy shadow-sm"
+                          : "text-gray-500 hover:text-brand-charcoal"
+                      }`}
+                    >
+                      <FontAwesomeIcon icon={v.icon} className="h-3.5 w-3.5" />
+                    </button>
+                  ))}
+                </div>
                 <span className="hidden text-xs font-semibold uppercase tracking-wider text-gray-400 sm:inline">
                   Sort
                 </span>
@@ -779,7 +904,7 @@ const StocklistV2 = () => {
               </div>
             )}
 
-            {/* Grid */}
+            {/* Results */}
             {viewLoading ? (
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {Array.from({ length: skeletonCount }).map((_, i) => (
@@ -797,7 +922,7 @@ const StocklistV2 = () => {
                   </div>
                 ))}
               </div>
-            ) : sortedCars.length > 0 ? (
+            ) : sortedCars.length > 0 && viewMode === "grid" ? (
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {paginatedCarsForGrid.map((car, index) => (
                   <CarCardV2
@@ -809,7 +934,43 @@ const StocklistV2 = () => {
                   />
                 ))}
               </div>
-            ) : (
+            ) : sortedCars.length > 0 && viewMode === "list" ? (
+              <div className="flex flex-col gap-2">
+                {paginatedCarsForGrid.map((car, index) => (
+                  <StockListRow
+                    key={`${car.id || car.ref_no || car.stock_no || "car"}-${index}`}
+                    car={car}
+                    onViewDetails={handleViewDetails}
+                  />
+                ))}
+              </div>
+            ) : sortedCars.length > 0 && viewMode === "table" ? (
+              <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+                <table className="w-full min-w-[820px] border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 bg-gray-50 text-left text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                      <th className="p-3">Stock #</th>
+                      <th className="p-3">Vehicle</th>
+                      <th className="p-3">Year</th>
+                      <th className="p-3">Mileage</th>
+                      <th className="p-3">Engine</th>
+                      <th className="p-3">Transmission</th>
+                      <th className="p-3">Price (FOB)</th>
+                      <th className="p-3" />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {paginatedCarsForGrid.map((car, index) => (
+                      <StockTableRow
+                        key={`${car.id || car.ref_no || car.stock_no || "car"}-${index}`}
+                        car={car}
+                        onViewDetails={handleViewDetails}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : sortedCars.length === 0 ? (
               <div className="flex min-h-[280px] flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-white px-6 text-center">
                 <p className="text-lg font-semibold text-brand-charcoal">No vehicles match these filters.</p>
                 <p className="mt-1 text-sm text-gray-500">Try widening your budget or clearing a make.</p>
@@ -823,7 +984,7 @@ const StocklistV2 = () => {
                   </button>
                 )}
               </div>
-            )}
+            ) : null}
 
             {/* Pagination */}
             {!viewLoading && sortedCars.length > 0 && totalPages > 1 && (

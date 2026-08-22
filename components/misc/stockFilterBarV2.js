@@ -57,8 +57,8 @@ const StockFilterBarV2 = ({
             <select value={filters.make || ""} onChange={change("make")} className={fieldCls}>
               <option value="">Any make</option>
               {makes.map((m) => (
-                <option key={m} value={m}>
-                  {m}
+                <option key={m.name} value={m.name} disabled={m.count === 0}>
+                  {m.name} ({m.count})
                 </option>
               ))}
             </select>

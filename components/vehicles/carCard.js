@@ -5,10 +5,11 @@
 // thumbnail, tiny uppercase text, single-row spec line and one action button.
 import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faImages } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faImages, faGaugeHigh, faRoad, faGasPump, faCogs, faScaleBalanced } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { useUser } from '../user/userContext';
 import { useFavorites, toggleFavorite } from './useFavorites';
+import { useCompare } from './useCompare';
 import { getCarPriceUsd, normalizeCurrency, secureImageUrl } from '../utilities/ichinomiyaCardAdapter';
 import { formatNumberWithUnit } from '../utilities/numberFormat';
 
@@ -60,6 +61,9 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
   const favorites = useFavorites();
   const isFavorite = favorites.isFavorite(car.ref_no || car.stock_no || "");
   const [favoriteBusy, setFavoriteBusy] = useState(false);
+  const { isComparing, toggleCompare, isFull } = useCompare();
+  const comparing = isComparing(car);
+  const stockRef = car.ref_no || car.stock_no || "";
   const make = car.make || "N/A";
   const model = car.model || "Model N/A";
   const priceAmount = getCarPriceUsd(car);
@@ -186,9 +190,16 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
 
       {/* Details Section */}
       <div className="p-3 flex flex-col flex-1">
-        <h3 className="font-display text-[12px] font-bold text-[var(--text-color)] uppercase truncate leading-tight cursor-pointer" onClick={() => onViewDetails && onViewDetails(car)}>
-          {make} {model}
-        </h3>
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="font-display text-[12px] font-bold text-[var(--text-color)] uppercase truncate leading-tight cursor-pointer" onClick={() => onViewDetails && onViewDetails(car)}>
+            {make} {model}
+          </h3>
+          {stockRef && (
+            <span className="shrink-0 font-mono text-[9px] font-bold text-white bg-[var(--grey-text)] px-1.5 py-0.5 tracking-wide">
+              {stockRef}
+            </span>
+          )}
+        </div>
         {isSold || isReserved ? (
           <div className="mt-1 font-display text-[15px] font-bold italic text-[var(--grey-text)]">Price on request</div>
         ) : (
@@ -196,16 +207,25 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
             {price} {priceAmount > 0 && <small className="text-[9px] text-gray-500 font-normal not-italic">FOB</small>}
           </div>
         )}
-        <div className="mt-2 flex flex-wrap gap-x-2 text-[9px] text-[var(--grey-text)] uppercase tracking-wide border-t border-[var(--border-color)] pt-2">
-          <span>{cc}</span>
-          <span aria-hidden="true">&middot;</span>
-          <span>{mileage}km</span>
-          <span aria-hidden="true">&middot;</span>
-          <span>{fuel}</span>
-          <span aria-hidden="true">&middot;</span>
-          <span>{transmission}</span>
+        <div className="mt-2 grid grid-cols-2 gap-y-1 gap-x-2 text-[9px] text-[var(--grey-text)] uppercase tracking-wide border-t border-[var(--border-color)] pt-2">
+          <span className="flex items-center gap-1"><FontAwesomeIcon icon={faGaugeHigh} className="h-2.5 w-2.5 text-[var(--accent-color)]" />{cc}</span>
+          <span className="flex items-center gap-1"><FontAwesomeIcon icon={faRoad} className="h-2.5 w-2.5 text-[var(--accent-color)]" />{mileage}km</span>
+          <span className="flex items-center gap-1"><FontAwesomeIcon icon={faGasPump} className="h-2.5 w-2.5 text-[var(--accent-color)]" />{fuel}</span>
+          <span className="flex items-center gap-1"><FontAwesomeIcon icon={faCogs} className="h-2.5 w-2.5 text-[var(--accent-color)]" />{transmission}</span>
         </div>
-        <span className="mt-1 text-[9px] text-gray-400">{car.ref_no || car.stock_no || ""}</span>
+
+        <label className="mt-2 flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-wide text-[var(--grey-text)] cursor-pointer">
+          <input
+            type="checkbox"
+            checked={comparing}
+            disabled={!comparing && isFull}
+            onChange={(e) => { e.stopPropagation(); toggleCompare(car); }}
+            onClick={(e) => e.stopPropagation()}
+            className="h-3 w-3 accent-[var(--primary-color)]"
+          />
+          <FontAwesomeIcon icon={faScaleBalanced} className="h-2.5 w-2.5" />
+          Compare
+        </label>
 
         <button
           type="button"

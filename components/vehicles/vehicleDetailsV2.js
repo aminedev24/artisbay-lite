@@ -23,9 +23,11 @@ import {
   faHandshake,
   faCheckCircle,
   faHeart,
+  faScaleBalanced,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../user/userContext";
 import { useFavorites, toggleFavorite } from "./useFavorites";
+import { useCompare } from "./useCompare";
 import { apiBaseUrl } from "../utilities/apiBase";
 import { formatNumberWithUnit } from "../utilities/numberFormat";
 import VehicleInquiryForm from "./vehicleInquiryForm";
@@ -209,6 +211,8 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
   const carRef = car ? String(car.ref_no || car.stock_no || "").trim() : "";
   const isFavorite = favorites.isFavorite(carRef);
   const [favoriteBusy, setFavoriteBusy] = useState(false);
+  const { isComparing, toggleCompare, isFull: isCompareFull } = useCompare();
+  const comparing = car ? isComparing(car) : false;
 
   const handleFavoriteClick = async () => {
     if (!user) {
@@ -484,6 +488,19 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
                   >
                     <FontAwesomeIcon icon={faHeart} className={isFavorite ? "text-red-500" : ""} />
                     {isFavorite ? "Saved" : "Add to Favorites"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => toggleCompare(car)}
+                    disabled={!comparing && isCompareFull}
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-md border py-2.5 text-xs font-bold uppercase tracking-wider transition disabled:cursor-not-allowed disabled:opacity-40 ${
+                      comparing
+                        ? "border-brand-navy bg-brand-navy/5 text-brand-navy"
+                        : "border-[var(--primary-color)] bg-[var(--white)] text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white"
+                    }`}
+                  >
+                    <FontAwesomeIcon icon={faScaleBalanced} />
+                    {comparing ? "Comparing" : "Compare"}
                   </button>
                   <button
                     onClick={backToStock}

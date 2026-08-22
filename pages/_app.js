@@ -54,6 +54,7 @@ import { UserProvider } from '../components/user/userContext';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
 import WidgetDock from '../components/utilities/widgetDock';
+import CompareTray from '../components/misc/compareTray';
 //import Chatbot from '../components/utilities/chatbot';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -65,6 +66,7 @@ export default function MyApp({ Component, pageProps }) {
       <Header />
       <main style={{flex: 1}}>{page}</main>
       <WidgetDock />
+      <CompareTray />
       <Footer />
     </>
   ));
