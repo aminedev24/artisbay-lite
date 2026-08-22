@@ -29,9 +29,7 @@ const Footer = () => {
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-100 sm:text-base">
               Meridian Motors Inc. is an online-based platform for the sale and export of used vehicles, connecting Japanese suppliers with global buyers.
             </p>
-            <p>
-                email: <a href="mailto:contact@artisbay.com">contact@artisbay.com</a>
-            </p>
+         
           </div>
           <div className="footer-sitemap">
             <h4>Quick Links</h4>

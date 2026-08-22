@@ -105,11 +105,8 @@ const AuctionLanding = () => {
         <p className="max-w-2xl mx-auto text-gray-700 mb-2">
           Take control of your car-sourcing experience with Meridian Motors Inc. Whether you&rsquo;re ready to buy or need assistance with the process, we&rsquo;re here to help.
         </p>
-        <p className="text-gray-700 mb-2">
-          <strong><Link className="cta-link" href="/contact">Contact us today</Link></strong> to discuss your needs and secure the best vehicles from Japanese auctions.
-        </p>
         <p className="text-gray-700">
-          Already know what you want? <Link href="/invoice-generator" className="cta-link">Request an invoice</Link> now to make a deposit and start your purchase immediately!
+          <strong><Link className="cta-link" href="/contact">Contact us today</Link></strong> to discuss your needs and secure the best vehicles from Japanese auctions.
         </p>
       </Section>
     </div>

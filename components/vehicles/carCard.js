@@ -54,7 +54,7 @@ const parseImageCandidates = (value) => {
   return [trimmed];
 };
 
-const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
+const CarCard = ({ car, imgBasePath, onViewDetails }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const router = useRouter();
   const { user } = useUser();
@@ -234,15 +234,6 @@ const CarCard = ({ car, imgBasePath, onViewDetails, onRequestInvoice }) => {
         >
           View Details &rarr;
         </button>
-        {typeof onRequestInvoice === "function" && (
-          <button
-            type="button"
-            onClick={() => onRequestInvoice(car)}
-            className="mt-2 bg-[var(--primary-color)] text-white py-1.5 text-[10px] font-bold uppercase tracking-wider hover:bg-[var(--primary-color-hover)] transition"
-          >
-            Request Invoice
-          </button>
-        )}
       </div>
     </div>
   );

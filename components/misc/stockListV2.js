@@ -298,44 +298,6 @@ const StocklistV2 = () => {
     [router]
   );
 
-  const handleRequestInvoice = useCallback(
-    (car) => {
-      if (typeof window === "undefined") return;
-      const normalizeAmount = (value) => {
-        if (value === null || value === undefined) return "";
-        const numeric = Number(String(value).replace(/[^\d.-]/g, ""));
-        return Number.isFinite(numeric) ? numeric : "";
-      };
-      const invoicePayload = {
-        make: car.make || "",
-        model: car.model || "",
-        vehicle_ref: car.ref_no || car.id || "",
-        vehicle_description: [car.year, car.make, car.model].filter(Boolean).join(" "),
-        engine_capacity: car.engine_capacity || "",
-        mileage: car.mileage || "",
-        chasis_number:
-          car.chassis_no || car.chassisNumber || car.chassis || car.vin_number || "",
-        deposit_amount: normalizeAmount(car.final_value ?? car.price),
-        deposit_currency: normalizeCurrency(car),
-        deposit_purpose: "order vehicle",
-        description:
-          car.description ||
-          `Payment for ${[car.year, car.make, car.model].filter(Boolean).join(" ")}`,
-      };
-      const payloadString = JSON.stringify(invoicePayload);
-      try {
-        sessionStorage.setItem("invoiceData", payloadString);
-      } catch (e) {}
-      try {
-        localStorage.setItem("invoiceData", payloadString);
-      } catch (e) {}
-      const targetUrl = "/invoice-generator?regenerate=false";
-      const opened = window.open(targetUrl, "_blank", "noopener,noreferrer");
-      if (!opened) router.push(targetUrl);
-    },
-    [router]
-  );
-
   useEffect(() => {
     setLoading(true);
     setViewLoading(true);
@@ -941,7 +903,6 @@ const StocklistV2 = () => {
                     car={car}
                     imgBasePath={imgBasePath}
                     onViewDetails={handleViewDetails}
-                    onRequestInvoice={handleRequestInvoice}
                   />
                 ))}
               </div>

@@ -12,7 +12,7 @@ const ROWS = [
   { id: 'hot', label: 'Trending Now', viewAllHref: '/stock-list?sort=popularity' },
 ];
 
-const ROW_SIZE = 8;
+const ROW_SIZE = 16;
 
 const HOT_MODELS = ['land cruiser', 'hilux', 'hiace', 'prado', 'x-trail', 'pajero', 'alphard', 'patrol', 'fortuner', 'navara'];
 
