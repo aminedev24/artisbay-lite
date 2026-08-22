@@ -18,14 +18,12 @@ import Link from 'next/link';
 import UserHomepage from '../../components/user/userHomepage';
 import Calander from '../../components/misc/calander';
 import useAgreementStatus from '../../components/utilities/agreementStatus';
-import Modal from "../../components/common/alertModal";
 import { apiBaseUrl } from '../../components/utilities/apiBase';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser, faGear, faHeart, faCalendarCheck, faTruck, faEnvelope,
   faFileInvoice, faCoins, faUserShield, faFileLines,
   faGavel, faFileSignature, faShieldHalved,
-  faRightFromBracket, faBars, faXmark, faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 // Admin-specific components are no longer directly imported here as they will be in AdminPanel.js
 
@@ -59,25 +57,8 @@ const ProfilePage = ({ initialSection = '' }) => {
   const router = useRouter(); // Initialize useRouter
   const { section } = router.query || {}; // Get dynamic segment from router.query
   const { isSmallScreen } = useCheckScreenSize();
-  const [showSidebar, setShowSidebar] = useState(false);
 
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalType, setModalType] = useState("");
-  
   const [suppressHighlight, setSuppressHighlight] = useState({});
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const showAlert = (message, type = "alert") => {
-    setTimeout(() => {
-      setModalMessage(message);
-      setModalType(type);
-      setShowModal(true);
-    }, 1000);
-  };
 
   const agreementMapping = useMemo(() => ({
     terms: 'Terms & Conditions',
@@ -87,10 +68,9 @@ const ProfilePage = ({ initialSection = '' }) => {
 
   const agreementNames = useMemo(() => Object.values(agreementMapping), [agreementMapping]);
 
-  const { statuses, loading: statusLoading, error: statusError } = useAgreementStatus(agreementNames, apiUrl);
-  const allAgreed = Object.values(statuses).every(status => status === true);
-
-  const allowedKeys = ['terms', 'privacy', 'anti-social-policy'];
+  // Tracked for a soft "needs your attention" nav highlight only - browsing
+  // other sections is no longer gated behind accepting these.
+  const { statuses } = useAgreementStatus(agreementNames, apiUrl);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -138,14 +118,6 @@ const ProfilePage = ({ initialSection = '' }) => {
   
   const [activeContent, setActiveContent] = useState(initialActive || initialSection);
 
-
-  useEffect(() => {
-    const allowedRoutes = ['terms', 'privacy', 'anti-social-policy'];
-    if (!user?.isImpersonating && user?.role !== 'admin' && !allAgreed && !allowedRoutes.includes(activeContent)) {
-      router.push(`/profile/anti-social-policy`);
-      setActiveContent('anti-social-policy');
-    }
-  }, [allAgreed, activeContent, router, user]);
 
   useEffect(() => {
     switch (activeContent) {
@@ -220,45 +192,14 @@ const ProfilePage = ({ initialSection = '' }) => {
 
 
   const handleMenuClick = (item) => {
-    // If it's the admin panel link, handle redirection differently
-    if (item.key === 'admin-panel') {
-      router.push(item.path);
-      setShowSidebar(false); // Close sidebar on mobile
-      return; // Stop further processing
-    }
-
-    if (!user?.isImpersonating && user?.role !== 'admin' && !allAgreed && !allowedKeys.includes(item.key)) {
-      showAlert('Please accept all required agreements first.');
-      
-      const newSuppress = {};
-      menuItems.forEach(menuItem => {
-        const agreementName = agreementMapping[menuItem.key];
-        if (agreementName && statuses[agreementName] === false) {
-          newSuppress[menuItem.key] = true;
-        }
-      });
-      setSuppressHighlight(newSuppress);
-      
-      setTimeout(() => {
-        setSuppressHighlight({});
-      }, 3000);
-      
-      router.push(`/profile/anti-social-policy`);
-      setActiveContent('anti-social-policy');
-    
-      return;
-    }
     setActiveContent(item.key);
-    setShowSidebar(false);
     router.push(`/profile/${item.key}`);
   };
 
   if (loading) {
     return (
-      <div className="profile-wrapper" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100dvh' }}>
-        <div className="spinner-container">
-          <div className="spinner"></div>
-        </div>
+      <div className="flex min-h-[100dvh] items-center justify-center bg-[var(--background-color)]">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[var(--primary-color)]/20 border-t-[var(--accent-color)]" />
       </div>
     );
   }
@@ -269,7 +210,14 @@ const ProfilePage = ({ initialSection = '' }) => {
   // via pages/admin/index.js and pages/admin/[adminSection].js.
   // This ProfilePage component is now solely for user profile views.
 
+  const DASHBOARD_KEYS = ['my-account', 'settings', 'saved-vehicles', 'my-reservations', 'my-orders', 'vehicle-inquiries', 'invoices-list', 'accountancy'];
+  const LEGAL_KEYS = ['terms', 'privacy', 'anti-social-policy', 'sales-contract'];
+  const dashboardTiles = menuItems.filter(item => DASHBOARD_KEYS.includes(item.key));
+  const legalLinks = menuItems.filter(item => LEGAL_KEYS.includes(item.key));
+  const isDashboard = activeContent === '';
+
   const ActiveComponent = menuItems.find(item => item.key === activeContent)?.component || UserHomepage;
+  const activeItem = menuItems.find(item => item.key === activeContent);
   const isSpecialContent = isSmallScreen && (
     activeContent === 'terms' ||
     activeContent === 'privacy' ||
@@ -288,107 +236,111 @@ const ProfilePage = ({ initialSection = '' }) => {
     padding: isSpecialContent2 && activeContent !== 'my-account' ? '0' : '',
   };
 
-  const activeItem = menuItems.find(item => item.key === activeContent) || menuItems[0];
   const displayName = userr.full_name || userr.name || '';
   const initials = (displayName.trim().split(/\s+/).map(w => w[0]).join('') || 'U').slice(0, 2).toUpperCase();
 
   return (
-    <div className="profile-wrapper profile-wrapper max-w-[70rem] mx-auto md:px-0 block w-full">
-      {showModal && (
-        <Modal
-          message={modalMessage}
-          onClose={handleCloseModal}
-          type={modalType}
-        />
-      )}
-      <div className="profile-container">
-        {showSidebar && (
-          <div className="profile-mobile-overlay" onClick={() => setShowSidebar(false)} />
-        )}
-        <div className={`profile-sidebar${showSidebar ? ' profile-sidebar-open' : ''}`}>
-          <div className="profile-sidebar-user">
-            <div className="psu-avatar">{initials}</div>
-            <div className="psu-info">
-              <div className="psu-name">
-                {displayName}
-                {String(userr.is_verified) === '1' && (
-                  <span className="psu-verified" title="Verified account">
-                    <FontAwesomeIcon icon={faCheck} />
-                  </span>
-                )}
-              </div>
-              <div className="psu-email">{userr.email}</div>
+    <div className="mx-auto w-full max-w-[900px] px-4 py-8">
+      {isDashboard ? (
+        <>
+          {/* Minimal identity row - no card, no fill, just text */}
+          <div className="mb-8 flex items-center justify-between border-b border-gray-100 pb-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-[var(--text-color)]">{displayName}</span>
+              {String(userr.is_verified) === '1' && (
+                <span className="text-[10px] font-bold uppercase tracking-wide text-[var(--secondary-color)]">Verified</span>
+              )}
+              <span className="text-xs text-gray-400">{userr.email}</span>
             </div>
-            <button className="psu-logout" onClick={logout} title="Sign out">
-              <FontAwesomeIcon icon={faRightFromBracket} />
-            </button>
-          </div>
-          <nav className="profile-sidebar-menus">
-            {user?.role === 'admin' && (
-              <Link
-                href="/admin/customers"
-                className={`profile-admin-link${router.pathname.startsWith('/admin') ? ' active' : ''}`}
-              >
-                <FontAwesomeIcon icon={faShieldHalved} className="menu-item-icon" />
-                <span>Admin Panel</span>
-              </Link>
-            )}
-            <ul>
-              {menuItems.filter(item => item.key !== 'admin-panel').map((item) => {
-                const Icon = menuIcons[item.key];
-
-                const agreementName = agreementMapping[item.key];
-                const highlight =
-                  agreementName &&
-                  statuses[agreementName] === false &&
-                  !suppressHighlight[item.key];
-
-                return (
-                  <li
-                    key={item.key}
-                    onClick={() => handleMenuClick(item)}
-                    className={`menu-item ${activeContent === item.key ? 'active' : ''} ${highlight ? 'highlight' : ''}`}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <FontAwesomeIcon icon={Icon} className="menu-item-icon" />
-                    <span>{item.label}</span>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="amount">
-              <p><strong>Total Guaranty: </strong>{userr.total_by_currency?.JPY?.guaranty || "0 JPY"}</p>
-              <p><strong>Total Extra Guaranty: </strong>{userr.total_by_currency?.JPY?.extra_guaranty || "0 JPY"}</p>
-            </div>
-            <Calander />
-          </nav>
-        </div>
-        <div className="profile-content" style={style}>
-          <div className="profile-content-header">
-            <div className="profile-mobile-menu">
-              <button
-                onClick={() => setShowSidebar(!showSidebar)}
-                aria-label="Toggle menu"
-              >
-                <FontAwesomeIcon icon={showSidebar ? faXmark : faBars} />
+            <div className="flex items-center gap-4">
+              {user?.role === 'admin' && (
+                <Link href="/admin/customers" className="text-xs font-semibold text-gray-400 hover:text-[var(--accent-color)]">
+                  Admin Panel
+                </Link>
+              )}
+              <button onClick={logout} className="text-xs font-semibold text-gray-400 hover:text-[var(--text-color)]">
+                Sign Out
               </button>
             </div>
-            <span className="profile-content-crumb">Profile</span>
-            <h2 className="profile-content-title">{activeItem.label}</h2>
           </div>
-          <ActiveComponent
-            user={userr}
-            setUser={setUserr}
-            formData={formData}
-            setFormData={setFormData}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            userProfile={userProfile}
-            agreementType={agreementType}
-            setSuppressHighlight={setSuppressHighlight}
-          />
-        </div>
-      </div>
+
+          {/* Dashboard tiles - the only navigation; drills into one section at a time */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {dashboardTiles.map((item) => {
+              const Icon = menuIcons[item.key];
+              return (
+                <button
+                  key={item.key}
+                  onClick={() => handleMenuClick(item)}
+                  className="flex flex-col items-center gap-2.5 py-2 text-center transition hover:opacity-70"
+                >
+                  <FontAwesomeIcon icon={Icon} className="h-5 w-5 text-[var(--primary-color)]" />
+                  <span className="text-xs font-semibold text-[var(--text-color)]">{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Account balance - plain, no box */}
+          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-2 border-t border-gray-100 pt-5 text-xs">
+            <div>
+              <span className="text-gray-400">Guaranty </span>
+              <span className="font-mono font-semibold text-[var(--text-color)]">{userr.total_by_currency?.JPY?.guaranty || "0 JPY"}</span>
+            </div>
+            <div>
+              <span className="text-gray-400">Extra Guaranty </span>
+              <span className="font-mono font-semibold text-[var(--text-color)]">{userr.total_by_currency?.JPY?.extra_guaranty || "0 JPY"}</span>
+            </div>
+          </div>
+
+          {/* Legal - de-emphasized, plain text links */}
+          <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-gray-400">
+            {legalLinks.map((item, i) => {
+              const agreementName = agreementMapping[item.key];
+              const needsAttention =
+                agreementName &&
+                statuses[agreementName] === false &&
+                !suppressHighlight[item.key];
+              return (
+                <span key={item.key} className="flex items-center gap-2">
+                  {i > 0 && <span className="text-gray-300">&middot;</span>}
+                  <button onClick={() => handleMenuClick(item)} className="hover:text-[var(--text-color)]">
+                    {item.label}
+                    {needsAttention && <span className="ml-1 text-[var(--accent-color)]">&bull;</span>}
+                  </button>
+                </span>
+              );
+            })}
+          </div>
+
+          <div className="mt-8">
+            <Calander />
+          </div>
+        </>
+      ) : (
+        <>
+          <button
+            onClick={() => handleMenuClick({ key: '' })}
+            className="mb-5 flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-[var(--text-color)]"
+          >
+            &larr; Account
+          </button>
+          <h1 className="mb-5 text-lg font-bold text-[var(--text-color)]">{activeItem?.label}</h1>
+          <div style={style}>
+            <ActiveComponent
+              user={userr}
+              setUser={setUserr}
+              formData={formData}
+              setFormData={setFormData}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+              userProfile={userProfile}
+              agreementType={agreementType}
+              setSuppressHighlight={setSuppressHighlight}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
