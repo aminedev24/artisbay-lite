@@ -24,7 +24,6 @@ const UserHomepage = ({ user = {} }) => {
 
   const [cars, setCars] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
-  const [showFullText, setShowFullText] = useState(false);
   const [filteredCars, setFilteredCars] = useState([]);
   const [imageSrc, setImageSrc] = useState(apiBaseUrl);
   const searchParams = useSearchParams();
@@ -147,37 +146,6 @@ const UserHomepage = ({ user = {} }) => {
           </Link>
         </div>
       </div>
-
-        {/* News & Updates and Important Notice */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 mb-4">
-          <div className="news-updates">
-            <h2>News & Updates</h2>
-            <ul className="list-disc pl-5">
-              <li>2024/11/15 Meridian Motors Inc was born</li>
-              <li>2024/12/02 Meridian Motors Inc website published</li>
-              <li>25/03/01 Meridian Motors Inc. moved to Yokohama</li>
-            </ul>
-          </div>
-          <div className="important-notice-slot">
-            <div className={`important-notice${showFullText ? ' important-notice-expanded' : ''}`}>
-              <h2>IMPORTANT (PURPOSE OF MONEY TRANSFER)</h2>
-              <p><strong>Dear customers!</strong></p>
-              <p>
-                When you transfer money to our bank account (TT), please indicate the purpose of{showFullText ? (
-                  <>
-                    {' '}money transfer as “CAR” or "CAR PAYMENT".
-                    From now on, Japanese banks will start checking incoming payments more strictly. If the purpose of the payment is not clearly indicated on the transfer, the banks will hold the payment for inspection before sending it to our account.
-                    Even if the payment has already arrived in Japan, it may take several days before the money reaches our account. This may cause delays in processing documents or shipments.
-                    To receive payments without delay, please do not forget to indicate the purpose of the money transfer when making the payment.
-                  </>
-                ) : '....'}
-              </p>
-              <button onClick={() => setShowFullText(!showFullText)} className="read-more-btn">
-                {showFullText ? "Read Less" : "Read More"}
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Purchased Car Search */}
         <div className="purchased-car-search mb-4">

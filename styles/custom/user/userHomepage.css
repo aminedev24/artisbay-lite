@@ -7,7 +7,7 @@
     font-size: 24px;
     font-weight: bold;
 }
-.news-updates, .important-notice, .purchased-car-search, .car-listings, .sidebar {
+.purchased-car-search, .car-listings, .sidebar {
     background-color: #ffffff;
     padding: 20px;
     border: 1px solid #e5e7eb;
@@ -116,17 +116,10 @@
 .purchased-car-search {
   background-color: #f3f3f3;
 }
-.news-updates h2, .important-notice h2, .purchased-car-search h2, .sidebar h2 {
+.purchased-car-search h2, .sidebar h2 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
-}
-.important-notice h2 {
-    color: #dc2626;
-}
-.important-notice a {
-    color: #dc2626;
-    font-weight: bold;
 }
 .purchased-car-search label {
     display: block;
@@ -240,65 +233,7 @@
     border-radius: 8px;
     margin-bottom: 16px;
 }
-.profile-sidebar .calendar {
-    background-color: #ffffff;
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-}
-.profile-sidebar .calendar table {
-    width: 100%;
-    text-align: center;
-    height: 147px;
-}
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-.controls button {
-  font-size: 10px;
-}
-.profile-sidebar .calendar th, .profile-sidebar .calendar td {
-    padding: 4px;
-    font-size: 0.575rem;
-    text-align: center;
-}
-.profile-sidebar .calendar .highlight {
-    background-color: #fbbf24;
-}
-.profile-sidebar .calendar .public-holiday {
-    color: #dc2626;
-    font-size: inherit;
-}
 
-.read-more-btn {
-  color: var(--secondary-color);
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-  margin-top: 5px;
-  font-weight: bold;
-}
-
-.important-notice p, .news-updates li {
-  font-size: inherit;
-  line-height: 1.6;
-}
-
-.important-notice-slot {
-  position: relative;
-}
-
-.important-notice.important-notice-expanded {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
-}
 
 .purchased-car-search  label {
   color: inherit;

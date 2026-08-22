@@ -16,7 +16,6 @@ import DepositsTable from '../../components/dataFetch/fetchDeposits';
 import { useUser } from "../../components/user/userContext";
 import Link from 'next/link';
 import UserHomepage from '../../components/user/userHomepage';
-import Calander from '../../components/misc/calander';
 import useAgreementStatus from '../../components/utilities/agreementStatus';
 import { apiBaseUrl } from '../../components/utilities/apiBase';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -311,10 +310,6 @@ const ProfilePage = ({ initialSection = '' }) => {
                 </span>
               );
             })}
-          </div>
-
-          <div className="mt-8">
-            <Calander />
           </div>
         </>
       ) : (
