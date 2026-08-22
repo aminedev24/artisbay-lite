@@ -99,12 +99,23 @@ const StockTableRow = ({ car, onViewDetails }) => {
   const priceAmount = getCarPriceUsd(car);
   const currency = normalizeCurrency(car);
   const stockRef = car.ref_no || car.stock_no || "";
+  const chassis = getCarChassis(car);
+  const thumb = Array.isArray(car.images) ? car.images[0] : "";
 
   return (
     <tr className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer" onClick={() => onViewDetails(car)}>
+      <td className="p-2">
+        <div className="h-12 w-16 shrink-0 overflow-hidden bg-gray-100">
+          {thumb && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={thumb} alt={`${car.make} ${car.model}`} className="h-full w-full object-cover" loading="lazy" />
+          )}
+        </div>
+      </td>
       <td className="p-3 font-mono text-xs font-bold text-brand-navy">{stockRef}</td>
       <td className="p-3 font-semibold text-brand-charcoal">{car.make} {car.model}</td>
       <td className="p-3 text-gray-600">{car.year || "N/A"}</td>
+      <td className="p-3 font-mono text-xs text-gray-600">{chassis || "N/A"}</td>
       <td className="p-3 text-gray-600">{formatNumberWithUnit(car.mileage) || "N/A"} km</td>
       <td className="p-3 text-gray-600">{formatNumberWithUnit(car.engine_capacity || car.cc) || "N/A"}</td>
       <td className="p-3 text-gray-600">{car.transmission || "N/A"}</td>
@@ -946,12 +957,14 @@ const StocklistV2 = () => {
               </div>
             ) : sortedCars.length > 0 && viewMode === "table" ? (
               <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white">
-                <table className="w-full min-w-[820px] border-collapse text-sm">
+                <table className="w-full min-w-[980px] border-collapse text-sm">
                   <thead>
                     <tr className="border-b border-gray-200 bg-gray-50 text-left text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                      <th className="p-3">Photo</th>
                       <th className="p-3">Stock #</th>
                       <th className="p-3">Vehicle</th>
                       <th className="p-3">Year</th>
+                      <th className="p-3">Chassis No.</th>
                       <th className="p-3">Mileage</th>
                       <th className="p-3">Engine</th>
                       <th className="p-3">Transmission</th>

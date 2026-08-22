@@ -8,8 +8,6 @@ import '../styles/custom/layout/footer.css'
 import '../styles/custom/layout/header.css';
 import '../styles/custom/pages/homepage.css';
 import '../styles/custom/utilities/chatbot.css';
-import '../styles/custom/utilities/searchForm.css';
-import '../styles/custom/utilities/slider.css';
 import  "../styles/custom/vehicle/vehicleInfo.css";
 import '../styles/custom/utilities/toolTip.css';
 import "../styles/custom/agents/namibiaAgent.css"; // Import the CSS file
@@ -31,7 +29,6 @@ import '../styles/custom/components/invoicePreview.css'; // Custom styles for pr
 import '../styles/custom/user/userHomepage.css';
 import "../styles/custom/components/invoice.css";
 import '../styles/custom/user/profilePage.css';
-import '../styles/custom/utilities/slider.css';
 import '../styles/custom/pages/shipping.css';
 import '../styles/custom/pages/register.css';
 import '../styles/custom/vehicle/cuttingCost.css';
