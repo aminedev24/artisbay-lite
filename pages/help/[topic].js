@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import HowToBuy               from '../../components/help/howtobuy';
-import CompanyProfile         from '../../components/help/companyProfile';
 import TermsAndConditions     from '../../components/help/terms';
 import AntiSocialForcesPolicy from '../../components/help/asf';
 import PaypalInfo             from '../../components/help/paypal';
@@ -13,18 +12,13 @@ import AuctionLanding         from '../../components/help/auction';
 import TelegraphicTransfer    from '../../components/help/telegraphicTransfer';
 import PrivacyPolicy          from '../../components/help/privacy';
 import FAQComponent           from '../../components/help/faq';
-import AutomatedInvoice       from '../../components/help/automatedInvoice';
-import WisePaymentInstructions from '../../components/help/wise';
-import MachineryService       from '../../components/help/machinery';
 
 // ---- DATA: Only use serializable values (no JSX or React elements!) ----
 const topicGroups = [
   {
     label: 'Help',
     topics: [
-      { name: 'About Us', slug: 'about-us', component: 'CompanyProfile' },
       { name: 'Frequently Asked Questions', slug: 'frequently-asked-questions', component: 'FAQComponent' },
-      { name: 'Automated Invoice', slug: 'automated-invoice', component: 'AutomatedInvoice' },
       { name: 'Terms and Conditions', slug: 'terms-and-conditions', component: 'TermsAndConditions' },
       { name: 'Anti-Social Force Policy', slug: 'anti-social-force-policy', component: 'AntiSocialForcesPolicy' },
       { name: 'How to Buy Used Cars', slug: 'how-to-buy-used-cars', component: 'HowToBuy' },
@@ -35,11 +29,9 @@ const topicGroups = [
     label: 'Buying',
     topics: [
       { name: 'About Payment', slug: 'about-payment', component: 'PaymentMethods' },
-      { name: 'Wise Banking', slug: 'wise-banking', component: 'WisePaymentInstructions' },
       { name: 'PayPal', slug: 'paypal', component: 'PaypalInfo' },
       { name: 'Telegraphic Transfer', slug: 'telegraphic-transfer', component: 'TelegraphicTransfer' },
       { name: 'Privacy Policy', slug: 'privacy-policy', component: 'PrivacyPolicy' },
-      { name: 'Machinery', slug: 'machinery', component: 'MachineryService' },
     ],
   },
 ];
@@ -56,27 +48,18 @@ const topicMeta = {
     description: 'Step-by-step guide on purchasing used cars from Japanese auctions via Meridian Motors.',
     keywords: 'buy used cars, Meridian Motors, Japanese auctions, how to buy',
   },
-  'about-us': {
-    title: 'About Us | Meridian Motors Inc.',
-    description: 'Learn about Meridian Motors’ mission, history, and the team behind our car-buying platform.',
-    keywords: 'Meridian Motors, company profile, about us',
-  },
 };
 
 const topicComponents = {
-  CompanyProfile,
   FAQComponent,
-  AutomatedInvoice,
   TermsAndConditions,
   AntiSocialForcesPolicy,
   HowToBuy,
   AuctionLanding,
   PaymentMethods,
-  WisePaymentInstructions,
   PaypalInfo,
   TelegraphicTransfer,
   PrivacyPolicy,
-  MachineryService,
 };
 
 const allTopics = topicGroups.flatMap((group) => group.topics);

@@ -18,7 +18,6 @@ import  "../styles/custom/forms/contact.css";
 import "../styles/custom/components/invoice.css";
 import '../styles/custom/help/terms.css';
 import '../styles/custom/help/bankInfo.css'; // Import the CSS file
-import '../styles/custom/help/companyProfile.css';
 import '../styles/custom/help/faq.css'; // Import the CSS file
 import '../styles/custom/help/howToBuy.css';
 import '../styles/custom/help/terms.css';
