@@ -81,6 +81,20 @@ const TornEdge = ({ flip = false }) => (
   </svg>
 );
 
+// A highlighter-style inline tag for calling out equipment, included
+// services, and status text within otherwise plain running paragraphs.
+const Highlight = ({ tone = "accent", children }) => (
+  <span
+    className={`inline-block px-1.5 py-0.5 font-semibold ${
+      tone === "accent"
+        ? "bg-[var(--accent-color)]/10 text-[var(--charcoal-color)]"
+        : "bg-[var(--primary-color)]/8 text-[var(--primary-color)]"
+    }`}
+  >
+    {children}
+  </span>
+);
+
 const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
   const router = useRouter();
   const { id: queryId } = router.query;
@@ -295,7 +309,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
     return parts.join("   ·   ");
   }, [car]);
 
-  const equippedText = useMemo(() => EQUIPMENT_LIST.filter((item) => carOptions.includes(item)).join(" · "), [carOptions]);
+  const equippedItems = useMemo(() => EQUIPMENT_LIST.filter((item) => carOptions.includes(item)), [carOptions]);
 
   if (loading) {
     return (
@@ -331,10 +345,10 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background-color)] py-5">
+    <div className="min-h-screen bg-[var(--background-color)] py-3">
       <div className="mx-auto w-full max-w-[1160px] px-4">
         {/* Breadcrumb */}
-        <nav className="mb-2.5 flex flex-wrap items-center gap-1.5 text-xs text-[var(--grey-text)]">
+        <nav className="mb-2 flex flex-wrap items-center gap-1.5 text-xs text-[var(--grey-text)]">
           <button onClick={() => router.push("/")} className="hover:text-[var(--primary-color)]">HOME</button>
           <span>/</span>
           <button onClick={backToStock} className="hover:text-[var(--primary-color)]">STOCK</button>
@@ -354,7 +368,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
         </nav>
 
         {/* Hero photo */}
-        <div className="relative overflow-hidden border border-[var(--border-color)] bg-gray-100" style={{ aspectRatio: "16 / 6.2" }}>
+        <div className="relative overflow-hidden border border-[var(--border-color)] bg-gray-100" style={{ aspectRatio: "16 / 5.2" }}>
           <img
             src={galleryImages[activeImageIndex]}
             alt={`${carName} photo ${activeImageIndex + 1}`}
@@ -364,7 +378,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
 
           {isSold && (
             <div
-              className="pointer-events-none absolute right-9 top-8 border-[3px] border-double px-4 py-2 font-mono text-xl font-extrabold uppercase tracking-widest"
+              className="pointer-events-none absolute right-6 top-5 border-[3px] border-double px-3 py-1.5 font-mono text-base font-extrabold uppercase tracking-widest"
               style={{ transform: "rotate(-9deg)", borderColor: "#a8341f", color: "#a8341f", background: "rgba(254,254,254,0.76)" }}
             >
               Sold
@@ -372,7 +386,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
           )}
           {isReserved && (
             <div
-              className="pointer-events-none absolute right-9 top-8 border-[3px] border-double px-4 py-2 font-mono text-xl font-extrabold uppercase tracking-widest"
+              className="pointer-events-none absolute right-6 top-5 border-[3px] border-double px-3 py-1.5 font-mono text-base font-extrabold uppercase tracking-widest"
               style={{ transform: "rotate(-9deg)", borderColor: "var(--secondary-color)", color: "var(--secondary-color)", background: "rgba(254,254,254,0.76)" }}
             >
               Negotiating
@@ -380,14 +394,14 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
           )}
           {!isSold && !isReserved && (
             <div
-              className="pointer-events-none absolute right-9 top-8 border-[3px] border-double px-4 py-2 font-mono text-xl font-extrabold uppercase tracking-widest"
+              className="pointer-events-none absolute right-6 top-5 border-[3px] border-double px-3 py-1.5 font-mono text-base font-extrabold uppercase tracking-widest"
               style={{ transform: "rotate(-9deg)", borderColor: "var(--accent-color)", color: "var(--accent-color)", background: "rgba(254,254,254,0.76)" }}
             >
               Available
             </div>
           )}
 
-          <h1 className="pointer-events-none absolute bottom-4 left-5 text-2xl font-bold uppercase text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}>
+          <h1 className="pointer-events-none absolute bottom-3 left-4 text-xl font-bold uppercase text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}>
             {carName}
           </h1>
 
@@ -416,12 +430,12 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
 
         {/* Thumbnail strip */}
         {galleryImages.length > 1 && (
-          <div className="flex gap-1.5 overflow-x-auto pt-2">
+          <div className="flex gap-1.5 overflow-x-auto pt-1.5">
             {galleryImages.map((img, i) => (
               <button
                 key={`${img}-${i}`}
                 onClick={() => setActiveImageIndex(i)}
-                className={`h-[52px] w-[74px] shrink-0 overflow-hidden border-2 transition ${
+                className={`h-11 w-16 shrink-0 overflow-hidden border-2 transition ${
                   i === activeImageIndex ? "border-[var(--primary-color)]" : "border-dashed border-gray-300 hover:border-gray-400"
                 }`}
               >
@@ -432,7 +446,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
         )}
 
         {/* Photo utility bar */}
-        <div className="flex items-center gap-4 pt-2 text-xs text-[var(--grey-text)]">
+        <div className="flex items-center gap-4 pt-1.5 text-xs text-[var(--grey-text)]">
           <span><FontAwesomeIcon icon={faImages} className="mr-1" />{galleryImages.length} photo{galleryImages.length === 1 ? "" : "s"}</span>
           <button onClick={handleShare} className="ml-auto flex items-center gap-1 transition hover:text-[var(--primary-color)]">
             <FontAwesomeIcon icon={faShareAlt} /> Share
@@ -440,25 +454,33 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
         </div>
 
         {/* Fact ticker */}
-        <div className="mt-2.5 overflow-x-auto whitespace-nowrap bg-[var(--charcoal-color)] px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wide text-white/80">
+        <div className="mt-2 overflow-x-auto whitespace-nowrap bg-[var(--charcoal-color)] px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wide text-white/80">
           {factTicker}
         </div>
 
-        {(isSold || isReserved) && (
-          <div className="border-x border-b border-[var(--border-color)] bg-[var(--white)] px-5 py-2.5 text-xs text-[var(--grey-text)]">
-            {isSold
-              ? "This vehicle has been sold. Contact us to find a similar one."
-              : "This vehicle is currently being negotiated. Contact us for availability."}
-          </div>
-        )}
+        <div
+          className={`border-x border-b px-4 py-1.5 text-xs font-semibold ${
+            isSold
+              ? "border-[#a8341f]/30 bg-[#a8341f]/10 text-[#a8341f]"
+              : isReserved
+              ? "border-[var(--secondary-color)]/30 bg-[var(--secondary-color)]/10 text-[var(--secondary-color)]"
+              : "border-[var(--accent-color)]/30 bg-[var(--accent-color)]/10 text-[var(--accent-color-hover)]"
+          }`}
+        >
+          {isSold
+            ? "This vehicle has been sold. Contact us to find a similar one."
+            : isReserved
+            ? "This vehicle is currently being negotiated. Contact us for availability."
+            : "Available now — ready to inspect, reserve, and ship from Japan."}
+        </div>
 
         <TornEdge />
 
         {/* Diagram + ledger */}
         <div className="flex flex-wrap border border-[var(--border-color)] bg-[var(--white)]">
           {/* Inspection diagram */}
-          <div className="w-full shrink-0 border-b border-[var(--border-color)] p-4 sm:w-[340px] sm:border-b-0 sm:border-r">
-            <h4 className="mb-3 text-center text-[10px] font-extrabold uppercase tracking-widest text-gray-400">
+          <div className="w-full shrink-0 border-b border-[var(--border-color)] p-3 sm:w-[320px] sm:border-b-0 sm:border-r">
+            <h4 className="mb-2 text-center text-[10px] font-extrabold uppercase tracking-widest text-gray-400">
               Inspection Diagram
             </h4>
             <div className="relative w-full" style={{ aspectRatio: "400 / 260" }}>
@@ -500,8 +522,8 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
             </div>
 
             {/* Ticket-stub price */}
-            <div className="mt-5 flex border border-[var(--primary-color)]">
-              <div className="flex-1 py-3.5 text-center">
+            <div className="mt-4 flex border border-[var(--primary-color)]">
+              <div className="flex-1 py-2.5 text-center">
                 <div className="text-[9px] font-extrabold uppercase tracking-widest text-gray-400">FOB Japan</div>
                 {isSold || isReserved ? (
                   <div className="font-mono text-lg font-extrabold italic leading-tight text-gray-400">Price on request</div>
@@ -544,18 +566,18 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
             </div>
             <button
               onClick={() => document.getElementById("request-now-panel")?.scrollIntoView({ behavior: "smooth" })}
-              className="mt-2.5 flex w-full items-center justify-center gap-2 bg-[var(--accent-color)] py-3 text-xs font-extrabold uppercase tracking-widest text-white transition hover:bg-[var(--accent-color-hover)]"
+              className="mt-2 flex w-full items-center justify-center gap-2 bg-[var(--accent-color)] py-2.5 text-xs font-extrabold uppercase tracking-widest text-white transition hover:bg-[var(--accent-color-hover)]"
             >
               <FontAwesomeIcon icon={faPaperPlane} /> Request This Vehicle
             </button>
           </div>
 
           {/* Ledger */}
-          <div className="min-w-0 flex-1 p-5">
-            <h4 className="mb-1.5 text-[10px] font-extrabold uppercase tracking-widest text-gray-400">Manifest</h4>
+          <div className="min-w-0 flex-1 p-4">
+            <h4 className="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-gray-400">Manifest</h4>
             <dl>
               {ledgerRows.map((row) => (
-                <div key={row.label} className="flex items-baseline justify-between gap-3.5 border-b border-gray-100 py-2 last:border-b-0">
+                <div key={row.label} className="flex items-baseline justify-between gap-3.5 border-b border-gray-100 py-1.5 last:border-b-0">
                   <dt className="flex items-baseline gap-2.5">
                     <span className="font-mono text-[10px] font-bold text-gray-300">{row.index}</span>
                     <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400">{row.label}</span>
@@ -565,25 +587,35 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
               ))}
             </dl>
 
-            <p className="mt-5 border-t border-[var(--border-color)] pt-4 text-xs leading-relaxed text-[var(--text-color)]">
+            <div className="mt-3 border-t border-[var(--border-color)] pt-2.5 text-xs leading-relaxed text-[var(--text-color)]">
               {carOptions.length === 0 ? (
                 <span className="text-gray-500">Equipment data not available for this vehicle — contact us to confirm specific features.</span>
               ) : (
                 <>
-                  <strong className="text-[var(--charcoal-color)]">Equipped with —</strong> {equippedText}.{" "}
+                  <strong className="text-[var(--charcoal-color)]">Equipped with —</strong>{" "}
+                  <span className="mt-1.5 flex flex-wrap gap-1.5 py-1">
+                    {equippedItems.map((item) => (
+                      <Highlight key={item}>{item}</Highlight>
+                    ))}
+                  </span>
                   <span className="text-gray-500">List reflects features noted on the seller&rsquo;s inspection sheet and may not be exhaustive — contact us to confirm any specific feature.</span>
                 </>
               )}
-            </p>
+            </div>
 
-            <p className="mt-3 text-xs leading-relaxed text-[var(--text-color)]">
-              <strong className="text-[var(--charcoal-color)]">Included —</strong> pre-export inspection available &middot; export documents handled end to end &middot; worldwide RoRo / container shipping.
-            </p>
+            <div className="mt-2.5 text-xs leading-relaxed text-[var(--text-color)]">
+              <strong className="text-[var(--charcoal-color)]">Included —</strong>
+              <span className="mt-1.5 flex flex-wrap gap-1.5 py-1">
+                <Highlight tone="primary">Pre-export inspection</Highlight>
+                <Highlight tone="primary">Export documents handled end to end</Highlight>
+                <Highlight tone="primary">Worldwide RoRo / container shipping</Highlight>
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-4 mb-5 border-t border-dashed border-gray-300 pt-3 font-mono text-[10.5px] leading-relaxed text-gray-500">
+        <div className="mt-3 mb-4 border-t border-dashed border-gray-300 pt-2.5 font-mono text-[10.5px] leading-relaxed text-gray-500">
           <p>Prices are approximate FOB Japan and exclude freight, insurance, and import duties.</p>
           <p>Vehicles are listed online and viewed by many buyers daily; reservation alone does not guarantee availability until your payment is reflected in our account.</p>
           <p>If the vehicle is unavailable when your payment is reflected, we will offer a similar unit or process a refund based on your decision.</p>
@@ -593,8 +625,8 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
         <TornEdge flip />
 
         {/* Request slip */}
-        <div id="request-now-panel" className="border border-t-0 border-[var(--primary-color)] bg-[var(--white)] p-5">
-          <div className="mb-4 flex items-baseline justify-between">
+        <div id="request-now-panel" className="border border-t-0 border-[var(--primary-color)] bg-[var(--white)] p-4">
+          <div className="mb-3 flex items-baseline justify-between">
             <h3 className="text-base font-bold uppercase text-[var(--primary-color)]">
               Request Slip &mdash; Lot #{displayStockId(car)}
             </h3>
