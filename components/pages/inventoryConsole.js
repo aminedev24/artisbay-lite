@@ -8,6 +8,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { apiInventory } from "../utilities/apiBase";
 import { getCarBodyType, getCarMake } from "../utilities/ichinomiyaCardAdapter";
+import { fetchAllMakesModels, getMakesData, getModelsData } from "../vehicles/vehicleData";
 
 const BUDGETS = [
   { label: "Under $10,000", minPrice: "", maxPrice: "10000" },
@@ -28,14 +29,17 @@ const InventoryConsole = () => {
   const [cars, setCars] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [selectedMake, setSelectedMake] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
   const [selectedBodyType, setSelectedBodyType] = useState("");
   const [selectedBudget, setSelectedBudget] = useState("");
+  const [catalogLoaded, setCatalogLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`${apiInventory}/cars/fetchStock.php`)
       .then((res) => res.json())
       .then((data) => setCars(Array.isArray(data) ? data : []))
       .catch(() => setCars([]));
+    fetchAllMakesModels().finally(() => setCatalogLoaded(true));
   }, []);
 
   const makesWithCounts = useMemo(() => {
@@ -50,6 +54,30 @@ const InventoryConsole = () => {
       .sort((a, b) => b.count - a.count)
       .slice(0, 12);
   }, [cars]);
+
+  // The full make catalog (67 makes / thousands of models) merged with live
+  // stock counts, for the Make/Model selects - "Shop by Make" tiles above
+  // stay stock-derived only, since they're a quick-browse shortcut rather
+  // than an exhaustive filter.
+  const selectMakes = useMemo(() => {
+    const countMap = new Map(makesWithCounts.map((m) => [m.name, m.count]));
+    const stockOnlyCounts = new Map();
+    cars.forEach((car) => {
+      const name = getCarMake(car);
+      if (!name) return;
+      stockOnlyCounts.set(name, (stockOnlyCounts.get(name) || 0) + 1);
+    });
+    const names = new Set([...getMakesData(), ...stockOnlyCounts.keys()]);
+    return Array.from(names)
+      .map((name) => ({ name, count: countMap.get(name) || stockOnlyCounts.get(name) || 0 }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [cars, makesWithCounts, catalogLoaded]);
+
+  const modelsForSelectedMake = useMemo(() => {
+    if (!selectedMake) return [];
+    const models = getModelsData()[selectedMake];
+    return Array.isArray(models) ? models : [];
+  }, [selectedMake, catalogLoaded]);
 
   const bodyTypesWithCounts = useMemo(() => {
     const map = new Map();
@@ -89,6 +117,7 @@ const InventoryConsole = () => {
     const params = new URLSearchParams();
     if (keyword.trim()) params.set("search", keyword.trim());
     if (selectedMake) params.set("make", selectedMake);
+    if (selectedModel) params.set("model", selectedModel);
     if (selectedBodyType) params.set("bodyType", selectedBodyType);
     if (selectedBudget) {
       const budget = budgetsWithCounts.find((b) => b.label === selectedBudget);
@@ -121,13 +150,29 @@ const InventoryConsole = () => {
           />
           <select
             value={selectedMake}
-            onChange={(e) => setSelectedMake(e.target.value)}
+            onChange={(e) => {
+              setSelectedMake(e.target.value);
+              setSelectedModel("");
+            }}
             className="border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-navy md:w-40"
           >
             <option value="">Any Make</option>
-            {makesWithCounts.map((m) => (
+            {selectMakes.map((m) => (
               <option key={m.name} value={m.name}>
                 {m.name} ({m.count})
+              </option>
+            ))}
+          </select>
+          <select
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+            disabled={!selectedMake}
+            className="border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-navy disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 md:w-40"
+          >
+            <option value="">Any Model</option>
+            {modelsForSelectedMake.map((m) => (
+              <option key={m} value={m}>
+                {m}
               </option>
             ))}
           </select>

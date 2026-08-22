@@ -1,5 +1,16 @@
+import getConfig from "next/config";
+
 let makesData = [];
 let modelsData = {};
+
+// window.open/next/config's basePath, not fetch() itself, know about the
+// GitHub Pages build's /meridian-motors prefix - a bare '/make_models.json'
+// 404s there silently (caught below), leaving the make/model catalog empty.
+const makeModelsUrl = () => {
+  const { publicRuntimeConfig } = getConfig() || {};
+  const basePath = publicRuntimeConfig?.basePath || "";
+  return `${basePath}/make_models.json`;
+};
 
 export const setMakesData = (makes) => {
   makesData = makes;
@@ -20,7 +31,7 @@ export const getModelsData = () => {
 // Fetch makes from local JSON file
 export const fetchMakes = async () => {
   try {
-    const response = await fetch(`/make_models.json`); // Fetch local JSON
+    const response = await fetch(makeModelsUrl()); // Fetch local JSON
     const data = await response.json();
 
     const makes = Object.keys(data); // Extract makes from JSON keys
@@ -36,12 +47,12 @@ export const fetchMakes = async () => {
 // Fetch models for a selected make
 export const fetchModelsForMake = async (make) => {
   try {
-    const response = await fetch(`/make_models.json`);
+    const response = await fetch(makeModelsUrl());
     const data = await response.json();
 
     const models = data[make] || []; // Get models for the make
 
-    setModelsData((prev) => ({ ...prev, [make]: models }));
+    setModelsData({ ...getModelsData(), [make]: models });
     return models;
   } catch (error) {
     console.error(`Error loading models for ${make}:`, error);
@@ -52,7 +63,7 @@ export const fetchModelsForMake = async (make) => {
 // Fetch the full makes -> models map in a single call
 export const fetchAllMakesModels = async () => {
   try {
-    const response = await fetch(`/make_models.json`);
+    const response = await fetch(makeModelsUrl());
     const data = await response.json();
     setMakesData(Object.keys(data));
     setModelsData(data);

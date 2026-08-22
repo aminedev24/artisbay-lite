@@ -145,6 +145,11 @@ const getCarPrice = (car) => {
   return getCarPriceUsd(car);
 };
 
+const getCarMileage = (car) => {
+  const n = Number(String(car?.mileage ?? "").replace(/[^\d.-]/g, ""));
+  return Number.isFinite(n) && n > 0 ? n : Infinity;
+};
+
 const getCarRecency = (car) => {
   const shipped = new Date(car?.ship_date).getTime();
   if (Number.isFinite(shipped)) return shipped;
@@ -155,6 +160,7 @@ const getCarRecency = (car) => {
 const sortSelections = [
   { value: "newest", label: "Latest arrivals" },
   { value: "price", label: "Lowest price" },
+  { value: "mileage", label: "Lowest mileage" },
   { value: "popularity", label: "Most viewed" },
 ];
 
@@ -236,7 +242,7 @@ const StocklistV2 = () => {
     });
     setSearchInput(val("search"));
     const sortFromUrl = val("sort");
-    if (sortFromUrl === "price" || sortFromUrl === "popularity" || sortFromUrl === "newest") {
+    if (sortFromUrl === "price" || sortFromUrl === "mileage" || sortFromUrl === "popularity" || sortFromUrl === "newest") {
       setSortOption(sortFromUrl);
     }
     setInitialized(true);
@@ -485,6 +491,8 @@ const StocklistV2 = () => {
       switch (sortOption) {
         case "price":
           return getCarPrice(a) - getCarPrice(b);
+        case "mileage":
+          return getCarMileage(a) - getCarMileage(b);
         case "popularity":
           return (b.popularity || 0) - (a.popularity || 0);
         case "newest":
@@ -758,13 +766,21 @@ const StocklistV2 = () => {
     <div className="min-h-screen bg-gray-50 py-6">
       <div className="mx-auto w-full max-w-[1440px] px-4">
         <div className="flex items-start gap-5">
-          {/* Sidebar — full height on the left */}
+          {/* Sidebar — the one filter surface on desktop; the top bar below
+              is mobile-only so filters aren't duplicated across two places */}
           <StockSidebarV2
             makes={makesWithCounts}
             bodyTypes={bodiesWithCounts}
             priceOptions={priceFilterOptions}
             selected={filters}
             onQuickFilter={handleQuickFilter}
+            searchInput={searchInput}
+            onSearchInputChange={setSearchInput}
+            onSearchSubmit={handleSearchSubmit}
+            onFilterChange={handleFilterChange}
+            options={filterOptions}
+            onReset={handleResetFilters}
+            hasActiveFilters={hasActiveFilters}
           />
 
           {/* Main column — title, filter bar, results */}
@@ -789,17 +805,20 @@ const StocklistV2 = () => {
               </div>
             </div>
 
-            {/* Top filter bar */}
-            <StockFilterBarV2
-              filters={filters}
-              searchInput={searchInput}
-              onSearchInputChange={setSearchInput}
-              onSearchSubmit={handleSearchSubmit}
-              onFilterChange={handleFilterChange}
-              onReset={handleResetFilters}
-              hasActiveFilters={hasActiveFilters}
-              options={filterOptions}
-            />
+            {/* Top filter bar — mobile/tablet only; the sidebar covers this
+                ground on desktop (lg:), so it isn't duplicated in both places */}
+            <div className="lg:hidden">
+              <StockFilterBarV2
+                filters={filters}
+                searchInput={searchInput}
+                onSearchInputChange={setSearchInput}
+                onSearchSubmit={handleSearchSubmit}
+                onFilterChange={handleFilterChange}
+                onReset={handleResetFilters}
+                hasActiveFilters={hasActiveFilters}
+                options={filterOptions}
+              />
+            </div>
 
             {/* Controls bar */}
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-3.5 py-2 shadow-sm">

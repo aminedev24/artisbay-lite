@@ -20,6 +20,7 @@ import {
   faCar,
   faHeart,
   faScaleBalanced,
+  faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../user/userContext";
 import { useFavorites, toggleFavorite } from "./useFavorites";
@@ -40,7 +41,6 @@ const PLACEHOLDER_IMAGE = "/images/vehicles/artisbay-placeholder.svg";
 const absoluteUrlPattern = /https?:\/\/[^\s"']+/gi;
 const UNKNOWN = new Set(["", "n/a", "na", "unknown", "0", "null", "undefined", "-", "--"]);
 const isUnknownLike = (v) => UNKNOWN.has(String(v ?? "").trim().toLowerCase());
-const orDash = (v) => (isUnknownLike(v) ? "—" : v);
 
 // Kept in sync with the partner source's full option code table (see
 // ichinomiya-motors server-scripts/process_upload.php $OPTIONS_MAP) so a
@@ -82,17 +82,32 @@ const TornEdge = ({ flip = false }) => (
 );
 
 // A highlighter-style inline tag for calling out equipment, included
-// services, and status text within otherwise plain running paragraphs.
+// services, and status text within otherwise plain running paragraphs -
+// solid ink, not a faint tint, so it actually reads as a highlight.
 const Highlight = ({ tone = "accent", children }) => (
   <span
-    className={`inline-block px-1.5 py-0.5 font-semibold ${
+    className={`inline-block px-2 py-1 text-[11px] font-bold uppercase tracking-wide ${
       tone === "accent"
-        ? "bg-[var(--accent-color)]/10 text-[var(--charcoal-color)]"
-        : "bg-[var(--primary-color)]/8 text-[var(--primary-color)]"
+        ? "bg-[var(--accent-color)] text-white"
+        : tone === "primary"
+        ? "bg-[var(--primary-color)] text-white"
+        : "bg-[var(--charcoal-color)] text-white"
     }`}
   >
     {children}
   </span>
+);
+
+// Bolds only the clause that matters, in place, rather than the whole
+// sentence - research on disclaimer scanning (NN/g) shows highlighting a
+// short key phrase beats a uniform block, which readers skip entirely.
+const WarnLine = ({ children, critical }) => (
+  <div className="flex items-start gap-2 border-b border-gray-100 py-2 text-xs leading-relaxed text-[var(--text-color)] last:border-b-0">
+    <FontAwesomeIcon icon={faTriangleExclamation} className="mt-0.5 shrink-0 text-[11px] text-amber-600" />
+    <p>
+      {children} <strong className="bg-amber-100 px-1 font-bold text-amber-800">{critical}</strong>
+    </p>
+  </div>
 );
 
 const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
@@ -259,18 +274,9 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
     setFavoriteBusy(false);
   };
 
-  // The four fields called out on the inspection diagram - everything else
-  // real about the vehicle lives in the ledger below.
-  const diagramCallouts = useMemo(() => {
-    if (!car) return { engine: "—", steering: "—", chassis: "—", drive: "—" };
-    return {
-      engine: orDash(formatNumberWithUnit(car.engine_capacity)),
-      steering: orDash(car.steering),
-      chassis: orDash(maskChassis(car.chassis_no || car.chassis || car.chassisNo || car.frame_no || car.vin_number)),
-      drive: orDash(car.drive || car.drive_train),
-    };
-  }, [car]);
-
+  // One authoritative spec table - real reference sites (e.g. beforward.jp)
+  // use a single plain spec table rather than splitting fields across a
+  // ticker, an illustrated diagram, and a ledger.
   const ledgerRows = useMemo(() => {
     if (!car) return [];
     return [
@@ -282,32 +288,18 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
       { label: "Color", value: car.color },
       { label: "Year", value: car.year },
       { label: "Mileage", value: formatNumberWithUnit(car.mileage) },
+      { label: "Engine", value: formatNumberWithUnit(car.engine_capacity) },
       { label: "Fuel", value: car.fuel },
       { label: "Transmission", value: car.transmission },
+      { label: "Drive", value: car.drive || car.drive_train },
+      { label: "Steering", value: car.steering },
       { label: "Seats", value: car.seat },
       { label: "Doors", value: car.door },
+      { label: "Chassis No.", value: maskChassis(car.chassis_no || car.chassis || car.chassisNo || car.frame_no || car.vin_number) },
     ]
       .filter((row) => !isUnknownLike(row.value))
       .map((row, i) => ({ ...row, index: String(i + 1).padStart(2, "0") }));
   }, [car, bodyType]);
-
-  // Dense mono fact strip under the hero photo - same fields as the ledger's
-  // top rows, condensed into one scannable line.
-  const factTicker = useMemo(() => {
-    if (!car) return "";
-    const parts = [
-      `REF #${displayStockId(car)}`,
-      car.make,
-      car.model,
-      car.year,
-      formatNumberWithUnit(car.mileage),
-      [formatNumberWithUnit(car.engine_capacity), car.fuel].filter((v) => !isUnknownLike(v)).join(" "),
-      car.transmission,
-      car.drive || car.drive_train,
-      car.steering,
-    ].filter((v) => !isUnknownLike(v));
-    return parts.join("   ·   ");
-  }, [car]);
 
   const equippedItems = useMemo(() => EQUIPMENT_LIST.filter((item) => carOptions.includes(item)), [carOptions]);
 
@@ -345,8 +337,8 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background-color)] py-3">
-      <div className="mx-auto w-full max-w-[1160px] px-4">
+    <div className="min-h-screen bg-[var(--background-color)] py-2">
+      <div className="mx-auto w-full max-w-[1080px] px-4">
         {/* Breadcrumb */}
         <nav className="mb-2 flex flex-wrap items-center gap-1.5 text-xs text-[var(--grey-text)]">
           <button onClick={() => router.push("/")} className="hover:text-[var(--primary-color)]">HOME</button>
@@ -368,7 +360,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
         </nav>
 
         {/* Hero photo */}
-        <div className="relative overflow-hidden border border-[var(--border-color)] bg-gray-100" style={{ aspectRatio: "16 / 5.2" }}>
+        <div className="relative overflow-hidden border border-[var(--border-color)] bg-gray-100" style={{ aspectRatio: "16 / 4.2" }}>
           <img
             src={galleryImages[activeImageIndex]}
             alt={`${carName} photo ${activeImageIndex + 1}`}
@@ -401,9 +393,16 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
             </div>
           )}
 
-          <h1 className="pointer-events-none absolute bottom-3 left-4 text-xl font-bold uppercase text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}>
+          <h1 className="pointer-events-none absolute bottom-3 left-4 max-w-[55%] truncate text-xl font-bold uppercase text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}>
             {carName}
           </h1>
+
+          <button
+            onClick={() => document.getElementById("request-now-panel")?.scrollIntoView({ behavior: "smooth" })}
+            className="absolute bottom-3 right-4 z-10 flex items-center gap-2 bg-[var(--accent-color)] px-4 py-2 text-xs font-extrabold uppercase tracking-widest text-white shadow-lg transition hover:bg-[var(--accent-color-hover)]"
+          >
+            <FontAwesomeIcon icon={faPaperPlane} /> Request Now
+          </button>
 
           {galleryImages.length > 1 && (
             <>
@@ -421,7 +420,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
               >
                 <FontAwesomeIcon icon={faChevronRight} className="text-sm" />
               </button>
-              <span className="absolute bottom-4 right-4 rounded-none bg-black/60 px-2.5 py-1 font-mono text-xs font-semibold text-white">
+              <span className="absolute left-4 top-5 rounded-none bg-black/60 px-2.5 py-1 font-mono text-xs font-semibold text-white">
                 {activeImageIndex + 1} / {galleryImages.length}
               </span>
             </>
@@ -453,76 +452,43 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
           </button>
         </div>
 
-        {/* Fact ticker */}
-        <div className="mt-2 overflow-x-auto whitespace-nowrap bg-[var(--charcoal-color)] px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wide text-white/80">
-          {factTicker}
-        </div>
-
-        <div
-          className={`border-x border-b px-4 py-1.5 text-xs font-semibold ${
-            isSold
-              ? "border-[#a8341f]/30 bg-[#a8341f]/10 text-[#a8341f]"
+        {/* Key highlights strip */}
+        <div className="mt-2 flex flex-wrap items-center gap-2 border border-[var(--border-color)] bg-[var(--white)] px-4 py-2.5">
+          <span
+            className={`px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white ${
+              isSold ? "bg-[#a8341f]" : isReserved ? "bg-[var(--secondary-color)]" : "bg-[var(--accent-color)]"
+            }`}
+          >
+            {isSold ? "Sold" : isReserved ? "Under Negotiation" : "Available Now"}
+          </span>
+          {equippedItems.length > 0 && (
+            <span className="bg-[var(--primary-color)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+              {equippedItems.length} Features Equipped
+            </span>
+          )}
+          <span className="bg-[var(--charcoal-color)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+            Pre-Export Inspected
+          </span>
+          <span className="bg-[var(--charcoal-color)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+            Ships Worldwide
+          </span>
+          <span className="ml-auto text-xs font-semibold text-[var(--grey-text)]">
+            {isSold
+              ? "Contact us to find a similar one."
               : isReserved
-              ? "border-[var(--secondary-color)]/30 bg-[var(--secondary-color)]/10 text-[var(--secondary-color)]"
-              : "border-[var(--accent-color)]/30 bg-[var(--accent-color)]/10 text-[var(--accent-color-hover)]"
-          }`}
-        >
-          {isSold
-            ? "This vehicle has been sold. Contact us to find a similar one."
-            : isReserved
-            ? "This vehicle is currently being negotiated. Contact us for availability."
-            : "Available now — ready to inspect, reserve, and ship from Japan."}
+              ? "Contact us for availability."
+              : "Ready to inspect, reserve, and ship from Japan."}
+          </span>
         </div>
 
         <TornEdge />
 
-        {/* Diagram + ledger */}
-        <div className="flex flex-wrap border border-[var(--border-color)] bg-[var(--white)]">
-          {/* Inspection diagram */}
-          <div className="w-full shrink-0 border-b border-[var(--border-color)] p-3 sm:w-[320px] sm:border-b-0 sm:border-r">
-            <h4 className="mb-2 text-center text-[10px] font-extrabold uppercase tracking-widest text-gray-400">
-              Inspection Diagram
-            </h4>
-            <div className="relative w-full" style={{ aspectRatio: "400 / 260" }}>
-              <svg viewBox="0 0 400 260" className="absolute inset-0 h-full w-full">
-                <g fill="none" stroke="#b9c0c3" strokeWidth="2.5">
-                  <path d="M40,178 L60,148 Q70,128 90,126 L150,108 Q170,98 190,98 L260,98 Q285,98 300,118 L330,148 Q345,153 350,168 L350,178 Z" fill="#eef0f1" />
-                  <circle cx="90" cy="182" r="22" fill="#dfe3e5" />
-                  <circle cx="300" cy="182" r="22" fill="#dfe3e5" />
-                </g>
-                <g stroke="#0f4c5c" strokeWidth="1.2" strokeDasharray="3,3">
-                  <line x1="100" y1="120" x2="40" y2="55" />
-                  <line x1="170" y1="103" x2="170" y2="28" />
-                  <line x1="300" y1="178" x2="358" y2="218" />
-                  <line x1="90" y1="178" x2="34" y2="218" />
-                </g>
-                <g fill="var(--accent-color)">
-                  <circle cx="100" cy="120" r="3.5" />
-                  <circle cx="170" cy="103" r="3.5" />
-                  <circle cx="300" cy="178" r="3.5" />
-                  <circle cx="90" cy="178" r="3.5" />
-                </g>
-              </svg>
-              <div className="absolute left-0 top-[14%] w-[34%] font-mono text-[10px] leading-tight">
-                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Engine</div>
-                <div className="text-gray-600">{diagramCallouts.engine}</div>
-              </div>
-              <div className="absolute left-[32%] top-[2%] w-[36%] text-center font-mono text-[10px] leading-tight">
-                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Steering</div>
-                <div className="text-gray-600">{diagramCallouts.steering}</div>
-              </div>
-              <div className="absolute bottom-[6%] right-0 w-[34%] text-right font-mono text-[10px] leading-tight">
-                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Chassis</div>
-                <div className="text-gray-600">{diagramCallouts.chassis}</div>
-              </div>
-              <div className="absolute bottom-[6%] left-0 w-[30%] font-mono text-[10px] leading-tight">
-                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Drive</div>
-                <div className="text-gray-600">{diagramCallouts.drive}</div>
-              </div>
-            </div>
-
+        {/* Price rail + ledger */}
+        <div className="flex flex-wrap items-start border border-[var(--border-color)] bg-[var(--white)]">
+          {/* Sticky price / actions - stays visible while the ledger below scrolls, per PDP best practice */}
+          <div className="w-full shrink-0 border-b border-[var(--border-color)] p-3 sm:sticky sm:top-3 sm:w-[280px] sm:border-b-0 sm:border-r">
             {/* Ticket-stub price */}
-            <div className="mt-4 flex border border-[var(--primary-color)]">
+            <div className="flex border border-[var(--primary-color)]">
               <div className="flex-1 py-2.5 text-center">
                 <div className="text-[9px] font-extrabold uppercase tracking-widest text-gray-400">FOB Japan</div>
                 {isSold || isReserved ? (
@@ -615,11 +581,19 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-3 mb-4 border-t border-dashed border-gray-300 pt-2.5 font-mono text-[10.5px] leading-relaxed text-gray-500">
-          <p>Prices are approximate FOB Japan and exclude freight, insurance, and import duties.</p>
-          <p>Vehicles are listed online and viewed by many buyers daily; reservation alone does not guarantee availability until your payment is reflected in our account.</p>
-          <p>If the vehicle is unavailable when your payment is reflected, we will offer a similar unit or process a refund based on your decision.</p>
-          <p>Please verify import regulations for your country before ordering.</p>
+        <div className="mt-3 mb-4 border border-amber-200 bg-amber-50 px-3">
+          <WarnLine critical="excludes freight, insurance, and import duties.">
+            Prices are approximate FOB Japan and
+          </WarnLine>
+          <WarnLine critical="reservation alone does not guarantee availability until your payment is reflected in our account.">
+            Vehicles are listed online and viewed by many buyers daily;
+          </WarnLine>
+          <WarnLine critical="we will offer a similar unit or process a refund based on your decision.">
+            If the vehicle is unavailable when your payment is reflected,
+          </WarnLine>
+          <WarnLine critical="verify import regulations for your country before ordering.">
+            Please
+          </WarnLine>
         </div>
 
         <TornEdge flip />
