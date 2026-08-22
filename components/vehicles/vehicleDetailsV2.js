@@ -1,5 +1,8 @@
 // vehicleDetailsV2.js — Unified vehicle detail page
-// Visual design from inc (two-column layout, equipment list, trust badges).
+// Visual design: "Manifest" — a dense auction/inventory-platform layout
+// (stamped photo, fact ticker, inspection-diagram callouts, ticket-stub price
+// block, ledger, running-text equipment list, request slip) replacing the
+// earlier soft two-column dealer-card design.
 // Data fetching uses fetchVehicle.php (single efficient query, dynamic partner DB detection).
 // Theme CSS variables used throughout for consistent branding.
 "use client";
@@ -15,13 +18,6 @@ import {
   faPaperPlane,
   faArrowLeft,
   faCar,
-  faShip,
-  faClipboardList,
-  faShieldAlt,
-  faCheck,
-  faBan,
-  faHandshake,
-  faCheckCircle,
   faHeart,
   faScaleBalanced,
 } from "@fortawesome/free-solid-svg-icons";
@@ -44,6 +40,7 @@ const PLACEHOLDER_IMAGE = "/images/vehicles/artisbay-placeholder.svg";
 const absoluteUrlPattern = /https?:\/\/[^\s"']+/gi;
 const UNKNOWN = new Set(["", "n/a", "na", "unknown", "0", "null", "undefined", "-", "--"]);
 const isUnknownLike = (v) => UNKNOWN.has(String(v ?? "").trim().toLowerCase());
+const orDash = (v) => (isUnknownLike(v) ? "—" : v);
 
 // Kept in sync with the partner source's full option code table (see
 // ichinomiya-motors server-scripts/process_upload.php $OPTIONS_MAP) so a
@@ -60,6 +57,29 @@ const EQUIPMENT_LIST = [
   'Blind Spot Monitor', 'Adaptive Cruise', 'Auto High Beam', 'Parking Assist',
   'Wireless Charger', 'ETC', 'Dashcam',
 ];
+
+// A torn/perforated-edge rule used between sections instead of a plain
+// border line - the "manifest" language treats sections as torn paper, not
+// bordered cards.
+const TornEdge = ({ flip = false }) => (
+  <svg
+    viewBox="0 0 400 10"
+    preserveAspectRatio="none"
+    className="block h-2 w-full"
+    aria-hidden="true"
+  >
+    <polyline
+      points={
+        flip
+          ? "0,10 10,0 20,10 30,0 40,10 50,0 60,10 70,0 80,10 90,0 100,10 110,0 120,10 130,0 140,10 150,0 160,10 170,0 180,10 190,0 200,10 210,0 220,10 230,0 240,10 250,0 260,10 270,0 280,10 290,0 300,10 310,0 320,10 330,0 340,10 350,0 360,10 370,0 380,10 390,0 400,10"
+          : "0,0 10,10 20,0 30,10 40,0 50,10 60,0 70,10 80,0 90,10 100,0 110,10 120,0 130,10 140,0 150,10 160,0 170,10 180,0 190,10 200,0 210,10 220,0 230,10 240,0 250,10 260,0 270,10 280,0 290,10 300,0 310,10 320,0 330,10 340,0 350,10 360,0 370,10 380,0 390,10 400,0"
+      }
+      fill="none"
+      stroke="#e2e2e2"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
 
 const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
   const router = useRouter();
@@ -225,7 +245,19 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
     setFavoriteBusy(false);
   };
 
-  const leftSpecs = useMemo(() => {
+  // The four fields called out on the inspection diagram - everything else
+  // real about the vehicle lives in the ledger below.
+  const diagramCallouts = useMemo(() => {
+    if (!car) return { engine: "—", steering: "—", chassis: "—", drive: "—" };
+    return {
+      engine: orDash(formatNumberWithUnit(car.engine_capacity)),
+      steering: orDash(car.steering),
+      chassis: orDash(maskChassis(car.chassis_no || car.chassis || car.chassisNo || car.frame_no || car.vin_number)),
+      drive: orDash(car.drive || car.drive_train),
+    };
+  }, [car]);
+
+  const ledgerRows = useMemo(() => {
     if (!car) return [];
     return [
       { label: "Ref No", value: displayStockId(car) },
@@ -235,23 +267,35 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
       { label: "Body Type", value: bodyType },
       { label: "Color", value: car.color },
       { label: "Year", value: car.year },
-    ].filter((s) => !isUnknownLike(s.value));
-  }, [car, bodyType]);
-
-  const rightSpecs = useMemo(() => {
-    if (!car) return [];
-    return [
-      { label: "Mileage", value: formatNumberWithUnit(car.mileage) || "—" },
-      { label: "Engine", value: formatNumberWithUnit(car.engine_capacity) || "—" },
+      { label: "Mileage", value: formatNumberWithUnit(car.mileage) },
       { label: "Fuel", value: car.fuel },
       { label: "Transmission", value: car.transmission },
-      { label: "Drive", value: car.drive || car.drive_train },
-      { label: "Steering", value: car.steering },
       { label: "Seats", value: car.seat },
       { label: "Doors", value: car.door },
-      { label: "Chassis", value: maskChassis(car.chassis_no || car.chassis || car.chassisNo || car.frame_no || car.vin_number) },
-    ].filter((s) => !isUnknownLike(s.value));
+    ]
+      .filter((row) => !isUnknownLike(row.value))
+      .map((row, i) => ({ ...row, index: String(i + 1).padStart(2, "0") }));
+  }, [car, bodyType]);
+
+  // Dense mono fact strip under the hero photo - same fields as the ledger's
+  // top rows, condensed into one scannable line.
+  const factTicker = useMemo(() => {
+    if (!car) return "";
+    const parts = [
+      `REF #${displayStockId(car)}`,
+      car.make,
+      car.model,
+      car.year,
+      formatNumberWithUnit(car.mileage),
+      [formatNumberWithUnit(car.engine_capacity), car.fuel].filter((v) => !isUnknownLike(v)).join(" "),
+      car.transmission,
+      car.drive || car.drive_train,
+      car.steering,
+    ].filter((v) => !isUnknownLike(v));
+    return parts.join("   ·   ");
   }, [car]);
+
+  const equippedText = useMemo(() => EQUIPMENT_LIST.filter((item) => carOptions.includes(item)).join(" · "), [carOptions]);
 
   if (loading) {
     return (
@@ -269,7 +313,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
   if (error || !car) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center bg-[var(--background-color)] px-4">
-        <div className="max-w-md rounded-lg border border-[var(--border-color)] bg-[var(--white)] p-8 text-center shadow-sm">
+        <div className="max-w-md border border-[var(--border-color)] bg-[var(--white)] p-8 text-center">
           <FontAwesomeIcon icon={faCar} className="mb-3 text-4xl text-gray-300" />
           <p className="text-lg font-bold text-[var(--text-color)]">
             {error || "Unable to locate this vehicle."}
@@ -277,7 +321,7 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
           <button
             type="button"
             onClick={backToStock}
-            className="mt-5 inline-flex items-center gap-2 rounded-md bg-[var(--primary-color)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-[var(--primary-color-hover)]"
+            className="mt-5 inline-flex items-center gap-2 bg-[var(--primary-color)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-[var(--primary-color-hover)]"
           >
             <FontAwesomeIcon icon={faArrowLeft} /> Back to Stocklist
           </button>
@@ -287,348 +331,279 @@ const VehicleDetailsV2 = ({ initialVehicleId = "" }) => {
   }
 
   return (
-    <>
-      <div className="min-h-screen bg-[var(--background-color)] py-5">
-        <div className="mx-auto w-full max-w-[1280px] px-4">
-          {/* Breadcrumb */}
-          <nav className="mb-4 flex flex-wrap items-center gap-1.5 text-xs text-[var(--grey-text)]">
-            <button onClick={() => router.push("/")} className="hover:text-[var(--primary-color)]">
-              HOME
-            </button>
-            <span>/</span>
-            <button onClick={backToStock} className="hover:text-[var(--primary-color)]">
-              STOCK
-            </button>
-            {car.make && (
-              <>
-                <span>/</span>
-                <button
-                  onClick={() => router.push(`/stock-list?make=${encodeURIComponent(car.make)}`)}
-                  className="uppercase hover:text-[var(--primary-color)]"
-                >
-                  {car.make}
-                </button>
-              </>
-            )}
-            <span>/</span>
-            <span className="font-medium text-[var(--text-color)]">{carName}</span>
-          </nav>
+    <div className="min-h-screen bg-[var(--background-color)] py-5">
+      <div className="mx-auto w-full max-w-[1160px] px-4">
+        {/* Breadcrumb */}
+        <nav className="mb-2.5 flex flex-wrap items-center gap-1.5 text-xs text-[var(--grey-text)]">
+          <button onClick={() => router.push("/")} className="hover:text-[var(--primary-color)]">HOME</button>
+          <span>/</span>
+          <button onClick={backToStock} className="hover:text-[var(--primary-color)]">STOCK</button>
+          {car.make && (
+            <>
+              <span>/</span>
+              <button
+                onClick={() => router.push(`/stock-list?make=${encodeURIComponent(car.make)}`)}
+                className="uppercase hover:text-[var(--primary-color)]"
+              >
+                {car.make}
+              </button>
+            </>
+          )}
+          <span>/</span>
+          <span className="font-medium text-[var(--text-color)]">{carName}</span>
+        </nav>
 
-          {/* Main two-column block */}
-          <div className="mb-4 flex flex-col overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--white)] shadow-sm lg:flex-row">
-            {/* LEFT: gallery */}
-            <div className="shrink-0 border-[var(--border-color)] lg:w-[52%] lg:border-r">
-              <div className="relative overflow-hidden bg-gray-100" style={{ aspectRatio: "16 / 9" }}>
-                <img
-                  src={galleryImages[activeImageIndex]}
-                  alt={`${carName} photo ${activeImageIndex + 1}`}
-                  className="h-full w-full object-cover object-top"
-                  onError={handleImageError}
-                />
-                {isSold && (
-                  <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/55">
-                    <div className="flex items-center gap-1.5 rounded bg-red-700 px-4 py-2 text-[11px] font-extrabold uppercase tracking-widest text-white shadow-lg">
-                      <FontAwesomeIcon icon={faBan} className="text-[10px]" /> Sold
-                    </div>
-                  </div>
-                )}
-                {isReserved && (
-                  <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/55">
-                    <div className="flex items-center gap-1.5 rounded bg-blue-600 px-4 py-2 text-[11px] font-extrabold uppercase tracking-widest text-white shadow-lg">
-                      <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
-                      Under Negotiation
-                    </div>
-                  </div>
-                )}
-                <span
-                  className="pointer-events-none absolute bottom-2 left-3 z-10 select-none text-xs font-semibold uppercase tracking-wider text-gray-200/80"
-                  style={{ textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}
-                >
-                  Meridian Motors
-                </span>
-                {bodyType && (
-                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-[var(--text-color)] shadow-sm">
-                    {bodyType}
-                  </span>
-                )}
-                {galleryImages.length > 1 && (
-                  <>
-                    <button
-                      onClick={prevImage}
-                      aria-label="Previous photo"
-                      className="absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/65"
-                    >
-                      <FontAwesomeIcon icon={faChevronLeft} className="text-sm" />
-                    </button>
-                    <button
-                      onClick={nextImage}
-                      aria-label="Next photo"
-                      className="absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/65"
-                    >
-                      <FontAwesomeIcon icon={faChevronRight} className="text-sm" />
-                    </button>
-                    <span className="absolute bottom-2 right-3 z-10 rounded-full bg-black/55 px-2 py-0.5 text-xs font-semibold text-white">
-                      {activeImageIndex + 1} / {galleryImages.length}
-                    </span>
-                  </>
-                )}
+        {/* Hero photo */}
+        <div className="relative overflow-hidden border border-[var(--border-color)] bg-gray-100" style={{ aspectRatio: "16 / 6.2" }}>
+          <img
+            src={galleryImages[activeImageIndex]}
+            alt={`${carName} photo ${activeImageIndex + 1}`}
+            className="h-full w-full object-cover"
+            onError={handleImageError}
+          />
+
+          {isSold && (
+            <div
+              className="pointer-events-none absolute right-9 top-8 border-[3px] border-double px-4 py-2 font-mono text-xl font-extrabold uppercase tracking-widest"
+              style={{ transform: "rotate(-9deg)", borderColor: "#a8341f", color: "#a8341f", background: "rgba(254,254,254,0.76)" }}
+            >
+              Sold
+            </div>
+          )}
+          {isReserved && (
+            <div
+              className="pointer-events-none absolute right-9 top-8 border-[3px] border-double px-4 py-2 font-mono text-xl font-extrabold uppercase tracking-widest"
+              style={{ transform: "rotate(-9deg)", borderColor: "var(--secondary-color)", color: "var(--secondary-color)", background: "rgba(254,254,254,0.76)" }}
+            >
+              Negotiating
+            </div>
+          )}
+          {!isSold && !isReserved && (
+            <div
+              className="pointer-events-none absolute right-9 top-8 border-[3px] border-double px-4 py-2 font-mono text-xl font-extrabold uppercase tracking-widest"
+              style={{ transform: "rotate(-9deg)", borderColor: "var(--accent-color)", color: "var(--accent-color)", background: "rgba(254,254,254,0.76)" }}
+            >
+              Available
+            </div>
+          )}
+
+          <h1 className="pointer-events-none absolute bottom-4 left-5 text-2xl font-bold uppercase text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}>
+            {carName}
+          </h1>
+
+          {galleryImages.length > 1 && (
+            <>
+              <button
+                onClick={prevImage}
+                aria-label="Previous photo"
+                className="absolute left-3.5 top-1/2 z-10 flex h-[34px] w-[34px] -translate-y-1/2 items-center justify-center bg-black/50 text-white transition hover:bg-black/70"
+              >
+                <FontAwesomeIcon icon={faChevronLeft} className="text-sm" />
+              </button>
+              <button
+                onClick={nextImage}
+                aria-label="Next photo"
+                className="absolute right-3.5 top-1/2 z-10 flex h-[34px] w-[34px] -translate-y-1/2 items-center justify-center bg-black/50 text-white transition hover:bg-black/70"
+              >
+                <FontAwesomeIcon icon={faChevronRight} className="text-sm" />
+              </button>
+              <span className="absolute bottom-4 right-4 rounded-none bg-black/60 px-2.5 py-1 font-mono text-xs font-semibold text-white">
+                {activeImageIndex + 1} / {galleryImages.length}
+              </span>
+            </>
+          )}
+        </div>
+
+        {/* Thumbnail strip */}
+        {galleryImages.length > 1 && (
+          <div className="flex gap-1.5 overflow-x-auto pt-2">
+            {galleryImages.map((img, i) => (
+              <button
+                key={`${img}-${i}`}
+                onClick={() => setActiveImageIndex(i)}
+                className={`h-[52px] w-[74px] shrink-0 overflow-hidden border-2 transition ${
+                  i === activeImageIndex ? "border-[var(--primary-color)]" : "border-dashed border-gray-300 hover:border-gray-400"
+                }`}
+              >
+                <img src={img} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" onError={handleImageError} />
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Photo utility bar */}
+        <div className="flex items-center gap-4 pt-2 text-xs text-[var(--grey-text)]">
+          <span><FontAwesomeIcon icon={faImages} className="mr-1" />{galleryImages.length} photo{galleryImages.length === 1 ? "" : "s"}</span>
+          <button onClick={handleShare} className="ml-auto flex items-center gap-1 transition hover:text-[var(--primary-color)]">
+            <FontAwesomeIcon icon={faShareAlt} /> Share
+          </button>
+        </div>
+
+        {/* Fact ticker */}
+        <div className="mt-2.5 overflow-x-auto whitespace-nowrap bg-[var(--charcoal-color)] px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wide text-white/80">
+          {factTicker}
+        </div>
+
+        {(isSold || isReserved) && (
+          <div className="border-x border-b border-[var(--border-color)] bg-[var(--white)] px-5 py-2.5 text-xs text-[var(--grey-text)]">
+            {isSold
+              ? "This vehicle has been sold. Contact us to find a similar one."
+              : "This vehicle is currently being negotiated. Contact us for availability."}
+          </div>
+        )}
+
+        <TornEdge />
+
+        {/* Diagram + ledger */}
+        <div className="flex flex-wrap border border-[var(--border-color)] bg-[var(--white)]">
+          {/* Inspection diagram */}
+          <div className="w-full shrink-0 border-b border-[var(--border-color)] p-4 sm:w-[340px] sm:border-b-0 sm:border-r">
+            <h4 className="mb-3 text-center text-[10px] font-extrabold uppercase tracking-widest text-gray-400">
+              Inspection Diagram
+            </h4>
+            <div className="relative w-full" style={{ aspectRatio: "400 / 260" }}>
+              <svg viewBox="0 0 400 260" className="absolute inset-0 h-full w-full">
+                <g fill="none" stroke="#b9c0c3" strokeWidth="2.5">
+                  <path d="M40,178 L60,148 Q70,128 90,126 L150,108 Q170,98 190,98 L260,98 Q285,98 300,118 L330,148 Q345,153 350,168 L350,178 Z" fill="#eef0f1" />
+                  <circle cx="90" cy="182" r="22" fill="#dfe3e5" />
+                  <circle cx="300" cy="182" r="22" fill="#dfe3e5" />
+                </g>
+                <g stroke="#0f4c5c" strokeWidth="1.2" strokeDasharray="3,3">
+                  <line x1="100" y1="120" x2="40" y2="55" />
+                  <line x1="170" y1="103" x2="170" y2="28" />
+                  <line x1="300" y1="178" x2="358" y2="218" />
+                  <line x1="90" y1="178" x2="34" y2="218" />
+                </g>
+                <g fill="var(--accent-color)">
+                  <circle cx="100" cy="120" r="3.5" />
+                  <circle cx="170" cy="103" r="3.5" />
+                  <circle cx="300" cy="178" r="3.5" />
+                  <circle cx="90" cy="178" r="3.5" />
+                </g>
+              </svg>
+              <div className="absolute left-0 top-[14%] w-[34%] font-mono text-[10px] leading-tight">
+                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Engine</div>
+                <div className="text-gray-600">{diagramCallouts.engine}</div>
               </div>
-
-              {galleryImages.length > 1 && (
-                <div className="flex gap-1 overflow-x-auto border-t border-[var(--border-color)] bg-[var(--background-color)] px-2 py-2">
-                  {galleryImages.map((img, i) => (
-                    <button
-                      key={`${img}-${i}`}
-                      onClick={() => setActiveImageIndex(i)}
-                      className={`h-[54px] w-[72px] shrink-0 overflow-hidden rounded border-2 transition ${
-                        i === activeImageIndex
-                          ? "border-[var(--primary-color)]"
-                          : "border-transparent hover:border-[var(--border-color)]"
-                      }`}
-                    >
-                      <img src={img} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" onError={handleImageError} />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              <div className="flex items-center gap-4 border-t border-[var(--border-color)] bg-[var(--white)] px-3 py-2 text-xs text-[var(--grey-text)]">
-                <span>
-                  <FontAwesomeIcon icon={faImages} className="mr-1" />
-                  {galleryImages.length} photo{galleryImages.length === 1 ? "" : "s"}
-                </span>
-                <button onClick={handleShare} className="ml-auto flex items-center gap-1 transition hover:text-[var(--primary-color)]">
-                  <FontAwesomeIcon icon={faShareAlt} /> Share
-                </button>
+              <div className="absolute left-[32%] top-[2%] w-[36%] text-center font-mono text-[10px] leading-tight">
+                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Steering</div>
+                <div className="text-gray-600">{diagramCallouts.steering}</div>
+              </div>
+              <div className="absolute bottom-[6%] right-0 w-[34%] text-right font-mono text-[10px] leading-tight">
+                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Chassis</div>
+                <div className="text-gray-600">{diagramCallouts.chassis}</div>
+              </div>
+              <div className="absolute bottom-[6%] left-0 w-[30%] font-mono text-[10px] leading-tight">
+                <div className="font-extrabold uppercase tracking-wide text-[var(--primary-color)]">Drive</div>
+                <div className="text-gray-600">{diagramCallouts.drive}</div>
               </div>
             </div>
 
-            {/* RIGHT: info */}
-            <div className="flex min-w-0 flex-1 flex-col">
-              <div className="border-b border-[var(--border-color)] px-5 pb-3 pt-5">
-                {isSold && (
-                  <span className="mb-1 inline-block rounded border border-red-200 bg-red-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-red-700">
-                    Sold
-                  </span>
-                )}
-                {isReserved && (
-                  <span className="mb-1 inline-block rounded border border-blue-200 bg-blue-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700">
-                    Under Negotiation
-                  </span>
-                )}
-                <h1 className="text-2xl font-bold uppercase leading-tight tracking-wide text-[var(--primary-color)]">
-                  {carName}
-                </h1>
-                <p className="mt-1 font-mono text-sm text-[var(--grey-text)]">Ref No #{displayStockId(car)}</p>
-              </div>
-
-              {isSold && (
-                <div className="mx-5 mt-4 flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-                  <FontAwesomeIcon icon={faCheckCircle} className="shrink-0 text-lg text-red-500" />
-                  <div>
-                    <p className="text-xs font-extrabold uppercase tracking-widest text-red-700">Sold</p>
-                    <p className="mt-0.5 text-[11px] text-red-600">
-                      This vehicle has been sold. Contact us to find a similar one.
-                    </p>
-                  </div>
-                </div>
-              )}
-              {isReserved && (
-                <div className="mx-5 mt-4 flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
-                  <FontAwesomeIcon icon={faHandshake} className="shrink-0 text-lg text-amber-500" />
-                  <div>
-                    <p className="text-xs font-extrabold uppercase tracking-widest text-amber-700">
-                      Under Negotiation
-                    </p>
-                    <p className="mt-0.5 text-[11px] text-amber-700">
-                      This vehicle is currently being negotiated. Contact us for availability.
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Price */}
-              <div className="border-b border-[var(--border-color)] px-5 py-4">
-                <p className="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-[var(--grey-text)]">
-                  Vehicle Price (FOB Japan)
-                </p>
+            {/* Ticket-stub price */}
+            <div className="mt-5 flex border border-[var(--primary-color)]">
+              <div className="flex-1 py-3.5 text-center">
+                <div className="text-[9px] font-extrabold uppercase tracking-widest text-gray-400">FOB Japan</div>
                 {isSold || isReserved ? (
-                  <div className="text-3xl font-extrabold italic leading-none tracking-tight text-[var(--grey-text)]">
-                    Price on request
-                  </div>
+                  <div className="font-mono text-lg font-extrabold italic leading-tight text-gray-400">Price on request</div>
                 ) : (
-                  <div className="text-3xl font-extrabold leading-none tracking-tight text-[var(--primary-color)]">
-                    {priceDisplay}
-                  </div>
-                )}
-                {!isSold && !isReserved && (
-                  <p className="mt-1 text-[11px] text-[var(--grey-text)]">
-                    Approx., excludes freight &amp; insurance
-                  </p>
+                  <div className="font-mono text-2xl font-extrabold leading-tight text-[var(--accent-color)]">{priceDisplay}</div>
                 )}
               </div>
-
-              {/* CTAs */}
-              <div className="flex flex-col gap-2 border-b border-[var(--border-color)] px-5 py-4">
-                <button
-                  onClick={() => document.getElementById("request-now-panel")?.scrollIntoView({ behavior: "smooth" })}
-                  className="flex w-full items-center justify-center gap-2 rounded-md bg-[var(--accent-color)] py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:bg-[var(--accent-color-hover)]"
-                >
-                  <FontAwesomeIcon icon={faPaperPlane} /> Request Now
-                </button>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={handleFavoriteClick}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-md border py-2.5 text-xs font-bold uppercase tracking-wider transition ${
-                      isFavorite
-                        ? "border-red-300 bg-red-50 text-red-600"
-                        : "border-[var(--primary-color)] bg-[var(--white)] text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white"
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faHeart} className={isFavorite ? "text-red-500" : ""} />
-                    {isFavorite ? "Saved" : "Add to Favorites"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => toggleCompare(car)}
-                    disabled={!comparing && isCompareFull}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-md border py-2.5 text-xs font-bold uppercase tracking-wider transition disabled:cursor-not-allowed disabled:opacity-40 ${
-                      comparing
-                        ? "border-brand-navy bg-brand-navy/5 text-brand-navy"
-                        : "border-[var(--primary-color)] bg-[var(--white)] text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white"
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faScaleBalanced} />
-                    {comparing ? "Comparing" : "Compare"}
-                  </button>
-                  <button
-                    onClick={backToStock}
-                    className="flex flex-1 items-center justify-center gap-2 rounded-md border border-[var(--primary-color)] bg-[var(--white)] py-2.5 text-xs font-bold uppercase tracking-wider text-[var(--primary-color)] transition hover:bg-[var(--primary-color)] hover:text-white"
-                  >
-                    <FontAwesomeIcon icon={faArrowLeft} /> Back to Stock
-                  </button>
-                </div>
-              </div>
-
-              {/* Specs — two columns */}
-              <div className="border-b border-[var(--border-color)] px-5 py-4">
-                <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--grey-text)]">
-                  Vehicle Information
-                </h4>
-                <div className="flex gap-0 text-xs">
-                  <dl className="min-w-0 flex-1">
-                    {leftSpecs.map(({ label, value }) => (
-                      <div key={label} className="flex flex-col border-b border-gray-50 py-1.5 sm:flex-row">
-                        <dt className="text-[10px] font-semibold uppercase tracking-wide text-[var(--grey-text)] sm:w-24 sm:shrink-0">
-                          {label}
-                        </dt>
-                        <dd className="truncate font-medium text-[var(--text-color)]" title={String(value)}>
-                          {value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <div className="mx-3 w-px bg-[var(--border-color)]" />
-                  <dl className="min-w-0 flex-1">
-                    {rightSpecs.map(({ label, value }) => (
-                      <div key={label} className="flex flex-col border-b border-gray-50 py-1.5 sm:flex-row">
-                        <dt className="text-[10px] font-semibold uppercase tracking-wide text-[var(--grey-text)] sm:w-24 sm:shrink-0">
-                          {label}
-                        </dt>
-                        <dd className="truncate font-medium text-[var(--text-color)]" title={String(value)}>
-                          {value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </div>
-
-              {/* Option / Equipment */}
-              <div className="border-b border-[var(--border-color)] px-5 py-4">
-                <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-[var(--grey-text)]">
-                  Option / Equipment
-                </h4>
-                <div className="grid grid-cols-3 gap-1.5 text-xs sm:grid-cols-5">
-                  {EQUIPMENT_LIST.filter((item) => carOptions.includes(item)).map((item) => (
-                    <div
-                      key={item}
-                      className="rounded border px-2 py-1.5 text-center font-medium border-[var(--primary-color)] bg-[var(--white)] text-[var(--primary-color)]"
-                    >
-                      <FontAwesomeIcon icon={faCheck} className="mr-1 text-[9px] text-[var(--accent-color)]" />
-                      {item}
-                    </div>
-                  ))}
-                </div>
-                <p className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2.5 mt-3">
-                  {carOptions.length === 0
-                    ? "* Equipment data not available for this vehicle — contact us to confirm specific features."
-                    : "* List reflects features noted on the seller's inspection sheet and may not be exhaustive — contact us to confirm any specific feature."}
-                </p>
-              </div>
-
-              {/* Trust badges */}
-              <div className="space-y-2 px-5 py-4">
-                {[
-                  { icon: faShieldAlt, text: "Pre-export inspection available" },
-                  { icon: faClipboardList, text: "Export documents handled end to end" },
-                  { icon: faShip, text: "Worldwide RoRo / container shipping" },
-                ].map((b) => (
-                  <div key={b.text} className="flex items-center gap-2 text-xs text-[var(--grey-text)]">
-                    <FontAwesomeIcon icon={b.icon} className="shrink-0 text-[var(--accent-color)]" />
-                    {b.text}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Disclaimer */}
-          <div className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-6">
-			<i className="fas fa-exclamation-triangle text-amber-500 text-sm mt-0.5 shrink-0"></i>
-			<div className="text-[11px] text-amber-700 leading-relaxed space-y-1">
-			<p>Prices are approximate FOB Japan and exclude freight, insurance, and import duties.</p>
-			<p>Vehicles are listed online and viewed by many buyers daily; reservation alone does not guarantee availability until your payment is reflected in our account.</p>
-			<p>If the vehicle is unavailable when your payment is reflected, we will offer a similar unit or process a refund based on your decision.</p>
-			<p>Please verify import regulations for your country before ordering.</p>
-			</div>
-			</div>
-
-          {/* Request band */}
-          <div className="mb-8 flex flex-col items-center justify-between gap-4 rounded-lg border border-[var(--border-color)] bg-[var(--white)] px-6 py-5 shadow-sm sm:flex-row">
-            <div className="flex items-center gap-4">
-              <img
-                src={galleryImages[0]}
-                alt={carName}
-                className="h-[60px] w-20 shrink-0 rounded border border-[var(--border-color)] object-cover"
-                onError={handleImageError}
+              <div
+                className="w-2"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, var(--white) 3px, transparent 3.1px), linear-gradient(to right, transparent calc(50% - 1px), var(--primary-color) calc(50% - 1px), var(--primary-color) calc(50% + 1px), transparent calc(50% + 1px))",
+                  backgroundSize: "8px 14px, 100% 100%",
+                  backgroundRepeat: "repeat-y, no-repeat",
+                  backgroundPosition: "center",
+                }}
               />
-              <div>
-                <p className="mb-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--grey-text)]">
-                  Ref #{displayStockId(car)}
-                </p>
-                <p className="font-bold text-[var(--primary-color)]">{carName}</p>
-                <p className="text-sm text-[var(--grey-text)]">
-                  {isSold || isReserved ? "Price on request" : priceDisplay}{" "}
-                  {!isSold && !isReserved && (
-                    <span className="text-[10px] uppercase tracking-wider text-[var(--grey-text)]">FOB Japan</span>
-                  )}
-                </p>
+              <div className="flex w-11 flex-col items-center justify-center gap-2.5 py-2">
+                <button
+                  type="button"
+                  onClick={handleFavoriteClick}
+                  aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                  className={isFavorite ? "text-red-500" : "text-[var(--primary-color)] hover:text-[var(--primary-color-hover)]"}
+                >
+                  <FontAwesomeIcon icon={faHeart} className="text-sm" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => toggleCompare(car)}
+                  disabled={!comparing && isCompareFull}
+                  aria-label={comparing ? "Remove from compare" : "Add to compare"}
+                  className={`disabled:cursor-not-allowed disabled:opacity-40 ${comparing ? "text-[var(--accent-color)]" : "text-[var(--primary-color)] hover:text-[var(--primary-color-hover)]"}`}
+                >
+                  <FontAwesomeIcon icon={faScaleBalanced} className="text-sm" />
+                </button>
+                <button type="button" onClick={backToStock} aria-label="Back to stock" className="text-[var(--primary-color)] hover:text-[var(--primary-color-hover)]">
+                  <FontAwesomeIcon icon={faArrowLeft} className="text-sm" />
+                </button>
               </div>
             </div>
-            <div className="flex w-full items-center justify-center gap-2 rounded-md bg-[var(--accent-color)]/10 px-8 py-3 text-sm font-bold uppercase tracking-widest text-[var(--accent-color)] sm:w-auto">
-              <FontAwesomeIcon icon={faPaperPlane} /> Request this vehicle below
-            </div>
+            <button
+              onClick={() => document.getElementById("request-now-panel")?.scrollIntoView({ behavior: "smooth" })}
+              className="mt-2.5 flex w-full items-center justify-center gap-2 bg-[var(--accent-color)] py-3 text-xs font-extrabold uppercase tracking-widest text-white transition hover:bg-[var(--accent-color-hover)]"
+            >
+              <FontAwesomeIcon icon={faPaperPlane} /> Request This Vehicle
+            </button>
           </div>
 
-          {/* Inquiry */}
-          <div id="request-now-panel" className="mb-8">
-            <VehicleInquiryForm car={car} />
+          {/* Ledger */}
+          <div className="min-w-0 flex-1 p-5">
+            <h4 className="mb-1.5 text-[10px] font-extrabold uppercase tracking-widest text-gray-400">Manifest</h4>
+            <dl>
+              {ledgerRows.map((row) => (
+                <div key={row.label} className="flex items-baseline justify-between gap-3.5 border-b border-gray-100 py-2 last:border-b-0">
+                  <dt className="flex items-baseline gap-2.5">
+                    <span className="font-mono text-[10px] font-bold text-gray-300">{row.index}</span>
+                    <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400">{row.label}</span>
+                  </dt>
+                  <dd className="font-mono text-right text-[13px] font-semibold text-[var(--text-color)]">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <p className="mt-5 border-t border-[var(--border-color)] pt-4 text-xs leading-relaxed text-[var(--text-color)]">
+              {carOptions.length === 0 ? (
+                <span className="text-gray-500">Equipment data not available for this vehicle — contact us to confirm specific features.</span>
+              ) : (
+                <>
+                  <strong className="text-[var(--charcoal-color)]">Equipped with —</strong> {equippedText}.{" "}
+                  <span className="text-gray-500">List reflects features noted on the seller&rsquo;s inspection sheet and may not be exhaustive — contact us to confirm any specific feature.</span>
+                </>
+              )}
+            </p>
+
+            <p className="mt-3 text-xs leading-relaxed text-[var(--text-color)]">
+              <strong className="text-[var(--charcoal-color)]">Included —</strong> pre-export inspection available &middot; export documents handled end to end &middot; worldwide RoRo / container shipping.
+            </p>
           </div>
         </div>
+
+        {/* Disclaimer */}
+        <div className="mt-4 mb-5 border-t border-dashed border-gray-300 pt-3 font-mono text-[10.5px] leading-relaxed text-gray-500">
+          <p>Prices are approximate FOB Japan and exclude freight, insurance, and import duties.</p>
+          <p>Vehicles are listed online and viewed by many buyers daily; reservation alone does not guarantee availability until your payment is reflected in our account.</p>
+          <p>If the vehicle is unavailable when your payment is reflected, we will offer a similar unit or process a refund based on your decision.</p>
+          <p>Please verify import regulations for your country before ordering.</p>
+        </div>
+
+        <TornEdge flip />
+
+        {/* Request slip */}
+        <div id="request-now-panel" className="border border-t-0 border-[var(--primary-color)] bg-[var(--white)] p-5">
+          <div className="mb-4 flex items-baseline justify-between">
+            <h3 className="text-base font-bold uppercase text-[var(--primary-color)]">
+              Request Slip &mdash; Lot #{displayStockId(car)}
+            </h3>
+            <span className="font-mono text-[10px] text-gray-400">FILE WITH MERIDIAN MOTORS</span>
+          </div>
+          <VehicleInquiryForm car={car} />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

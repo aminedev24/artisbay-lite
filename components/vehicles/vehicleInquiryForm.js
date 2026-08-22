@@ -226,20 +226,12 @@ const VehicleInquiryForm = ({ car }) => {
   );
 
   const inputClass =
-    "w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-800 focus:border-[var(--primary-color)] focus:outline-none";
-  const labelClass = "mb-1 block text-xs font-bold text-gray-600";
+    "w-full border-0 border-b-[1.5px] border-gray-300 bg-transparent px-0 py-1.5 text-sm text-gray-800 focus:border-[var(--primary-color)] focus:outline-none";
+  const labelClass = "mb-1 block font-mono text-[9px] font-extrabold uppercase tracking-widest text-gray-400";
 
   return (
-    <div className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--white)] shadow-sm">
-      <div className="border-b border-[var(--border-color)] bg-gray-50 px-5 py-4">
-        <p className="text-[10px] font-bold uppercase tracking-wide text-gray-400">
-          Ref #{vehicleRef || "—"}
-        </p>
-        <p className="truncate text-sm font-bold text-[var(--primary-color)]">{vehicleName}</p>
-        <p className="text-sm font-semibold text-gray-400 italic">Price on request — FOB Japan</p>
-      </div>
-
-      <div className="space-y-4 p-5">
+    <div className="w-full">
+      <div>
         {status === "sent" ? (
           <div className="py-10 text-center">
             <FontAwesomeIcon icon={faCheckCircle} className="mb-3 text-4xl text-green-500" />
@@ -339,7 +331,7 @@ const VehicleInquiryForm = ({ car }) => {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="mt-5 flex items-center gap-2 rounded-md bg-[var(--primary-color)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:bg-[var(--primary-color-hover)] disabled:opacity-60"
+              className="mt-5 flex items-center gap-2 bg-[var(--primary-color)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:bg-[var(--primary-color-hover)] disabled:opacity-60"
             >
               {status === "sending" ? (
                 <>
