@@ -130,6 +130,10 @@ const StocklistV2 = () => {
       search: val("search"),
     });
     setSearchInput(val("search"));
+    const sortFromUrl = val("sort");
+    if (sortFromUrl === "price" || sortFromUrl === "popularity" || sortFromUrl === "newest") {
+      setSortOption(sortFromUrl);
+    }
     setInitialized(true);
   }, [router.isReady, router.query, initialized]);
 

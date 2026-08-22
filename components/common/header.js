@@ -8,6 +8,7 @@ import Link from 'next/link';
 import ImageWithLoader from '../misc/imageWithLoader';
 import TopBar from './topbar';
 import helpLinks from './helpLinks';
+import auctionLinks from './auctionLinks';
 
 const MOBILE_MENU_BREAKPOINT = 1000;
 const AUTH_MAINTENANCE_MODE = false;
@@ -270,7 +271,7 @@ const Header = () => {
                 <Link href="/feedback">Feedback</Link>
               </li>
               <li className="header-item flex items-center gap-2">
-                <Link href="/stock-list">Stock</Link>
+                <Link href="/stock-list">Browse Stock</Link>
               </li>
               <li className="header-item flex items-center gap-2">
                 <Link href="/shipping">Shipping</Link>
@@ -312,8 +313,27 @@ const Header = () => {
             <li className="flex items-center gap-2">
               <Link className="flex flex-col md:flex-row items-center" href="/stock-list" onClick={() => setIsMobileMenuOpen(false)}>
                 <i className="fas fa-warehouse icon"></i>
-                Stock
+                Browse Stock
               </Link>
+            </li>
+
+            {/* Auction Dropdown */}
+            <li
+              className="nav-item dropdown flex items-center gap-2"
+              ref={(el) => (dropdownRefs.current['auction'] = el)}
+              onClick={() => toggleDropdown('auction')}
+            >
+              <i className="fas fa-gavel icon"></i>
+              Auction <span className="arrow">▼</span>
+              <div
+                className={`dropdown-content ${
+                  activeDropdown === 'auction' ? 'show' : ''
+                }`}
+              >
+                {auctionLinks.map((link) => (
+                  <Link key={link.path} href={link.path} onClick={() => setIsMobileMenuOpen(false)}>{link.text}</Link>
+                ))}
+              </div>
             </li>
           </ul>
 

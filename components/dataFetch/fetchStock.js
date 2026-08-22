@@ -2,12 +2,17 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { apiBaseUrl } from '../utilities/apiBase';
 import CarCard from '../vehicles/carCard';
 
-const TABS = [
-  { id: 'new', label: 'New Arrivals' },
-  { id: 'premium', label: 'Premium' },
-  { id: 'hot', label: 'Hot Picks' },
-  { id: 'all', label: 'All Stock' },
+// Each row maps to an existing sort mode on /stock-list (see sortSelections in
+// stockListV2.js) so "View All" actually reproduces the ordering shown here.
+// "Premium Stock" has no matching highest-price-first sort there, so its
+// View All link intentionally omits a sort param rather than claim one.
+const ROWS = [
+  { id: 'new', label: 'Newest Arrivals', viewAllHref: '/stock-list?sort=newest' },
+  { id: 'premium', label: 'Premium Stock', viewAllHref: '/stock-list' },
+  { id: 'hot', label: 'Trending Now', viewAllHref: '/stock-list?sort=popularity' },
 ];
+
+const ROW_SIZE = 4;
 
 const HOT_MODELS = ['land cruiser', 'hilux', 'hiace', 'prado', 'x-trail', 'pajero', 'alphard', 'patrol', 'fortuner', 'navara'];
 
@@ -40,10 +45,23 @@ const SkeletonCard = () => (
   </div>
 );
 
+const SkeletonRow = () => (
+  <div className="mb-10">
+    <div className="flex items-center justify-between mb-4">
+      <div className="h-6 w-40 rounded bg-gray-200 animate-pulse" />
+      <div className="h-4 w-20 rounded bg-gray-200 animate-pulse" />
+    </div>
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+      {Array.from({ length: ROW_SIZE }).map((_, i) => (
+        <SkeletonCard key={`skel-${i}`} />
+      ))}
+    </div>
+  </div>
+);
+
 const CarsList = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('new');
 
   const apiUrl = apiBaseUrl;
 
@@ -67,46 +85,22 @@ const CarsList = () => {
     window.open(`/vehicle?id=${encodeURIComponent(String(identifier).trim())}`, '_blank', 'noopener');
   }, []);
 
-  const tabbedCars = useMemo(() => {
-    if (!cars.length) return { new: [], premium: [], hot: [], all: [] };
+  const rowCars = useMemo(() => {
+    if (!cars.length) return { new: [], premium: [], hot: [] };
     const sortedNew = [...cars].sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0));
     const sortedPremium = [...cars].sort((a, b) => (parseFloat(b.final_value || b.price || 0)) - (parseFloat(a.final_value || a.price || 0)));
     const hotByScore = [...cars].sort((a, b) => scoreCar(b) - scoreCar(a));
     return {
-      new: sortedNew.slice(0, 12),
-      premium: sortedPremium.slice(0, 12),
-      hot: hotByScore.slice(0, 12),
-      all: cars.slice(0, 12),
+      new: sortedNew.slice(0, ROW_SIZE),
+      premium: sortedPremium.slice(0, ROW_SIZE),
+      hot: hotByScore.slice(0, ROW_SIZE),
     };
   }, [cars]);
-
-  const activeCars = tabbedCars[activeTab] || [];
-  const activeCarsForGrid = useMemo(() => {
-    if (!activeCars.length) return [];
-    if (activeCars.length % 2 === 0) return activeCars;
-
-    return [...activeCars, activeCars[activeCars.length - 1]];
-  }, [activeCars]);
 
   if (loading) {
     return (
       <div className="px-4 py-6 max-w-[1400px] mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <div className="h-6 w-32 rounded bg-gray-200 animate-pulse" />
-          <div className="h-4 w-20 rounded bg-gray-200 animate-pulse" />
-        </div>
-        <div className="flex gap-0.5 mb-4 bg-gray-200 rounded p-0.5">
-          {TABS.map((tab) => (
-            <div key={tab.id} className="flex-1 py-2 rounded bg-gray-300/50 animate-pulse" />
-          ))}
-        </div>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={`skel-${i}`}>
-              <SkeletonCard />
-            </div>
-          ))}
-        </div>
+        {ROWS.map((row) => <SkeletonRow key={row.id} />)}
       </div>
     );
   }
@@ -115,44 +109,31 @@ const CarsList = () => {
 
   return (
     <div className="px-4 py-6 max-w-[1400px] mx-auto">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg md:text-2xl font-bold text-[var(--primary-color)] tracking-tight">
-          Latest Stock
-        </h2>
-        <a href="/stock-list" className="text-[11px] font-bold text-[var(--primary-color)] uppercase tracking-wider flex items-center gap-1 hover:underline">
-          View All ({cars.length})
-          <span className="text-[9px]">&rsaquo;</span>
-        </a>
-      </div>
-
-      <div className="flex gap-0.5 mb-4 bg-gray-200 rounded p-0.5">
-        {TABS.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            className={`flex-1 py-2 text-[11px] font-extrabold uppercase tracking-wider transition rounded ${
-              activeTab === tab.id
-                ? 'bg-white text-[var(--primary-color)] shadow-sm'
-                : 'bg-transparent text-[var(--grey-text)] hover:text-[var(--text-color)]'
-            }`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-        {activeCarsForGrid.map((car, index) => (
-          <div key={`${car.ref_no || car.id || car.stock_no || 'car'}-${index}`}>
-            <CarCard car={car} onViewDetails={handleViewDetails} />
+      {ROWS.map((row) => (
+        <div key={row.id} className="mb-10 last:mb-0">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg md:text-2xl font-bold text-[var(--primary-color)] tracking-tight">
+              {row.label}
+            </h2>
+            <a href={row.viewAllHref} className="text-[11px] font-bold text-[var(--primary-color)] uppercase tracking-wider flex items-center gap-1 hover:underline">
+              View All
+              <span className="text-[9px]">&rsaquo;</span>
+            </a>
           </div>
-        ))}
-      </div>
+
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            {rowCars[row.id].map((car, index) => (
+              <div key={`${car.ref_no || car.id || car.stock_no || 'car'}-${index}`}>
+                <CarCard car={car} onViewDetails={handleViewDetails} />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
 
       <div className="text-center mt-6">
         <a href="/stock-list" className="inline-block bg-[var(--primary-color)] text-white py-2.5 px-8 text-sm font-extrabold uppercase tracking-wider rounded hover:opacity-90 transition">
-          View All Stock ({cars.length} vehicles)
+          View Full Inventory ({cars.length} vehicles)
         </a>
       </div>
     </div>

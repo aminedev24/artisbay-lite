@@ -227,6 +227,15 @@ function HomePage() {
         
         <CarList />
 
+        {/* Auction CTA */}
+        <Section tone="muted" className="text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">Prefer to Bid Yourself?</h2>
+          <p className="max-w-xl mx-auto text-gray-700 mb-6">
+            Join our live Japanese auction platform and buy straight from the source.
+          </p>
+          <Button variant="primary" href="/help/auction">Explore Auctions</Button>
+        </Section>
+
         {/* Feedback CTA */}
         <Section tone="navy" className="mx-auto text-center">
           <div className="text-5xl font-black leading-none text-white">4.9</div>

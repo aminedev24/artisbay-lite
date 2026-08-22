@@ -71,12 +71,14 @@ const TopBar = () => {
       <div className="top-bar">
         <div className="app-info">
           <span className="app-name">Meridian Motors Inc.</span>
-          <span className="total-cars stock">Total Cars in Stock: 120</span>
-          <span className="cars-added-today stock">Cars Added Today: 5</span>
+          <span className="total-cars stock font-mono tabular-nums">Total Cars in Stock: 120</span>
+          <span aria-hidden="true" className="opacity-40">|</span>
+          <span className="cars-added-today stock font-mono tabular-nums">Cars Added Today: 5</span>
         </div>
         <div className="extra-info">
-          <span className="time">Japan: <span className='hidden md:inline-block'>Standard Time</span> {japanTime}</span>
-          <span className="exchange-rate">
+          <span className="time font-mono tabular-nums">Japan: <span className='hidden md:inline-block'>Standard Time</span> {japanTime}</span>
+          <span aria-hidden="true" className="opacity-40">|</span>
+          <span className="exchange-rate font-mono tabular-nums">
             <span className=' hidden md:inline-block' >USD/JPY:</span> $1 = ¥{" "}
             {editingRate ? (
               <>
