@@ -109,7 +109,7 @@ const SavedVehicles = () => {
                   </div>
                   <div className="mt-auto flex gap-1.5 pt-2">
                     <button
-                      onClick={() => router.push(`/vehicle/${encodeURIComponent(ref)}`)}
+                      onClick={() => router.push(`/vehicle?id=${encodeURIComponent(ref)}`)}
                       className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[var(--primary-color)] py-1 text-[8px] font-extrabold uppercase tracking-wider text-white transition hover:bg-[var(--primary-color-hover)]"
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} className="h-2 w-2" /> View

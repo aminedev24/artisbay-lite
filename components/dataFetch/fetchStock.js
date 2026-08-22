@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
+import getConfig from "next/config";
 import { apiBaseUrl } from '../utilities/apiBase';
 import CarCard from '../vehicles/carCard';
 
@@ -82,7 +83,11 @@ const CarsList = () => {
     if (!car) return;
     const identifier = car.ref_no || car.id || car.stock_no;
     if (!identifier) return;
-    window.open(`/vehicle?id=${encodeURIComponent(String(identifier).trim())}`, '_blank', 'noopener');
+    // window.open needs the basePath spelled out - unlike next/router,
+    // it has no idea the GitHub Pages build is served from /meridian-motors.
+    const { publicRuntimeConfig } = getConfig() || {};
+    const basePath = publicRuntimeConfig?.basePath || "";
+    window.open(`${basePath}/vehicle?id=${encodeURIComponent(String(identifier).trim())}`, '_blank', 'noopener');
   }, []);
 
   const rowCars = useMemo(() => {

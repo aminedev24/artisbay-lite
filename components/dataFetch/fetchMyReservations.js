@@ -96,7 +96,7 @@ const MyReservations = () => {
                 <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50 transition">
                   <td className="py-3 pl-4">
                     <button
-                      onClick={() => router.push(`/vehicle/${encodeURIComponent(String(r.vehicle_ref || ""))}`)}
+                      onClick={() => router.push(`/vehicle?id=${encodeURIComponent(String(r.vehicle_ref || ""))}`)}
                       className="font-bold text-[var(--primary-color)] hover:underline"
                     >
                       {[r.year, r.make, r.model].filter(Boolean).join(" ") || r.vehicle_ref || "-"}

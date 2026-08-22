@@ -293,7 +293,12 @@ const StocklistV2 = () => {
         console.warn("Vehicle missing identifier", car);
         return;
       }
-      router.push(`/vehicle/${encodeURIComponent(String(identifier).trim())}`);
+      // /vehicle?id= (pages/vehicle.js) exports as one real static file, unlike
+      // /vehicle/[vehicleId] which only exists on disk as the literal bracket
+      // path - a hard reload or new-tab open of a real id there 404s on static
+      // hosts with no server-side rewrite (GitHub Pages, unlike the HostGator
+      // build's .htaccess fallback).
+      router.push(`/vehicle?id=${encodeURIComponent(String(identifier).trim())}`);
     },
     [router]
   );

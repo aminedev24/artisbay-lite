@@ -27,6 +27,9 @@ const InventoryConsole = () => {
   const router = useRouter();
   const [cars, setCars] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [selectedMake, setSelectedMake] = useState("");
+  const [selectedBodyType, setSelectedBodyType] = useState("");
+  const [selectedBudget, setSelectedBudget] = useState("");
 
   useEffect(() => {
     fetch(`${apiInventory}/cars/fetchStock.php`)
@@ -83,7 +86,16 @@ const InventoryConsole = () => {
   };
   const handleSearch = (e) => {
     e.preventDefault();
-    router.push(`/stock-list?search=${encodeURIComponent(keyword.trim())}`);
+    const params = new URLSearchParams();
+    if (keyword.trim()) params.set("search", keyword.trim());
+    if (selectedMake) params.set("make", selectedMake);
+    if (selectedBodyType) params.set("bodyType", selectedBodyType);
+    if (selectedBudget) {
+      const budget = budgetsWithCounts.find((b) => b.label === selectedBudget);
+      if (budget?.minPrice) params.set("minPrice", budget.minPrice);
+      if (budget?.maxPrice) params.set("maxPrice", budget.maxPrice);
+    }
+    router.push(`/stock-list?${params.toString()}`);
   };
 
   return (
@@ -99,14 +111,50 @@ const InventoryConsole = () => {
           </span>
         </div>
 
-        <form onSubmit={handleSearch} className="flex items-center gap-2 border-b border-gray-200 px-5 py-3">
+        <form onSubmit={handleSearch} className="flex flex-col gap-2 border-b border-gray-200 px-5 py-3 md:flex-row md:items-center">
           <input
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             placeholder="Search by make, model or stock number"
-            className="w-full border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-navy"
+            className="w-full border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-navy md:flex-1"
           />
+          <select
+            value={selectedMake}
+            onChange={(e) => setSelectedMake(e.target.value)}
+            className="border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-navy md:w-40"
+          >
+            <option value="">Any Make</option>
+            {makesWithCounts.map((m) => (
+              <option key={m.name} value={m.name}>
+                {m.name} ({m.count})
+              </option>
+            ))}
+          </select>
+          <select
+            value={selectedBodyType}
+            onChange={(e) => setSelectedBodyType(e.target.value)}
+            className="border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-navy md:w-40"
+          >
+            <option value="">Any Body Type</option>
+            {bodyTypesWithCounts.map((b) => (
+              <option key={b.name} value={b.name}>
+                {b.name} ({b.count})
+              </option>
+            ))}
+          </select>
+          <select
+            value={selectedBudget}
+            onChange={(e) => setSelectedBudget(e.target.value)}
+            className="border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-navy md:w-44"
+          >
+            <option value="">Any Budget</option>
+            {budgetsWithCounts.map((b) => (
+              <option key={b.label} value={b.label}>
+                {b.label} ({b.count})
+              </option>
+            ))}
+          </select>
           <button
             type="submit"
             className="bg-brand-orange px-5 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-brand-orange-hover"
