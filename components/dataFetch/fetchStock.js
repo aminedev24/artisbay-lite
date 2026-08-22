@@ -12,7 +12,7 @@ const ROWS = [
   { id: 'hot', label: 'Trending Now', viewAllHref: '/stock-list?sort=popularity' },
 ];
 
-const ROW_SIZE = 4;
+const ROW_SIZE = 8;
 
 const HOT_MODELS = ['land cruiser', 'hilux', 'hiace', 'prado', 'x-trail', 'pajero', 'alphard', 'patrol', 'fortuner', 'navara'];
 
@@ -51,7 +51,7 @@ const SkeletonRow = () => (
       <div className="h-6 w-40 rounded bg-gray-200 animate-pulse" />
       <div className="h-4 w-20 rounded bg-gray-200 animate-pulse" />
     </div>
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
       {Array.from({ length: ROW_SIZE }).map((_, i) => (
         <SkeletonCard key={`skel-${i}`} />
       ))}
@@ -121,7 +121,7 @@ const CarsList = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
             {rowCars[row.id].map((car, index) => (
               <div key={`${car.ref_no || car.id || car.stock_no || 'car'}-${index}`}>
                 <CarCard car={car} onViewDetails={handleViewDetails} />

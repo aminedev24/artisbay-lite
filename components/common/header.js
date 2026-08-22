@@ -346,23 +346,6 @@ const Header = () => {
               </Link>
             </li>
 
-            {/* Local Services Dropdown */}
-            <li
-              className="nav-item dropdown flex items-center gap-2"
-              ref={(el) => (dropdownRefs.current['localServices'] = el)}
-              onClick={() => toggleDropdown('localServices')}
-            >
-              Local Services <span className="arrow">▼</span>
-              <div
-                className={`dropdown-content ${
-                  activeDropdown === 'localServices' ? 'show' : ''
-                }`}
-              >
-                <Link href="/local-services/Namibia/Walvisbay">Namibia</Link>
-                <Link href="/local-services/Tanzania/Dar-Essalam">Tanzania</Link>
-              </div>
-            </li>
-
             {/* Help Dropdown */}
             <li
               className="nav-item dropdown flex items-center gap-2"

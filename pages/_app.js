@@ -10,8 +10,6 @@ import '../styles/custom/pages/homepage.css';
 import '../styles/custom/utilities/chatbot.css';
 import  "../styles/custom/vehicle/vehicleInfo.css";
 import '../styles/custom/utilities/toolTip.css';
-import "../styles/custom/agents/namibiaAgent.css"; // Import the CSS file
-import '../styles/custom/help/help.css';
 import '../styles/custom/vehicle/fetchCars.css';
 import '../styles/custom/forms/carForm.css';
 import '../styles/custom/forms/accountancyForm.css';
@@ -36,7 +34,6 @@ import '../styles/custom/forms/vehicleEnquiry.css';
 import '../styles/custom/pages/login.css';
 //import '../styles/custom/layout/rightSidebar.css';
 import '../styles/custom/layout/topbar.css'; // Adjust your CSS file path accordingly
-import '../styles/custom/agents/congoAgent.css'; // Import the CSS file for Congo agent
 import '../styles/custom/vehicle/cuttingCost.css';
 import '../styles/custom/vehicle/savedCarsPanel.css';
 import '../styles/custom/forms/forgotPassword.css';
