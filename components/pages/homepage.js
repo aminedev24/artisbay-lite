@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import SearchForm from "../misc/searchContainer";
-import MediaSlider from "../misc/slider";
-import Makestypes from "../utilities/makestypes";
+import InventoryConsole from "./inventoryConsole";
 import ImageWithLoader from "../misc/imageWithLoader";
 import Link from "next/link";
 import CarList from "../dataFetch/fetchStock";
@@ -200,13 +198,7 @@ function HomePage() {
     <div className="layout">
    
       <div className="">
-        <div className="main-content">
-          <div className="homepage">
-            <MediaSlider />
-          
-           
-          </div>
-        </div>
+        <InventoryConsole />
 
          {/* Info Cards     */}
         <section className="px-4 mt-0 pt-1 md:pt-4 lg:pt-6">
@@ -214,17 +206,6 @@ function HomePage() {
           <ThumbnailCarousel cards={infoCards} />
         </section>
 
-    
-
-        {/* Stock Section  */}
-          {/* Search Form  */}
-        <SearchForm />
-
-        {/* Make Types Section   */}
-        <Makestypes />
-      
-        
-        
         <CarList />
 
         {/* Auction CTA */}
